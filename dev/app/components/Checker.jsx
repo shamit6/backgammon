@@ -5,15 +5,19 @@ import { DragSource } from 'react-dnd';
 const checkerSource = {
 
   beginDrag(props, monitor, component) {
-    return {checkerColor:component.props.color};
+    //console.log("in begin drag:" + props.pointId);
+    //const fromPoint = props.pointId
+    return {fromPoint:props.pointId}
+  },
+
+  canDrag(props, monitor){
+    return props.isClient;
   },
 
   endDrag(props, monitor, component) {
     if (!monitor.didDrop()) {
       return;
     }
-
-    component.props.afterDragging();
   }
 };
 
@@ -31,7 +35,7 @@ function collect(connect, monitor) {
 
     componentDidMount() {
     //  const img = new Image();
-    // img.src = '.\\dev\\img\\mc.jpg';
+    // img.src = '.\\dev\\img\\joe.webp';
     // img.onload = () => this.props.connectDragPreview(img);
   }
 
@@ -46,7 +50,9 @@ function collect(connect, monitor) {
 Checker.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
-  connectDragPreview: PropTypes.func.isRequired
+  connectDragPreview: PropTypes.func.isRequired,
+  isClient: PropTypes.bool.isRequired,
+  pointId: PropTypes.number.isRequired
 };
 
 //export default Checker

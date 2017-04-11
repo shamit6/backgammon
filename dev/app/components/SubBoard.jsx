@@ -1,5 +1,5 @@
 import React from 'react';
-import Point from './Point';
+import Point from '../containers/Point';
 
  class SubBoard extends React.Component {
   render(){
@@ -14,21 +14,19 @@ const style = {
    display:'inline-block'
 };
 
-  	const points = this.props.chekersByPoints;
+  	const pointsIds = this.props.pointsIds;
 
-  	var InSubBoard = ({points}) => (
+  	var InSubBoard = ({pointsIds}) => (
 	  <div style={style}>
-	    {points.map((chekersByPoint, index) => {
+	    {pointsIds.map(pointId => {
 
-			let chekersColor = chekersByPoint.client ? 'white' : 'black';
-			const checkersInfo = {amount : chekersByPoint.amount, color: chekersColor};
-	    	const pointColor = index % 2 === 0 ? 'brown' : 'green';
+	    	const pointColor = pointId % 2 === 0 ? 'brown' : 'green';
 
-	      return <Point checkersInfo={checkersInfo} color={pointColor} pointKey={chekersByPoint.pointId} key={chekersByPoint.pointId}/>
+	      return <Point color={pointColor} pointId={pointId} key={pointId}/>
 	    })}
 	  </div>);
 
-    return <InSubBoard points={points}/>
+    return <InSubBoard pointsIds={pointsIds}/>
   };
 }
 
