@@ -22,13 +22,12 @@ const INITIAL_STATE =
 const board = (state = INITIAL_STATE, action) => {
 	switch (action.type){
 		case MOVING:{
-			const {fromPoint, toPoint, isClient} = action.move;
-			console.log(action)
+			const {fromPoint, toPoint, isClient} = action.content;
 			return state.map(point => {
 				if (point.pointId == fromPoint){
 					return Object.assign({}, point,{amount:point.amount-1}); 
 				} else if (point.pointId == toPoint){
-					return Object.assign({}, point,{amount:point.amount+1, isClient: point.isClient}); 
+					return Object.assign({}, point,{amount:point.amount+1, isClient: isClient}); 
 				}else{
 					return point
 				}

@@ -7,9 +7,8 @@ import Point from '../containers/Point';
 
 const style = {
   border: '7px dashed gray',
-  //cursor: 'move',
+  cursor: 'move',
   width : '500px',
-  display: 'run-in',
   height:'50%',
    display:'inline-block'
 };

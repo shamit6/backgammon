@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --inline"
+    "start": "webpack-dev-server --progress --inline",
+    "start-server": "nodemon ./dev/server/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,11 +13,19 @@
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
+    "express": "^4.15.2",
+    "json-loader": "^0.5.4",
+    "nodemon": "^1.11.0",
     "react": "^15.4.2",
     "react-dnd": "^2.3.0",
     "react-dnd-html5-backend": "^2.3.0",
     "react-dom": "^15.4.2",
+    "react-native-triangle": "0.0.6",
+    "react-redux": "^5.0.3",
     "react-shapes": "^0.1.0",
+    "redux-thunk": "^2.2.0",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
   },

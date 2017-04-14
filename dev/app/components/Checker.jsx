@@ -34,14 +34,20 @@ function collect(connect, monitor) {
  class Checker extends React.Component {
 
     componentDidMount() {
-    //  const img = new Image();
-    // img.src = '.\\dev\\img\\joe.webp';
-    // img.onload = () => this.props.connectDragPreview(img);
+      const img = new Image();
+    img.src = '.\\dev\\img\\joe.webp';
+    img.onload = () => this.props.connectDragPreview(img);
   }
 
   render() {
     const { connectDragSource, isDragging } = this.props;
-    return connectDragSource(<div style={{'background' : 'transparent'}}>
+    const checkerStyle = {
+        background: 'transparent',
+        display: 'block',
+        'textAlign': 'center'
+    };
+
+    return connectDragSource(<div style={checkerStyle}>
         <Circle r={this.props.size} fill={{color:this.props.color}} stroke={{color:'#E65243'}} strokeWidth={1} />
         </div>)
   }
@@ -51,7 +57,7 @@ Checker.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
   connectDragPreview: PropTypes.func.isRequired,
-  isClient: PropTypes.bool.isRequired,
+  //isClient: PropTypes.bool.isRequired,
   pointId: PropTypes.number.isRequired
 };
 

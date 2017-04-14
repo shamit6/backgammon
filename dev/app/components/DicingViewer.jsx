@@ -8,11 +8,13 @@ import React, { Component, PropTypes }  from 'react';
 	}
 
   render() {
-  	return <div>
-  		<font size="8">{this.props.dice1}</font>
-  		<font size="8">{this.props.dice2}</font>
-  		<button disabled={!this.props.isEnabled} onClick={this.props.onDicing}>dice</button>
-  	</div>
+  	return (
+      <div>
+    		<font size="8">{this.props.dice1}</font>
+    		<font size="8">{this.props.dice2}</font>
+    		<button disabled={!this.props.isEnabled} onClick={this.props.onDicing}>dice</button>
+    	</div>
+    )
   }
 }
 

@@ -5,15 +5,14 @@ var DEV = path.resolve(__dirname, "dev");
 var OUTPUT = path.resolve(__dirname, "output");
 
 var config = {
-  entry: [DEV + "/server/server.js", DEV + "/app/index.js"],
+  entry: [DEV + "/app/index.js"],
   output: {
     path: OUTPUT,
-    publicPath: "/output/",
+    publicPath: "http://localhost:8080/output/",
     filename: "index.js"
   },
   devServer: {
-  	inline: true,
-  	port: 3333
+  	inline: true
   },
   module:{
   	loaders: [

@@ -37,7 +37,7 @@ class PointViewer extends React.Component {
     return (
       <div
         style={{
-          position: 'relative',
+          position: 'absolute',
           top: 0,
           left: 0,
           height: '100%',
@@ -49,20 +49,37 @@ class PointViewer extends React.Component {
       />
     );
   }
-
   render() {
-  	const style2 = {'verticalAlign': 'bottom', display:'inline-block', width: '16.66%', height:'100%', background:this.props.color};
+  	const style2 = {margin: '0 auto',position: 'relative', 'verticalAlign': 'bottom', display:'inline-block', width: '16.66%', height:'100%'};
+    
+const triangleStyle = {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
+          zIndex: 2,
+         
+        }
     const {connectDropTarget, isOver, canDrop, pointId, amount, isClient } = this.props;
     var checkersColor = isClient ? 'white' : 'black';
 
     const checkers = Array.apply(null, {length: amount}).map((obj, index) => 
-    		(<Checker key={index} size={10} pointId={pointId} isClient={isClient} color={checkersColor}/>));	
+    		(<Checker style={{position: 'absolute', align: 'center',bottom: 0, zIndex: 3}} key={index} size={10} pointId={pointId} isClient={isClient} color={checkersColor}/>));	
 
-    return connectDropTarget(<div style={style2}>
-              {isOver && !canDrop && this.renderOverlay('red')}
+    return connectDropTarget(<div disabled={!this.props.isEnabled}  style={style2}>
+     
+        {isOver && !canDrop && this.renderOverlay('red')}
         {!isOver && canDrop && this.renderOverlay('yellow')}
         {isOver && canDrop && this.renderOverlay('blue')}
-        {checkers}
+        <div style={{
+          position: 'absolute', bottom: 0, height: '100%', width: '100%', zIndex: 3,
+          margin: '0 auto'
+        }}>
+        {checkers }
+        </div>
+        <Triangle width={80} height={200} fill={{color:this.props.color}} 
+        stroke={{color:'#E65243'}} strokeWidth={2} style={[triangleStyle,  {transform:'rotate(180deg)'}]}/>
         </div>)
   }
 }

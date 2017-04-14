@@ -8,12 +8,17 @@ class Game extends React.Component {
   render() {
 
 const style = {
-  //border: '7px dashed gray',
-  //cursor: 'move',
   width : '1200px',
-  display: 'run-in',
   height:'500px',
   float:'left'
+};
+
+const styleSubBoard = {
+  border: '7px dashed gray',
+  //cursor: 'move',
+  width : '500px',
+  height:'50%',
+   display:'inline-block'
 };
   	const PointsI = [1,2,3,4,5,6];
 
@@ -24,15 +29,17 @@ const style = {
   	const PointsIV = [24,23,22,21,20,19];
 
   	  	
-  return <div style= {{'margin': 'center'}}>
-      	  <div style={style}>
-      		  <SubBoard pointsIds={PointsI}/>
-      		  <SubBoard pointsIds={PointsII}/>
-      		  <SubBoard pointsIds={PointsIV}/>
-      		  <SubBoard pointsIds={PointsIII}/>
-            <Dicing />
-      	  </div>
-      </div>
+  return (
+    <div style= {{height:'100%', 'margin': 'center',display:'inline'}}>
+    	  <div style={style}>
+    		  <SubBoard style={styleSubBoard} pointsIds={PointsI}/>
+    		  <SubBoard pointsIds={PointsII}/>
+    		  <SubBoard pointsIds={PointsIV}/>
+    		  <SubBoard pointsIds={PointsIII}/>
+          <Dicing />
+    	  </div>
+    </div>
+  )
 
   }
 }
