@@ -15,7 +15,7 @@ const randomize = () => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onDicing: () => {
   	
-    	const resultDice1 = randomize();
+    const resultDice1 = randomize();
 		const resultDice2 = randomize();
 		dispatch(dice({dice1:resultDice1, dice2:resultDice2}))
   }

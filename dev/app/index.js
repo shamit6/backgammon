@@ -13,10 +13,9 @@ import {INITIAL_STORE_STATE} from './constants'
 const store = createStore(reducer, INITIAL_STORE_STATE, applyMiddleware(...[socketIoMiddleware]))
 
 initSocket(store)
-console.log(store.getState());
-store.subscribe(() => {console.log(store.getState())});
-//store.dispatch(switchTurn())// Mocking
-//<font size="30">Wait for other player </font>
+//console.log(store.getState());
+//store.subscribe(() => {console.log(store.getState())});
+
 ReactDOM.render(<Provider store={store}>
 					<Game/>
 				</Provider>, document.getElementById('app'));

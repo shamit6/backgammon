@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import {Rectangle, Circle, Ellipse, Line, Polyline, CornerBox, Triangle} from 'react-shapes';
 import { DropTarget } from 'react-dnd';
 import Checker from './Checker';
 import {CHECKER_COLORS} from '../constants';
 
 const pointTarget = {
   drop(props, monitor, component) {
-     // It has to be the client.
+    // It has to be the client.
     component.props.receiveChecker(monitor.getItem().fromPoint)
   },
   hover(props, monitor, component){
@@ -14,7 +13,7 @@ const pointTarget = {
 
   canDrop(props, monitor){
     const numberOfSteps = props.canBeDragTargetFrom.indexOf(monitor.getItem().fromPoint)>=0;
-    const free = (props.isClient || props.amount==0);
+    const free = (props.isClient || props.amount<=1);
     return (numberOfSteps && free);
   }
 };
@@ -35,28 +34,20 @@ class PointViewer extends React.Component {
 
   renderOverlay(color) {
     const overlayStyle = {position: 'absolute',
-          top: 0,
+          top: 28,
           left: 0,
           height: '100%',
           width: '100%',
           zIndex: 1,
-          opacity: 0.5};
+          opacity: 0.5,
+          overflow:'hidden'}
     return <div style={{...overlayStyle, backgroundColor: color}}/>
   }
 
   render() {
   	const style = { margin: '0 auto',position: 'relative', 
       'verticalAlign': 'bottom', 
-      display:'inline-block', width: 
-      '16.66%', height:'100%'};
-    
-    const triangleStyle = {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: '100%',
-          width: '100%',
-          zIndex: 2 }
+      display:'inline-block', width:'16.66%', height:'100%'};
 
     const {connectDropTarget, isOver, canDrop, pointId, amount, isClient } = this.props;
     var checkersColor = isClient ? CHECKER_COLORS.client : CHECKER_COLORS.rival;
@@ -71,10 +62,6 @@ class PointViewer extends React.Component {
     		(<Checker key={index} size={10} pointId={pointId} isClient={isClient} color={checkersColor}/>));	
 
     return connectDropTarget(<div disabled={!this.props.isEnabled}  style={style}>
-     
-          <div style={{textAlign: 'center'}}>
-            {this.props.pointId}
-          </div>
 
           {isOver && !canDrop && this.renderOverlay('red')}
           {!isOver && canDrop && this.renderOverlay('yellow')}
@@ -83,10 +70,7 @@ class PointViewer extends React.Component {
             {checkers}
           </div>
 
-          <div style={{transform:'rotate(180deg)'}}>
-            <Triangle width={80} height={200} fill={{color:this.props.color}} stroke={{color:'#E65243'}} strokeWidth={2} 
-            style={[triangleStyle,  {transform:'rotate(180deg)'}]}/>
-          </div>
+          {this.props.children}
         </div>)
   }
 }

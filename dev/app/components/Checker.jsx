@@ -34,9 +34,9 @@ function collect(connect, monitor) {
  class Checker extends React.Component {
 
     componentDidMount() {
-      const img = new Image();
-      img.src = '.\\dev\\img\\joe.webp';
-      img.onload = () => this.props.connectDragPreview(img);
+      // const img = new Image();
+      // img.src = '.\\dev\\img\\joe.webp';
+      // img.onload = () => this.props.connectDragPreview(img);
   }
 
   render() {

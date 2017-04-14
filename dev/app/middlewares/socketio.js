@@ -14,7 +14,6 @@ const initSocket = store => {
     }); 
 
     socket.on("GAME_ACTION", data => {
-    	console.log("receive action")
         store.dispatch({type:data.type, fromServer:true, content:data.content});
     });
 };
@@ -22,7 +21,6 @@ const initSocket = store => {
 
 const socketIoMiddleware = store => next => action => {
     const result = next(action);
-	console.log(action);
 	if (action && ! action.fromServer){
 	     socket.emit("GAME_ACTION", action);
 	}
