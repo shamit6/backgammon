@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {Rectangle, Circle, Ellipse, Line, Polyline, CornerBox, Triangle} from 'react-shapes';
 import { DropTarget } from 'react-dnd';
 import Checker from './Checker';
-
+import {CHECKER_COLORS} from '../constants';
 
 const pointTarget = {
   drop(props, monitor, component) {
@@ -34,52 +34,59 @@ class PointViewer extends React.Component {
   }
 
   renderOverlay(color) {
-    return (
-      <div
-        style={{
-          position: 'absolute',
+    const overlayStyle = {position: 'absolute',
           top: 0,
           left: 0,
           height: '100%',
           width: '100%',
           zIndex: 1,
-          opacity: 0.5,
-          backgroundColor: color,
-        }}
-      />
-    );
+          opacity: 0.5};
+    return <div style={{...overlayStyle, backgroundColor: color}}/>
   }
+
   render() {
-  	const style2 = {margin: '0 auto',position: 'relative', 'verticalAlign': 'bottom', display:'inline-block', width: '16.66%', height:'100%'};
+  	const style = { margin: '0 auto',position: 'relative', 
+      'verticalAlign': 'bottom', 
+      display:'inline-block', width: 
+      '16.66%', height:'100%'};
     
-const triangleStyle = {
+    const triangleStyle = {
           position: 'absolute',
           top: 0,
           left: 0,
           height: '100%',
           width: '100%',
-          zIndex: 2,
-         
-        }
+          zIndex: 2 }
+
     const {connectDropTarget, isOver, canDrop, pointId, amount, isClient } = this.props;
-    var checkersColor = isClient ? 'white' : 'black';
+    var checkersColor = isClient ? CHECKER_COLORS.client : CHECKER_COLORS.rival;
+    
+    const checkerContainerStyle = {
+          top: 30,
+          position: 'absolute', 
+          height: '100%', width: '100%', 
+          zIndex: 3}
 
     const checkers = Array.apply(null, {length: amount}).map((obj, index) => 
-    		(<Checker style={{position: 'absolute', align: 'center',bottom: 0, zIndex: 3}} key={index} size={10} pointId={pointId} isClient={isClient} color={checkersColor}/>));	
+    		(<Checker key={index} size={10} pointId={pointId} isClient={isClient} color={checkersColor}/>));	
 
-    return connectDropTarget(<div disabled={!this.props.isEnabled}  style={style2}>
+    return connectDropTarget(<div disabled={!this.props.isEnabled}  style={style}>
      
-        {isOver && !canDrop && this.renderOverlay('red')}
-        {!isOver && canDrop && this.renderOverlay('yellow')}
-        {isOver && canDrop && this.renderOverlay('blue')}
-        <div style={{
-          position: 'absolute', bottom: 0, height: '100%', width: '100%', zIndex: 3,
-          margin: '0 auto'
-        }}>
-        {checkers }
-        </div>
-        <Triangle width={80} height={200} fill={{color:this.props.color}} 
-        stroke={{color:'#E65243'}} strokeWidth={2} style={[triangleStyle,  {transform:'rotate(180deg)'}]}/>
+          <div style={{textAlign: 'center'}}>
+            {this.props.pointId}
+          </div>
+
+          {isOver && !canDrop && this.renderOverlay('red')}
+          {!isOver && canDrop && this.renderOverlay('yellow')}
+          {isOver && canDrop && this.renderOverlay('blue')}
+          <div style={checkerContainerStyle} >
+            {checkers}
+          </div>
+
+          <div style={{transform:'rotate(180deg)'}}>
+            <Triangle width={80} height={200} fill={{color:this.props.color}} stroke={{color:'#E65243'}} strokeWidth={2} 
+            style={[triangleStyle,  {transform:'rotate(180deg)'}]}/>
+          </div>
         </div>)
   }
 }

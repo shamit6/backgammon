@@ -13,19 +13,12 @@ const initSocket = store => {
         console.warn('Server disconnected');
     }); 
 
-    // const actions = [
-    //      "SWITCH_TURN",
-    //      "MOVING",
-    //      "DICING"
-    // ];
-
-    //actions.forEach(action => {
-        socket.on("GAME_ACTION", data => {
-        	console.log("receive action")
-            store.dispatch({type:data.type, fromServer:true, content:data.content});
-        });
-    //});
+    socket.on("GAME_ACTION", data => {
+    	console.log("receive action")
+        store.dispatch({type:data.type, fromServer:true, content:data.content});
+    });
 };
+
 
 const socketIoMiddleware = store => next => action => {
     const result = next(action);

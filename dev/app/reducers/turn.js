@@ -1,6 +1,8 @@
 import { DICING, MOVING, SWITCH_TURN } from '../actions'
+import {INITIAL_STORE_STATE} from '../constants'
 
-const turn = (state = {clientTurn:false, diced:false, dicesResult:{dice1:0, dice2:0}, moves:[]}, action) =>{
+
+const turn = (state = INITIAL_STORE_STATE.turn, action) =>{
 	switch (action.type){
 		case DICING:{
 			const dicesResult = action.content;

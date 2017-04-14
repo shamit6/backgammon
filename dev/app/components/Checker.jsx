@@ -35,8 +35,8 @@ function collect(connect, monitor) {
 
     componentDidMount() {
       const img = new Image();
-    img.src = '.\\dev\\img\\joe.webp';
-    img.onload = () => this.props.connectDragPreview(img);
+      img.src = '.\\dev\\img\\joe.webp';
+      img.onload = () => this.props.connectDragPreview(img);
   }
 
   render() {
@@ -47,9 +47,11 @@ function collect(connect, monitor) {
         'textAlign': 'center'
     };
 
-    return connectDragSource(<div style={checkerStyle}>
+    return connectDragSource(
+      <div style={checkerStyle}>
         <Circle r={this.props.size} fill={{color:this.props.color}} stroke={{color:'#E65243'}} strokeWidth={1} />
-        </div>)
+      </div>
+    )
   }
 }
 

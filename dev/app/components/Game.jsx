@@ -3,39 +3,35 @@ import SubBoard from './SubBoard';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Dicing from '../containers/Dicing';
+import {POINTS_ON_BOARD} from '../constants';
 
 class Game extends React.Component {
   render() {
 
 const style = {
   width : '1200px',
-  height:'500px',
-  float:'left'
+  height:'500px'
 };
 
-const styleSubBoard = {
-  border: '7px dashed gray',
-  //cursor: 'move',
+const subBoardStyle = {
+  border: '2px solid gray',
   width : '500px',
   height:'50%',
-   display:'inline-block'
+  display:'inline-block'
 };
-  	const PointsI = [1,2,3,4,5,6];
 
-  	const PointsII = [7,8,9,10,11,12];
 
-  	const PointsIII = [18,17,16,15,14,13];
-
-  	const PointsIV = [24,23,22,21,20,19];
-
-  	  	
   return (
     <div style= {{height:'100%', 'margin': 'center',display:'inline'}}>
     	  <div style={style}>
-    		  <SubBoard style={styleSubBoard} pointsIds={PointsI}/>
-    		  <SubBoard pointsIds={PointsII}/>
-    		  <SubBoard pointsIds={PointsIV}/>
-    		  <SubBoard pointsIds={PointsIII}/>
+    		  <SubBoard style={{...subBoardStyle, 'borderTop':'15px solid gray', 'borderLeft':'15px solid gray'}}  
+              pointsIds={POINTS_ON_BOARD.pointsI}/>
+    		  <SubBoard style={{...subBoardStyle, 'borderTop':'15px solid gray', 'borderRight':'15px solid gray'}} 
+              pointsIds={POINTS_ON_BOARD.pointsII}/>
+    		  <SubBoard style={{...subBoardStyle, transform:'rotate(180deg)', 'borderTop':'15px solid gray', 'borderRight':'15px solid gray'}} 
+              pointsIds={POINTS_ON_BOARD.pointsIV}/>
+    		  <SubBoard style={{...subBoardStyle, transform:'rotate(180deg)', 'borderTop':'15px solid gray', 'borderLeft':'15px solid gray'}} 
+              pointsIds={POINTS_ON_BOARD.pointsIII}/>
           <Dicing />
     	  </div>
     </div>
