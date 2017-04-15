@@ -5,8 +5,6 @@ import { DragSource } from 'react-dnd';
 const checkerSource = {
 
   beginDrag(props, monitor, component) {
-    //console.log("in begin drag:" + props.pointId);
-    //const fromPoint = props.pointId
     return {fromPoint:props.pointId}
   },
 
@@ -22,7 +20,6 @@ const checkerSource = {
 };
 
 function collect(connect, monitor) {
-    //console.log(connect.dragSource()(<div ff={}></div>).props);
   return {
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
@@ -30,10 +27,15 @@ function collect(connect, monitor) {
   }
 }
 
-
  class Checker extends React.Component {
+  static propTypes = {
+    connectDragSource: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired,
+    connectDragPreview: PropTypes.func.isRequired,
+    pointId: PropTypes.number.isRequired
+  };
 
-    componentDidMount() {
+  componentDidMount() {
       // const img = new Image();
       // img.src = '.\\dev\\img\\joe.webp';
       // img.onload = () => this.props.connectDragPreview(img);
@@ -55,13 +57,4 @@ function collect(connect, monitor) {
   }
 }
 
-Checker.propTypes = {
-  connectDragSource: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired,
-  connectDragPreview: PropTypes.func.isRequired,
-  //isClient: PropTypes.bool.isRequired,
-  pointId: PropTypes.number.isRequired
-};
-
-//export default Checker
 export default DragSource("CheckerSource", checkerSource, collect)(Checker)

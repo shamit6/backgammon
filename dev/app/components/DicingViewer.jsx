@@ -1,10 +1,15 @@
 import React, { Component, PropTypes }  from 'react';
 
-
  class DicingViewer extends React.Component {
+  static propTypes = {
+    onDicing: PropTypes.func.isRequired,
+    isEnabled: PropTypes.bool.isRequired,
+    dice1: PropTypes.number.isRequired,
+    dice2: PropTypes.number.isRequired
+  };
+  
 	constructor(props) {
 		super(props);
-		//this.onDicing = this.onDicing.bind(this);
 	}
 
   render() {
@@ -17,13 +22,5 @@ import React, { Component, PropTypes }  from 'react';
     )
   }
 }
-
-DicingViewer.propTypes = {
-  onDicing: PropTypes.func.isRequired,
-  isEnabled: PropTypes.bool.isRequired,
-  dice1: PropTypes.number.isRequired,
-  dice2: PropTypes.number.isRequired
-};
-
 
 export default DicingViewer

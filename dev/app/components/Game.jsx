@@ -22,18 +22,19 @@ const style = {
 
   const eatenCheckerPlaceStyle = {
     width:'40px',
+    height:'600px',
     display:'block', 
     background:'#9e9e9e', 
     'border':'15px solid gray'};
 
   const eatenCheckerPlace = 
         <div style={eatenCheckerPlaceStyle}>
-            <div style={{...eatenCheckerPlaceStyle, width:'100%', height:'50%', 'border':'1px solid gray'}}>
+            <div style={{...eatenCheckerPlaceStyle, width:'100%', height:'50%', 'border':'2px solid gray'}}>
               <Point pointId={0}>
               {0    }
               </Point>
             </div>         
-            <div style={{...eatenCheckerPlaceStyle, width:'100%', height:'50%', 'border':'1px solid gray'}}>
+            <div style={{...eatenCheckerPlaceStyle, width:'100%', height:'50%', 'border':'2px solid gray'}}>
               <Point pointId={25}>
                 {25}
               </Point>

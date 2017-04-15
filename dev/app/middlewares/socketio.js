@@ -3,7 +3,7 @@ import {switchTurn, makeMove, dice} from '../actions';
 
 let socket;
 
-const initSocket = store => {
+const initSocket = (store, eventListener) => {
 
 	console.log('try connect');
 
@@ -12,6 +12,13 @@ const initSocket = store => {
     socket.on('disconnect', () => {
         console.warn('Server disconnected');
     }); 
+
+    socket.on("START_GAME", () => {
+        console.warn(eventListener.STARTGAME);
+        eventListener.STARTGAME.forEach( callback =>{
+        	callback();
+        });
+    });
 
     socket.on("GAME_ACTION", data => {
         store.dispatch({type:data.type, fromServer:true, content:data.content});

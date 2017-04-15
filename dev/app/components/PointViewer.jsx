@@ -27,6 +27,14 @@ function collect(connect, monitor) {
 }
 
 class PointViewer extends React.Component {
+  static propTypes = {
+    isOver: PropTypes.bool.isRequired,
+    canDrop: PropTypes.bool.isRequired,
+    amount: PropTypes.number.isRequired,
+    isClient:PropTypes.bool.isRequired, 
+    pointId: PropTypes.number.isRequired
+  };
+  
  constructor(props) {
     super(props);
     this.renderOverlay = this.renderOverlay.bind(this)
@@ -74,14 +82,5 @@ class PointViewer extends React.Component {
         </div>)
   }
 }
-
-
-PointViewer.propTypes = {
-  isOver: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool.isRequired,
-  amount: PropTypes.number.isRequired,
-  isClient:PropTypes.bool.isRequired, 
-  pointId: PropTypes.number.isRequired
-};
 
 export default DropTarget("CheckerSource", pointTarget, collect)(PointViewer);

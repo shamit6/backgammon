@@ -11,13 +11,7 @@ const mapStateToProps = (state, ownProps) => {
 		return [...posiblePoints,(pointId-move)]
 	},[]) ;
 
-	if (pointId == 20){
-		console.log("Before:");
-		console.log(state)
-		console.log("After:");
-		console.log(canBeDragTargetFrom);
-	}
-	return {color:ownProps.color, amount, isClient, pointId, canBeDragTargetFrom}
+	return {amount, isClient, pointId, canBeDragTargetFrom}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
