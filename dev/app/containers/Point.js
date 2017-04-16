@@ -1,23 +1,22 @@
 import { connect } from 'react-redux'
-import { makeMove } from '../actions'
+import { step } from '../actions'
 import PointViewer from '../components/PointViewer'
-
+import {canBeDragTargetFrom, isPointCanDragTarget} from '../rules'
 
 const mapStateToProps = (state, ownProps) => {
-	//const isEnabled = (state.turn.clientTurn && !state.turn.diced)
 
-	const {amount, isClient, pointId} = state.board.find(point => point.pointId === ownProps.pointId)
-	const canBeDragTargetFrom = state.turn.moves.reduce((posiblePoints, move) => {
-		return [...posiblePoints,(pointId-move)]
-	},[]) ;
+	const {amount, isClient, pointId} = state.board.checkersState.find(point => point.pointId == ownProps.pointId)
+	
+	const isEnabledByState = isPointCanDragTarget(pointId, state.board.clientStatus);
+	const possibleSrcPointsIds = canBeDragTargetFrom(pointId, state.board, state.turn.steps);
 
-	return {amount, isClient, pointId, canBeDragTargetFrom}
+	return {amount, isClient, pointId, possibleSrcPointsIds, isEnabledByState}
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   receiveChecker: (fromPoint) => {
   	//if (ownProps.isEnabled){
-		dispatch(makeMove({fromPoint:fromPoint, toPoint:ownProps.pointId, isClient: true}))
+		dispatch(step({fromPoint:fromPoint, toPoint:ownProps.pointId, isClient: true}))
 	//}
   }
 })

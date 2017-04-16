@@ -5,7 +5,9 @@ import DicingViewer from '../components/DicingViewer'
 const mapStateToProps = (state, ownProps) => ({
   isEnabled: (state.turn.clientTurn && !state.turn.diced),
   dice1: state.turn.dicesResult.dice1,
-  dice2: state.turn.dicesResult.dice2
+  dice2: state.turn.dicesResult.dice2,
+  status: state.board.clientStatus,
+  clientTurn: state.turn.clientTurn 
 })
 
 const randomize = () => {

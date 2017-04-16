@@ -2,7 +2,7 @@ import path from 'path';
 import socketIo from 'socket.io';
 import http from 'http';
 import express from 'express';
-import {DICING, MOVING, SWITCH_TURN, switchTurn, makeMove, dice} from '../app/actions';
+import {DICING, STEP, SWITCH_TURN, switchTurn, makeMove, dice} from '../app/actions';
 import {IO_ACTIONS} from '../common/constants';
 
 const port = process.env.PORT || 4444;
@@ -13,7 +13,7 @@ let rivalOf =[];
 
 const convertActionToRival = action => {
   switch (action.type){
-      case MOVING:{
+      case STEP:{
         const {isClient, fromPoint, toPoint} = action.content;
         return Object.assign({}, action, {content:{ isClient:!isClient, toPoint: 25-toPoint, fromPoint: 25-fromPoint }})
       }
@@ -31,7 +31,7 @@ io.on('connection', function(socket){
 
     socket.on("GAME_ACTION", action => {
     const convertedAction = convertActionToRival(action);
-    socket.broadcast.to(rivalOf[socket.id]).emit("GAME_ACTION", convertedAction);
+     io.sockets.to(rivalOf[socket.id]).emit("GAME_ACTION", convertedAction);
   });
 
   if (freePlayers.length == 0){

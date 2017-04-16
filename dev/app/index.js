@@ -17,8 +17,8 @@ const store = createStore(reducer, INITIAL_STORE_STATE, applyMiddleware(...[sock
 let eventListener={};
 eventListener["STARTGAME"]=[];
 
-//console.log(store.getState());
-//store.subscribe(() => {console.log(store.getState())});
+console.log(store.getState());
+store.subscribe(() => {console.log(store.getState())});
 
 ReactDOM.render(<Provider store={store}>
 					<Loading listener={eventListener.STARTGAME} message={"Wait for another player"}>

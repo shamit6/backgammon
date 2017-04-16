@@ -1,6 +1,5 @@
-import { DICING, MOVING, SWITCH_TURN } from '../actions'
+import { DICING, STEP, SWITCH_TURN } from '../actions'
 import {INITIAL_STORE_STATE} from '../constants'
-
 
 const turn = (state = INITIAL_STORE_STATE.turn, action) =>{
 	switch (action.type){
@@ -8,31 +7,47 @@ const turn = (state = INITIAL_STORE_STATE.turn, action) =>{
 			const dicesResult = action.content;
 
 			if (dicesResult.dice1 == dicesResult.dice2){
-				return Object.assign({}, state, {diced:true, dicesResult:dicesResult, moves:Array(4).fill(dicesResult.dice1)});
+				return {...state, diced:true, dicesResult:dicesResult, steps:Array(4).fill(dicesResult.dice1)};
 			}else{
-				return  Object.assign({}, state, {diced:true, dicesResult:dicesResult, moves:[dicesResult.dice1, dicesResult.dice2]});
+				return  {...state, diced:true, dicesResult:dicesResult, steps:[dicesResult.dice1, dicesResult.dice2].sort()};
 			}
  			
 		}
 
-		case MOVING:{
+		case STEP:{
 			const {fromPoint, toPoint} = action.content;
-			//console.log("toPoint-fromPoint" + (toPoint-fromPoint));
-			const index = state.moves.indexOf(Math.abs(toPoint-fromPoint));
-			//console.log("index:" + index);
-			const updatedMoves = [...state.moves.slice(0, index), ...state.moves.slice(index+1)]
+			let stepLength = Math.abs(toPoint-fromPoint);
 
-			// No moves then finish the turn
-			if (updatedMoves.length==0){
-				return Object.assign({}, state, { diced:false, clientTurn: !state.clientTurn, moves:updatedMoves })
+
+			const stepIndex = state.steps.indexOf(stepLength);
+			let updatedSteps;
+
+			if (stepIndex > -1){
+				updatedSteps = [...state.steps.slice(0, stepIndex), ...state.steps.slice(stepIndex+1)]
+
+			// continious step or 
+			// drop out max case then (remove the max which is the first)	
 			}else{
-				return Object.assign({}, state, { clientTurn: state.clientTurn, moves:updatedMoves })
+				updatedSteps = [...state.steps];
+
+				while (stepLength > 0){
+					stepLength -= updatedSteps[0];
+					updatedSteps = updatedSteps.slice(1);
+				}
+			}
+		
+
+			// No steps then finish the turn
+			if (updatedSteps.length==0){
+				return {...state, diced:false, clientTurn: !state.clientTurn, steps:updatedSteps }
+			}else{
+				return {...state, clientTurn: state.clientTurn, steps:updatedSteps }
 			}
 			
 		}
 
 		case SWITCH_TURN:{
-			return Object.assign({}, state, {clientTurn:!state.clientTurn, diced:false, moves:[]})
+			return {...state, clientTurn:!state.clientTurn, diced:false, steps:[]}
 		}
 
 		default:

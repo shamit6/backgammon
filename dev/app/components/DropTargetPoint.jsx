@@ -12,12 +12,7 @@ const pointTarget = {
   },
 
   canDrop(props, monitor){
-    if (!props.isEnabledByState) {
-      return false;
-    }
-
-    const numberOfSteps = props.possibleSrcPointsIds.indexOf(monitor.getItem().fromPoint)>=0;
-    if (props.pointId == 25) console.log(props.possibleSrcPointsIds)
+    const numberOfSteps = props.canBeDragTargetFrom.indexOf(monitor.getItem().fromPoint)>=0;
     const free = (props.isClient || props.amount<=1);
     return (numberOfSteps && free);
   }
@@ -32,14 +27,6 @@ function collect(connect, monitor) {
 }
 
 class PointViewer extends React.Component {
-  static propTypes = {
-    isOver: PropTypes.bool.isRequired,
-    canDrop: PropTypes.bool.isRequired,
-    amount: PropTypes.number.isRequired,
-    isClient:PropTypes.bool.isRequired, 
-    pointId: PropTypes.number.isRequired
-  };
-  
  constructor(props) {
     super(props);
     this.renderOverlay = this.renderOverlay.bind(this)
@@ -64,7 +51,7 @@ class PointViewer extends React.Component {
 
     const {connectDropTarget, isOver, canDrop, pointId, amount, isClient } = this.props;
     var checkersColor = isClient ? CHECKER_COLORS.client : CHECKER_COLORS.rival;
-    
+    console.log(pointId);
     const checkerContainerStyle = {
           top: 30,
           position: 'absolute', 
@@ -87,5 +74,14 @@ class PointViewer extends React.Component {
         </div>)
   }
 }
+
+
+PointViewer.propTypes = {
+  isOver: PropTypes.bool.isRequired,
+  canDrop: PropTypes.bool.isRequired,
+  amount: PropTypes.number.isRequired,
+  isClient:PropTypes.bool.isRequired, 
+  pointId: PropTypes.number.isRequired
+};
 
 export default DropTarget("CheckerSource", pointTarget, collect)(PointViewer);

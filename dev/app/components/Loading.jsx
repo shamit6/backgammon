@@ -14,6 +14,7 @@ class Loading extends Component{
 	}
 
 	componentWillMount(){
+		// TODO unmount
 	 this.props.listener.push(() => {
 	 	console.log(this.state);
 	    this.setState({loading: false});     
