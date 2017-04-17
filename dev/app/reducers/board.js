@@ -2,6 +2,7 @@ import { STEP, DICING } from '../actions'
 import {INITIAL_STORE_STATE} from '../constants'
 import {getStateByBoard} from '../rules'
 
+// currently not used - merge with turn reducer in index.js
 const board = (state = INITIAL_STORE_STATE.board, action) => {
 	switch (action.type){
 		case STEP:{
@@ -40,4 +41,4 @@ const board = (state = INITIAL_STORE_STATE.board, action) => {
 	}
 }
 
-export default board
+//export default board

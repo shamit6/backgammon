@@ -1,6 +1,7 @@
 import { DICING, STEP, SWITCH_TURN } from '../actions'
 import {INITIAL_STORE_STATE} from '../constants'
 
+// currently not used - merge with board reducer in index.js
 const turn = (state = INITIAL_STORE_STATE.turn, action) =>{
 	switch (action.type){
 		case DICING:{
@@ -56,4 +57,4 @@ const turn = (state = INITIAL_STORE_STATE.turn, action) =>{
 
 }
 
-export default turn
+//export default turn

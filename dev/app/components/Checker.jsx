@@ -5,7 +5,7 @@ import { DragSource } from 'react-dnd';
 const checkerSource = {
 
   beginDrag(props, monitor, component) {
-    return {fromPoint:props.pointId}
+    return {fromPoint:props.pointId, possibleTargets:props.possibleTargets}
   },
 
   canDrag(props, monitor){
@@ -32,7 +32,8 @@ function collect(connect, monitor) {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
-    pointId: PropTypes.number.isRequired
+    pointId: PropTypes.number.isRequired,
+    possibleTargets: PropTypes.array.isRequired
   };
 
   componentDidMount() {

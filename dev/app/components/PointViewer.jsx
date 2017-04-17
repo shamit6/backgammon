@@ -16,8 +16,7 @@ const pointTarget = {
       return false;
     }
 
-    const numberOfSteps = props.possibleSrcPointsIds.indexOf(monitor.getItem().fromPoint)>=0;
-    if (props.pointId == 25) console.log(props.possibleSrcPointsIds)
+    const numberOfSteps = monitor.getItem().possibleTargets.indexOf(props.pointId) > -1;
     const free = (props.isClient || props.amount<=1);
     return (numberOfSteps && free);
   }
@@ -62,7 +61,7 @@ class PointViewer extends React.Component {
       'verticalAlign': 'bottom', 
       display:'inline-block', width:'16.66%', height:'100%'};
 
-    const {connectDropTarget, isOver, canDrop, pointId, amount, isClient } = this.props;
+    const {connectDropTarget, isOver, canDrop, pointId, amount, isClient, possibleTargets } = this.props;
     var checkersColor = isClient ? CHECKER_COLORS.client : CHECKER_COLORS.rival;
     
     const checkerContainerStyle = {
@@ -72,7 +71,7 @@ class PointViewer extends React.Component {
           zIndex: 3}
 
     const checkers = Array.apply(null, {length: amount}).map((obj, index) => 
-    		(<Checker key={index} size={10} pointId={pointId} isClient={isClient} color={checkersColor}/>));	
+    		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} color={checkersColor}/>));	
 
     return connectDropTarget(<div disabled={!this.props.isEnabled}  style={style}>
 

@@ -5,11 +5,8 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import Game from './components/Game';
 import Loading from './components/Loading';
-
-import {switchTurn} from './actions';
 import {initSocket, socketIoMiddleware} from './middlewares/socketio'
 import {INITIAL_STORE_STATE} from './constants'
-
 
 const store = createStore(reducer, INITIAL_STORE_STATE, applyMiddleware(...[socketIoMiddleware]))
 

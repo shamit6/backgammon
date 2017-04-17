@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
-import { dice } from '../actions'
+import { dice, switchTurn } from '../actions'
 import DicingViewer from '../components/DicingViewer'
 
 const mapStateToProps = (state, ownProps) => ({
-  isEnabled: (state.turn.clientTurn && !state.turn.diced),
-  dice1: state.turn.dicesResult.dice1,
-  dice2: state.turn.dicesResult.dice2,
-  status: state.board.clientStatus,
-  clientTurn: state.turn.clientTurn 
+  //isEnabled: (state.clientTurn && !state.diced),
+  dice1: state.dicesResult.dice1,
+  dice2: state.dicesResult.dice2,
+  status: state.clientStatus,
+  clientTurn: state.clientTurn,
+  diced: state.diced
 })
 
 const randomize = () => {
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const resultDice1 = randomize();
 		const resultDice2 = randomize();
 		dispatch(dice({dice1:resultDice1, dice2:resultDice2}))
+  },
+  switchTurnTimeout: () => {
+    setTimeout(() => dispatch(switchTurn()), 4000);
   }
 })
 
