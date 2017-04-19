@@ -7,6 +7,18 @@ import {IO_ACTIONS} from '../common/constants';
 
 const port = process.env.PORT || 4444;
 
+const app = express();
+const httpServer = new http.Server(app);
+const io = socketIo(httpServer);
+
+
+if (process.env.NODE_ENV === 'production'){
+  console.log("production env");
+  const outFolder = path.resolve(__dirname, '..', '..', 'output');
+  app.use('/', express.static(outFolder));
+  app.get('/*', (req, res) => res.sendFile(path.resolve(outFolder, "index.html")));
+}
+
 //let gameSeqId = 0;
 let freePlayers = [];
 let rivalOf =[];
@@ -21,10 +33,6 @@ const convertActionToRival = action => {
             return action
   }
 }
-
-const app = express();
-const httpServer = new http.Server(app);
-const io = socketIo(httpServer);
 
 io.on('connection', function(socket){
     console.log('a user connected');
@@ -55,6 +63,7 @@ io.on('connection', function(socket){
   }
 
 });
+
 
 httpServer.listen(port);
 

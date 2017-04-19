@@ -6,8 +6,9 @@ let socket;
 const initSocket = (store, eventListener) => {
 
 	console.log('try connect');
-
-	socket = io('http://localhost:4444');
+    const port = process.env.PORT || 4444;
+    
+	socket = io('http://localhost:' + port);
 
     socket.on('disconnect', () => {
         console.warn('Server disconnected');

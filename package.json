@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --inline",
-    "start-server": "nodemon ./dev/server/server.js"
+    "start-app-dev": "webpack-dev-server --progress --inline",
+    "start-server-dev": "nodemon ./dev/server/server.js",
+    "build-app": "webpack --config webpack.prod.config.js --progress --colors",
+    "start": "npm run build-app && cross-env PORT=4445 NODE_ENV=production nodemon dev/server/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +17,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-2": "^6.24.1",
     "express": "^4.15.2",
+    "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
     "nodemon": "^1.11.0",
     "react": "^15.4.2",
@@ -29,6 +32,8 @@
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "cross-env": "^4.0.0"
+  },
   "description": ""
 }
