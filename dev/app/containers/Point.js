@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
 	const {amount, isClient, pointId} = state.checkersState.find(point => point.pointId == ownProps.pointId)
 	
 	const isEnabledByState = isPointCanDragTarget(pointId, state.clientStatus);
-	const possibleTargets = canBeDraggedTo(pointId, state.checkersState, state.steps);
+	const possibleTargets = canBeDraggedTo(pointId, state.checkersState, state.steps, state.clientStatus);
 
 	return {amount, isClient, pointId, possibleTargets, isEnabledByState}
 }

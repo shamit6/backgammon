@@ -15,9 +15,7 @@ const numberOfCheckersInBoard = (board, isClient, minPoint = 0 , maxPoint = 25) 
 
 // Only for client
 const isStuckInPoint = (pointId, board, steps) => {
-	console.log("pointId:"+ pointId + "  . steps:" + steps);
 	const possibleTargetPointsIds = canBeDraggedTo(pointId, board, steps);
-	console.log("possibleTargetPointsIds:"+ possibleTargetPointsIds);
 	return board.findIndex(p => (possibleTargetPointsIds.indexOf(p.pointId) > -1 && 
 		isPointFree(p))) == -1;
 }
@@ -26,12 +24,11 @@ const isStuckInPoint = (pointId, board, steps) => {
 const possibleClientContiniousSteps = (pointId, board, singleSteps) =>{
 
 	let continiousSteps = [];
-
 	// In case of double
 	if (singleSteps.length > 2){
-		i=0;
-		let currStep = singleSteps[0];
 
+		let currStep = singleSteps[0];
+		let i = 0;
 		while (i < singleSteps.length){
 			let point = getPoint(board, Math.min(pointId+currStep, 25));
 
@@ -41,27 +38,37 @@ const possibleClientContiniousSteps = (pointId, board, singleSteps) =>{
 				break;
 			}
 			currStep += singleSteps[0];
+			i++;
 		}
 
 	}else if (singleSteps.length > 0){
+
+
 		const firstStep = singleSteps[0];
 		const firstPoint = getPoint(board, Math.min(pointId+firstStep, 25));
 
-		if (isPointFree(firstPoint)){
+		const isFirstStepFree = isPointFree(firstPoint);
+		if (isFirstStepFree){
 			continiousSteps.push(firstStep);
 		}
 
 		const secondStep = singleSteps[1];
 		const secondPoint = getPoint(board, Math.min(pointId+secondStep, 25));
 
+
 		if (typeof secondStep !== 'undefined') {
-			if (isPointFree(secondPoint)){
+
+			const isSecondStepFree = isPointFree(secondPoint);
+			if (isSecondStepFree){
 				continiousSteps.push(secondStep);
 			}
 
-			const combinedPoint = getPoint(board, Math.min(pointId+firstStep+secondStep, 25));	
-			if (isPointFree(combinedPoint)){
-				continiousSteps.push(firstStep+secondStep);
+			if (isFirstStepFree || isSecondStepFree){
+				const combinedPoint = getPoint(board, Math.min(pointId+firstStep+secondStep, 25));	
+				
+				if (isPointFree(combinedPoint)){
+					continiousSteps.push(firstStep+secondStep);
+				}
 			}
 		}
 	}
@@ -106,7 +113,8 @@ const possibleClientContiniousSteps = (pointId, board, singleSteps) => {
 
 */
 const isStuckInBoard = (board, steps, minPoint = 0 , maxPoint = 25) => 
-	(board.every(p => ((p.pointId < minPoint) || (p.pointId > maxPoint) || isStuckInPoint(p.pointId, board, steps))));
+	(board.filter(p => (p.isClient && p.amount > 0)).
+		every(p => ((p.pointId < minPoint) || (p.pointId > maxPoint) || isStuckInPoint(p.pointId, board, steps))));
 
 const getStateByBoard = (board, steps) => {
 
@@ -130,7 +138,7 @@ const getStateByBoard = (board, steps) => {
 		}else{
 			return CLIENT_STATUS.DROPOUT;
 		}
-	} else if (isStuckInBoard(board, steps)){
+	} else if(isStuckInBoard(board, steps)){
 		return CLIENT_STATUS.STUCK;
 	}
 
@@ -172,13 +180,17 @@ const canBeDragTargetFrom = (pointId, board, singleSteps) => {
 */
 
 // consider replace canBeDragTargetFrom.
-const canBeDraggedTo = (pointId, board, singleSteps) => {
+const canBeDraggedTo = (pointId, board, singleSteps, clientState) => {
+
+	if (clientState == CLIENT_STATUS.EATEN){
+		return singleSteps.map(step => (pointId+step))
+	}
 
 	const continiousSteps = possibleClientContiniousSteps(pointId, board, singleSteps);
 
 	let possibleTargetPointsIds = continiousSteps.map(step => (pointId+step));
 
-	if (board.clientStatus == CLIENT_STATUS.DROPOUT){
+	if (clientState == CLIENT_STATUS.DROPOUT){
 	   if (Math.min(...singleSteps)>(25-pointId)){
 
 			const farestPoint = board.filter(point => (point.isClient && point.amount>0)).sort()[0];
