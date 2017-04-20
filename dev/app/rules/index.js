@@ -147,8 +147,8 @@ const getStateByBoard = (board, steps) => {
 
 const isPointCanDragTarget = (pointId, clientStatus) => {
 	
-	// if the client was eaten he can only insert   
-	if ((clientStatus == CLIENT_STATUS.EATEN) && (pointId > 6)){
+	// if the client was eaten he can only insert  
+	if ((clientStatus == CLIENT_STATUS.STUCK) || ((clientStatus == CLIENT_STATUS.EATEN) && (pointId > 6))){
 		return false;
 	}
 

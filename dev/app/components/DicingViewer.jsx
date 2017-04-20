@@ -17,7 +17,7 @@ import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
 
   render() {
 
-    let message = "";
+    let message;
     let turnMessage = this.props.clientTurn?"Your Turn. ":"Not your turn. "
 
     // End match statuses.
@@ -33,7 +33,7 @@ import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
       }
 
     // trasfer to container?
-    if (this.props.clientTurn && this.props.diced)
+    if ((typeof message === 'undefined') && this.props.clientTurn && this.props.diced)
     switch (this.props.status){
       case CLIENT_STATUS.ONGOING:
         message = "Play as you wish my friend";
