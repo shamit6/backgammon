@@ -36,10 +36,10 @@ var config = {
             inject: true
         }),
         // TODO: check why cross-env does not work with webpack commad
-        webpack.DefinePlugin({
+        new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production'),
         'process.env.PORT': JSON.stringify('4445')
-      }
+      })
     ]
 };
  
