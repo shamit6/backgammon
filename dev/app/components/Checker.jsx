@@ -1,6 +1,7 @@
 import React, { Component, PropTypes }  from 'react';
 import {Rectangle, Circle, Ellipse, Line, Polyline, CornerBox, Triangle}  from 'react-shapes';
 import { DragSource } from 'react-dnd';
+import styles from './app.css';
 
 const checkerSource = {
 
@@ -44,14 +45,9 @@ function collect(connect, monitor) {
 
   render() {
     const { connectDragSource, isDragging } = this.props;
-    const checkerStyle = {
-        background: 'transparent',
-        display: 'block',
-        'textAlign': 'center'
-    };
 
     return connectDragSource(
-      <div style={checkerStyle}>
+      <div className={styles.checkerStyle}>
         <Circle r={this.props.size} fill={{color:this.props.color}} stroke={{color:'#E65243'}} strokeWidth={1} />
       </div>
     )

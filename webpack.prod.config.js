@@ -1,6 +1,8 @@
 var webpack = require("webpack");
 var path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var combineLoaders = require("webpack-combine-loaders");
 
 var DEV = path.resolve(__dirname, "dev");
 var OUTPUT = path.resolve(__dirname, "output");
@@ -10,7 +12,7 @@ var config = {
   output: {
     path: OUTPUT,
     //x`publicPath: "/output/",
-    filename: "index.js"
+    filename: "index-app.js"
   },
   devServer: {
   	inline: true
@@ -24,12 +26,24 @@ var config = {
   		query: {
   			presets: ['es2015','react','stage-2']
   		}
-  	}]
+  	},
+    {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract(
+        combineLoaders([{
+          loader: 'css-loader',
+          query: {
+            modules: true,
+            localIdentName: '[name]__[local]___[hash:base64:5]'
+          }
+        }]))
+    }]
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.css','.js', '.jsx']
   },
   plugins: [
+        new ExtractTextPlugin('styles-[hash].css'),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'dev/content/index-prod.html',

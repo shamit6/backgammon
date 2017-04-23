@@ -1,5 +1,6 @@
 import React, { Component, PropTypes }  from 'react';
 import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
+import styles from './app.css';
 
 // Cancel the container and use state?
  class DicingViewer extends React.Component {
@@ -55,13 +56,13 @@ import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
 
   	return (
       <div style = {{display:'block', verticalAlign:'center'}} >
-        <div style={{ display:'inline-block', textAlign:'center', width:'50px', height:'50px', border:'solid', borderRadius: '5px'}}>
+        <div className={styles.dice}>
     		  <font size="8">{this.props.dice1}</font>
         </div>
-        <div style={{ display:'inline-block', textAlign:'center', width:'50px', height:'50px', border:'solid', borderRadius: '5px'}}>
+        <div className={styles.dice}>
     		  <font size="8">{this.props.dice2}</font>
         </div>
-    		<button style = {{display:'inline-block', margin: '20px', height: '50px', width: '55px'}} 
+    		<button className={styles.dicingButtom} 
           disabled={!this.props.clientTurn || this.props.diced} onClick={this.props.onDicing}>dice</button>
         <font size="6">{turnMessage}</font>
         <font size="6">{message}</font>

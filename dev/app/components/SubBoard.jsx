@@ -2,6 +2,7 @@ import React from 'react';
 import Point from '../containers/Point';
 import {POINTS_COLORS} from '../constants';
 import {Triangle} from 'react-shapes';
+import styles from './app.css';
 
 class SubBoard extends React.Component {
 
@@ -9,11 +10,11 @@ class SubBoard extends React.Component {
   	const pointsIds = this.props.pointsIds;
 
     var InSubBoard = ({pointsIds}) => (
-      <div style={this.props.style}> 
+      <div className={styles.subBoard} style={this.props.style}> 
         {pointsIds.map(pointId => {
           const pointColor = pointId % 2 === 0 ? POINTS_COLORS[0] : POINTS_COLORS[1];
           return  <Point color={pointColor} pointId={pointId} key={pointId}>
-                    <div style={{transform:'rotate(180deg)'}}>
+                    <div className={styles.rotate180} style={{textAlign: 'center'}}>
                     <Triangle width={80} height={200} fill={{color:pointColor}} stroke={{color:'#E65243'}} strokeWidth={2}/>
                       <div style={{textAlign: 'center'}}>
                         {pointId}

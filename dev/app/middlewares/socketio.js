@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
 import {switchTurn, makeMove, dice} from '../actions';
+import {IO_ACTIONS} from '../../common/constants';
 
 let socket;
 
@@ -14,26 +15,47 @@ const initSocket = (store, eventListener) => {
         console.warn('Server disconnected');
     }); 
 
-    socket.on("START_GAME", () => {
-        console.warn(eventListener.STARTGAME);
+    socket.on(IO_ACTIONS.startGame, data => {
         eventListener.STARTGAME.forEach( callback =>{
         	callback();
         });
+        
+        if (data.start == true){
+            store.dispatch(switchTurn());
+        }
     });
 
-    socket.on("GAME_ACTION", data => {
+    socket.on(IO_ACTIONS.gameAction, data => {
         store.dispatch({type:data.type, fromServer:true, content:data.content});
     });
 };
 
 
 const socketIoMiddleware = store => next => action => {
-    const result = next(action);
-	if (action && ! action.fromServer){
-	     socket.emit("GAME_ACTION", action);
-	}
+    
+    	if (action && (action.type !== "SWITCH_TURN") && !action.fromServer){     
 
-	    return result;
-	};
+            if (store.getState().clientTurn){
+                
+                socket.emit(IO_ACTIONS.gameAction, convertActionToRival(action));
+            }else{
+                return action;
+            }    
+    	     
+    	}
+        
+        return next(action);
+};
+
+const convertActionToRival = action => {
+  switch (action.type){
+      case "STEP":{
+        const {isClient, fromPoint, toPoint} = action.content;
+        return Object.assign({}, action, {content:{ isClient:!isClient, toPoint: 25-toPoint, fromPoint: 25-fromPoint }})
+      }
+      default:
+            return action
+  }
+}
 
 export {initSocket, socketIoMiddleware}

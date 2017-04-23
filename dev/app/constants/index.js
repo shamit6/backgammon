@@ -29,24 +29,24 @@ export const INITIAL_STORE_STATE =
 
 // export const INITIAL_STORE_STATE = 
 //    {clientTurn:false, diced:false, dicesResult:{dice1:0, dice2:0}, steps:[], 
-//     clientStatus:CLIENT_STATUS.DROPOUT, checkersState:[
+//     clientStatus:CLIENT_STATUS.ONGOING, checkersState:[
 //     {amount:0, isClient:true, pointId:0},
 
 //     {amount:2, isClient:true, pointId:1}, {amount:2, isClient:false, pointId:2}, 
 //     {amount:2, isClient:false, pointId:3}, {amount:2, isClient:false, pointId:4}, 
-//     {amount:1, isClient:false, pointId:5}, {amount:2, isClient:false, pointId:6},
+//     {amount:0, isClient:false, pointId:5}, {amount:2, isClient:false, pointId:6},
 
-//     {amount:0, isClient:true, pointId:7}, {amount:0, isClient:false, pointId:8}, 
+//     {amount:2, isClient:false, pointId:7}, {amount:0, isClient:false, pointId:8}, 
 //     {amount:0, isClient:true, pointId:9}, {amount:0, isClient:true, pointId:10}, 
 //     {amount:0, isClient:true, pointId:11}, {amount:0, isClient:true, pointId:12},
 
 //     {amount:0, isClient:false, pointId:13}, {amount:0, isClient:true, pointId:14},
 //     {amount:0, isClient:true, pointId:15}, {amount:0, isClient:true, pointId:16},
-//     {amount:0, isClient:true, pointId:17}, {amount:0, isClient:false, pointId:18},
+//     {amount:2, isClient:true, pointId:17}, {amount:0, isClient:false, pointId:18},
 
 //     {amount:0, isClient:true, pointId:19}, {amount:0, isClient:true, pointId:20},
 //     {amount:0, isClient:true, pointId:21}, {amount:0, isClient:true, pointId:22},
-//     {amount:2, isClient:true, pointId:23}, {amount:0, isClient:false, pointId:24},
+//     {amount:2, isClient:true, pointId:23}, {amount:0, isClient:true, pointId:24},
 
 //     {amount:0, isClient:false, pointId:25}
 

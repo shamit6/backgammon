@@ -6,9 +6,10 @@ import reducer from './reducers'
 import Game from './components/Game';
 import Loading from './components/Loading';
 import {initSocket, socketIoMiddleware} from './middlewares/socketio'
+import spamUserActionFilter from './middlewares/spamUserActionFilter'
 import {INITIAL_STORE_STATE} from './constants'
 
-const store = createStore(reducer, INITIAL_STORE_STATE, applyMiddleware(...[socketIoMiddleware]))
+const store = createStore(reducer, INITIAL_STORE_STATE, applyMiddleware({spamUserActionFilter, socketIoMiddleware})
 
 // TODO: Init the listener better of use something else
 let eventListener={};

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
 import Checker from './Checker';
 import {CHECKER_COLORS} from '../constants';
+import styles from './app.css';
 
 const pointTarget = {
   drop(props, monitor, component) {
@@ -45,40 +46,22 @@ class PointViewer extends React.Component {
   }
 
   renderOverlay(color) {
-    const overlayStyle = {position: 'absolute',
-          top: 28,
-          left: 0,
-          height: '100%',
-          width: '100%',
-          zIndex: 1,
-          opacity: 0.5,
-          overflow:'hidden'}
-    return <div style={{...overlayStyle, backgroundColor: color}}/>
+    return <div className={styles.pointViewerOverlay} style={{backgroundColor: color}}/>
   }
 
   render() {
-  	const style = { margin: '0 auto',position: 'relative', 
-      'verticalAlign': 'bottom', 
-      display:'inline-block', width:'16.66%', height:'100%'};
-
     const {connectDropTarget, isOver, canDrop, pointId, amount, isClient, possibleTargets } = this.props;
     var checkersColor = isClient ? CHECKER_COLORS.client : CHECKER_COLORS.rival;
     
-    const checkerContainerStyle = {
-          top: 30,
-          position: 'absolute', 
-          height: '100%', width: '100%', 
-          zIndex: 3}
-
     const checkers = Array.apply(null, {length: amount}).map((obj, index) => 
     		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} color={checkersColor}/>));	
 
-    return connectDropTarget(<div disabled={!this.props.isEnabled}  style={style}>
+    return connectDropTarget(<div className={styles.pointViewer} disabled={!this.props.isEnabled}>
 
           {isOver && !canDrop && this.renderOverlay('red')}
           {!isOver && canDrop && this.renderOverlay('yellow')}
           {isOver && canDrop && this.renderOverlay('blue')}
-          <div style={checkerContainerStyle} >
+          <div className={styles.checkersContainer} >
             {checkers}
           </div>
 

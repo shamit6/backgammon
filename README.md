@@ -6,5 +6,5 @@
 
 ## unified
 
-* npm run start
+* npm run all
 * localhost:4445
