@@ -3,22 +3,25 @@ import React, {Component, PropTypes} from 'react';
 class Loading extends Component{
 	static propTypes = {
     	message: PropTypes.string.isRequired,
-    	listener: PropTypes.array.isRequired
+    	listeners: PropTypes.array.isRequired
   	};
 
 	constructor(props){
 		super(props)
 		this.state = {
-			loading: true
+			loading: true,
+			message: this.props.message
 		};
 	}
 
 	componentWillMount(){
 		// TODO unmount
-	 this.props.listener.push(() => {
-	 	console.log(this.state);
-	    this.setState({loading: false});     
-	 })
+		this.props.listeners.forEach(listener => {
+		 	listener.callbacks.push(() => {
+		 		console.log("set loading to " + !listener.toActive);
+			    this.setState({loading: !listener.toActive, message:listener.message});     
+		 	})
+		});
 	}
 
 	render(){
@@ -26,7 +29,7 @@ class Loading extends Component{
 
 		return (this.state.loading?
 			<div> <font size={24}>
-				{this.props.message}
+				{this.state.message}
 			</font>
 			</div>
 			:this.props.children

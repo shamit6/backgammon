@@ -17,32 +17,28 @@ var config = {
   },
   module:{
   	loaders: [
+      { test: /\.json$/, loader: 'json-loader' },
     	{
     		test: /\.jsx?$/,
     		exclude: /node_modules/,
     		loader: 'babel-loader',
-    		query: {
-    			presets: ['es2015','react','stage-2']
-    		}
+    		query: { presets: ['es2015','react','stage-2']}
     	},
       {
         test: /\.css$/,
         loader: combineLoaders([
+          { loader: 'style-loader' }
+          , 
           {
-            loader: 'style-loader'
-          }, {
             loader: 'css-loader',
-            query: {
-              modules: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
+            query: { modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' }
           }
         ])
       }
     ]
   },
   resolve: {
-    extensions: ['.css','.js', '.jsx']
+    extensions: ['.css','.js','.jsx','.json']
   }
 };
  

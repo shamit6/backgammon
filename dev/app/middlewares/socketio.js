@@ -1,24 +1,31 @@
 import io from 'socket.io-client'
 import {switchTurn, makeMove, dice} from '../actions';
 import {IO_ACTIONS} from '../../common/constants';
+import config from  '../../common/config';
 
 let socket;
 
-const initSocket = (store, eventListener) => {
+const initSocket = (store, eventListeners) => {
 
-	console.log('try connect');
-    const port = process.env.PORT || 4444;
-    
-	socket = io('http://localhost:' + port);
+    const getListener = eventName => (eventListeners.find(l => (l.eventName === eventName)));
+    const fireEventListener = eventName => {
+        getListener(eventName).callbacks.forEach( callback =>{
+            callback();
+        })
+    };
+
+    const port = config.getParameter("PORT");
+    const hostname = config.getParameter("HOSTNAME");
+	socket = io('http://' + hostname + ':' + port);
 
     socket.on('disconnect', () => {
         console.warn('Server disconnected');
     }); 
 
     socket.on(IO_ACTIONS.startGame, data => {
-        eventListener.STARTGAME.forEach( callback =>{
-        	callback();
-        });
+        console.warn('startGame');
+        
+        fireEventListener(IO_ACTIONS.startGame);
         
         if (data.start == true){
             store.dispatch(switchTurn());
@@ -27,6 +34,10 @@ const initSocket = (store, eventListener) => {
 
     socket.on(IO_ACTIONS.gameAction, data => {
         store.dispatch({type:data.type, fromServer:true, content:data.content});
+    });
+
+    socket.on(IO_ACTIONS.rivalRetirement, () => {
+        fireEventListener(IO_ACTIONS.rivalRetirement);
     });
 };
 

@@ -1,3 +1,4 @@
-const IO_ACTIONS = {startGame: "START_GAME", gameAction:"GAME_ACTION"};
+const IO_ACTIONS = {startGame: "START_GAME", gameAction:"GAME_ACTION", rivalRetirement:"RIVAL_RETIREMENT",
+searchNewRival:"SEARCH_NEW_RIVAL",rematch:"REMATCH"};
 
-module.exports = {IO_ACTIONS};
+export {IO_ACTIONS};
