@@ -24,17 +24,17 @@ class Game extends React.Component {
         </div>;
 
   return (
-    <div className={styles.allgame}>
-        {eatenCheckerPlace}
-        <div className={styles.subBoardsPanel}>
-    		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsI}/>
-    		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsII}/>
-            <div className={styles.rotate180}>
-              <SubBoard pointsIds={POINTS_ON_BOARD.pointsIII}/>
-        		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsIV}/>
-            </div>
-        </div>
-        <Dicing />
+    <div>
+      <div className={styles.allgame}>
+          {eatenCheckerPlace}
+          <div className={styles.subBoardsPanel}>
+      		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsI}/>
+      		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsII}/>
+            <SubBoard pointsIds={POINTS_ON_BOARD.pointsIV}/>
+            <SubBoard pointsIds={POINTS_ON_BOARD.pointsIII}/>
+          </div>
+      </div>
+      <Dicing />
     </div>
   )
 

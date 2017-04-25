@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import {switchTurn, makeMove, dice} from '../actions';
+import {switchTurn, makeMove, dice, setTurn, SET_TURN} from '../actions';
 import {IO_ACTIONS} from '../../common/constants';
 import config from  '../../common/config';
 
@@ -14,22 +14,20 @@ const initSocket = (store, eventListeners) => {
         })
     };
 
-    const port = config.getParameter("PORT");
-    const hostname = config.getParameter("HOSTNAME");
-	socket = io('http://' + hostname + ':' + port);
+    const port = process.env.PORT || config.getParameter("PORT");
+    const hostname = process.env.HOSTNAME || config.getParameter("HOSTNAME");
 
+     socket = io('http://' + hostname + ':' + port);
+	
     socket.on('disconnect', () => {
         console.warn('Server disconnected');
     }); 
 
     socket.on(IO_ACTIONS.startGame, data => {
-        console.warn('startGame');
+        
         
         fireEventListener(IO_ACTIONS.startGame);
-        
-        if (data.start == true){
-            store.dispatch(switchTurn());
-        }
+        store.dispatch(setTurn(data.start));
     });
 
     socket.on(IO_ACTIONS.gameAction, data => {
@@ -44,15 +42,8 @@ const initSocket = (store, eventListeners) => {
 
 const socketIoMiddleware = store => next => action => {
     
-    	if (action && (action.type !== "SWITCH_TURN") && !action.fromServer){     
-
-            if (store.getState().clientTurn){
-                
-                socket.emit(IO_ACTIONS.gameAction, convertActionToRival(action));
-            }else{
-                return action;
-            }    
-    	     
+    	if (action && (action.type !== SET_TURN) && !action.fromServer){     
+            socket.emit(IO_ACTIONS.gameAction, convertActionToRival(action));
     	}
         
         return next(action);

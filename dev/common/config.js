@@ -1,7 +1,6 @@
 import defaultConfig from './defaultConfig.json';
 
-const getParameter = (name) => {
-	return process.env[name] || defaultConfig[name];
-}
+// TODO check why process.env[name]  undifined in client in prod
+const getParameter = (name) => process.env[name] || defaultConfig[name];
 
 export default {getParameter}

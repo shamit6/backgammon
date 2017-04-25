@@ -1,54 +1,45 @@
-.triangleUp {
-    width: 10%;
-    height: 0;    
-    padding-left:10%;
-    padding-bottom: 10%;
-    overflow: hidden;
-}
-.triangleUp:after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    margin-left:-500px;
-    border-left: 500px solid transparent;
-    border-right: 500px solid transparent;
-    border-bottom: 500px solid #4679BD;
+* {
+    box-sizing: border-box;
+    vertical-align: center;
 }
 
-.rotate180 {
+.rotate180,
+.subBoard:nth-of-type(3),
+.subBoard:nth-of-type(4) {
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
-    display: inline-block;
-    width: 100%
 }
 
 .allgame {
-	height: 100%;
+	height: 80vh;
 	display: flex;
     flex-wrap: wrap;
+    max-width: 1200px;
+    text-align: center;
 }
 
 .subBoardsPanel {
   width: 90%;
-  height: 90%;
-  display: inline-block;
-  border: 15px solid gray;
+  display: flex;
+  flex-wrap: wrap;
+  border: 10px solid gray;
+  background-color: rgba(185, 110, 0, 0.71);
+
 }
 
 .subBoard {
     border: 2px solid gray;
-    width: 49.78%;
+    width: 50%;
     height: 50%;
-    display: inline-block;
+    display: flex;
 }
 
 .eatenCheckerPlace {
     width: 5%;
     display: block; 
     background: #9e9e9e;
-    border: 15px solid gray;
+    border: 10px solid gray;
 }
 
 .eatenCheckerPlaceChild {
@@ -57,13 +48,25 @@
 
 
 .pointViewer {
-    margin: 0 auto;
     position: relative; 
     vertical-align: bottom; 
     display: inline-block; 
-    width:16.66%;
     height:100%;
+    width:100%;
 }
+
+.dicingViewer 
+{
+    height: 15vh;
+    display: flex;
+    align-items: center;
+}
+
+.dicingViewer * 
+{
+    margin: 10px
+}
+
 
 .pointViewerOverlay {
     position: absolute;
@@ -79,7 +82,6 @@
 .checkersContainer {
     top: 30px;
     position: absolute; 
-    height: 100%; 
     width: 100%;
     z-index: 3;
 }
@@ -87,16 +89,17 @@
 .checkerStyle {
     background: transparent;
     display: block;
-    text-align: center;
 }
 
 .dice { 
     display: inline-block;
-    text-align: center;
     width: 50px;
     height: 50px;
     border: solid;
     border-radius: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .dicingButtom {

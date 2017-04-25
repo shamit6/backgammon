@@ -52,7 +52,8 @@ var config = {
         // TODO: check why cross-env does not work with webpack commad
         new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production'),
-        'process.env.PORT': JSON.stringify('4445')
+        'process.env.HOSTNAME': JSON.stringify('localhost'),
+        'process.env.PORT': 4445
       })
     ]
 };

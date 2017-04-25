@@ -6,7 +6,6 @@ import {IO_ACTIONS} from '../common/constants';
 import config from  '../common/config';
 
 const port = config.getParameter("PORT");
- console.log(IO_ACTIONS.startGame);
 const app = express();
 const httpServer = new http.Server(app);
 const io = socketIo(httpServer);
@@ -24,11 +23,11 @@ let rivalOf = {};
 io.on('connection', function(socket){
 
   const searchRival = socketId => {
-    console.log("search pplayer for:");
+    // console.log("search pplayer for:");
     console.log(socketId);
-    console.log("free players");
+    // console.log("free players");
 
-    console.log(freePlayers);
+    // console.log(freePlayers);
 
     if (freePlayers.length == 0){
       freePlayers.push(socketId);
@@ -48,9 +47,6 @@ io.on('connection', function(socket){
       io.sockets.to(secondPlayerId).emit(IO_ACTIONS.startGame,{start:false});
     }
   };
-
-    console.log('a user connected');
-
     socket.on('disconnect', () => {
 
       // check if currently plays.

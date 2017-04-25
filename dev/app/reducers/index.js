@@ -1,4 +1,4 @@
-import { STEP, DICING, SWITCH_TURN } from '../actions'
+import { STEP, DICING, SWITCH_TURN, SET_TURN } from '../actions'
 import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
 import {getStateByBoard} from '../rules'
 
@@ -25,7 +25,7 @@ const updateSteps = (fromPoint, toPoint, currentStep) => {
 	return updatedSteps;
 }
 
-const moveTheChecker = (fromPoint, toPoint, isClientTurn, checkersState) => {
+const moveChecker = (fromPoint, toPoint, isClientTurn, checkersState) => {
 	let newCheckersState = checkersState.slice(0);
 	const sroucePoint = newCheckersState.find(point => point.pointId == fromPoint);
 	const tragetPoint = newCheckersState.find(point => point.pointId == toPoint);
@@ -33,12 +33,14 @@ const moveTheChecker = (fromPoint, toPoint, isClientTurn, checkersState) => {
 	sroucePoint.amount--;
 	
 	// if eating rival checker
-	if (isClientTurn && !tragetPoint.isClient && tragetPoint.amount==1){
+	if (isClientTurn && !tragetPoint.isClient && tragetPoint.amount==1 &&
+		tragetPoint.pointId != 25){ //ignore eating in dropout
 		tragetPoint.isClient = sroucePoint.isClient;	
 		newCheckersState.find(point => (point.pointId == 25)).amount++;
 
 	// if the rival ate the client
-	} else if (!isClientTurn && tragetPoint.isClient && tragetPoint.amount==1){
+	} else if (!isClientTurn && tragetPoint.isClient && tragetPoint.amount==1&&
+		tragetPoint.pointId != 0){ //ignore eating in dropout
 		tragetPoint.isClient = sroucePoint.isClient;
 		newCheckersState.find(point => (point.pointId == 0)).amount++;
 
@@ -75,18 +77,14 @@ const reducer = (state = INITIAL_STORE_STATE.board, action) => {
 			const {fromPoint, toPoint, isClient} = action.content;
 
 			const updatedSteps = updateSteps(fromPoint, toPoint,state.steps);
-			const newCheckersState = moveTheChecker(fromPoint, toPoint, isClient, state.checkersState);
-
-
+			const newCheckersState = moveChecker(fromPoint, toPoint, isClient, state.checkersState);
+			const clientStatus = getStateByBoard(state.checkersState, updatedSteps);
 
 			// No steps then finish the turn
 			if (updatedSteps.length==0){
-				return {...state, checkersState:newCheckersState, clientStatus:CLIENT_STATUS.ONGOING,
+				return {...state, checkersState:newCheckersState, clientStatus:clientStatus,
 					diced:false, clientTurn: !state.clientTurn, steps:updatedSteps }
-			}else{
-				// update the status only if it's client turn.
-				const clientStatus = state.clientTurn?getStateByBoard(state.checkersState, updatedSteps):state.clientStatus;
-
+			}else{		
 				return {...state, checkersState:newCheckersState, clientStatus:clientStatus,
 					clientTurn: state.clientTurn, steps:updatedSteps }
 
@@ -96,7 +94,10 @@ const reducer = (state = INITIAL_STORE_STATE.board, action) => {
 		case SWITCH_TURN:{
 			return {...state, clientTurn:!state.clientTurn, diced:false, steps:[]}
 		}
+		case SET_TURN:{
 
+			return {...state, clientTurn:action.content, diced:false, steps:[]}
+		}
 		default:
       		return state
 	}

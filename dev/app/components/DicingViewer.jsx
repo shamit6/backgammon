@@ -46,7 +46,7 @@ import styles from './app.css';
         message = "You can drop out the chekcers";
         break;
       case CLIENT_STATUS.STUCK:
-        message = "You don't have ligal move. The turn will be switched in a few moments";
+        message = "You don't have ligal moves. The turn will be switched in a few moments";
         this.props.switchTurnTimeout();  
         break;
       default: 
@@ -55,12 +55,12 @@ import styles from './app.css';
 
 
   	return (
-      <div style = {{display:'block', verticalAlign:'center'}} >
+      <div className={styles.dicingViewer}>
         <div className={styles.dice}>
-    		  <font size="8">{this.props.dice1}</font>
+    		  <font size="6">{this.props.dice1}</font>
         </div>
         <div className={styles.dice}>
-    		  <font size="8">{this.props.dice2}</font>
+    		  <font size="6">{this.props.dice2}</font>
         </div>
     		<button className={styles.dicingButtom} 
           disabled={!this.props.clientTurn || this.props.diced} onClick={this.props.onDicing}>dice</button>
