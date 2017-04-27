@@ -12,14 +12,10 @@ class Game extends React.Component {
   const eatenCheckerPlace = 
         <div className={styles.eatenCheckerPlace}>
             <div className={styles.eatenCheckerPlaceChild}>
-              <Point pointId={0}>
-              {0    }
-              </Point>
+              <Point pointId={0}/>
             </div>         
             <div className={styles.eatenCheckerPlaceChild}>
-              <Point pointId={25}>
-                {25}
-              </Point>
+              <Point pointId={25}/>
             </div>         
         </div>;
 

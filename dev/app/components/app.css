@@ -1,6 +1,9 @@
 * {
     box-sizing: border-box;
     vertical-align: center;
+    -webkit-user-select: none; /* Chrome/Safari */        
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+ */
 }
 
 .rotate180,
@@ -20,7 +23,7 @@
 }
 
 .subBoardsPanel {
-  width: 90%;
+  width: 95%;
   display: flex;
   flex-wrap: wrap;
   border: 10px solid gray;
@@ -43,30 +46,15 @@
 }
 
 .eatenCheckerPlaceChild {
-       width: 100%; height: 50%; border: 2px solid gray;
+    width: 100%; height: 50%; border: 2px solid gray;
 }
-
 
 .pointViewer {
     position: relative; 
-    vertical-align: bottom; 
     display: inline-block; 
     height:100%;
     width:100%;
 }
-
-.dicingViewer 
-{
-    height: 15vh;
-    display: flex;
-    align-items: center;
-}
-
-.dicingViewer * 
-{
-    margin: 10px
-}
-
 
 .pointViewerOverlay {
     position: absolute;
@@ -80,16 +68,39 @@
 }
 
 .checkersContainer {
-    top: 30px;
+    top: 25px;
     position: absolute; 
     width: 100%;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
+    align-content: center;
+    height: calc(100% - 25px);
 }
 
 .checkerStyle {
     background: transparent;
-    display: block;
 }
+
+.trianglePoint {
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    stroke: black;
+    stroke-width: 2px;
+}
+
+.visualPoint {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+/*** DICING ***/
 
 .dice { 
     display: inline-block;
@@ -103,8 +114,18 @@
 }
 
 .dicingButtom {
-    display: inline-block;, 
+    display: inline-block;
     margin: 20px;
     height: 50px; 
     width: 55px;
+}
+
+.dicingViewer {
+    height: 15vh;
+    display: flex;
+    align-items: center;
+}
+
+.dicingViewer * {
+    margin: 10px
 }

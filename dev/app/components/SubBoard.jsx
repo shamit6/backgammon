@@ -14,8 +14,10 @@ class SubBoard extends React.Component {
         {pointsIds.map(pointId => {
           const pointColor = pointId % 2 === 0 ? POINTS_COLORS[0] : POINTS_COLORS[1];
           return  <Point color={pointColor} pointId={pointId} key={pointId}>
-                    <div className={styles.rotate180}>
-                    <Triangle width={70} height={180} fill={{color:pointColor}} stroke={{color:'#E65243'}} strokeWidth={2}/>
+                    <div data-key={pointId} className={styles.visualPoint}>
+                        <svg className={styles.trianglePoint} style={{fill:pointColor}}>
+                            <polygon points=""/>
+                        </svg>
                       <div>
                         {pointId}
                       </div>
