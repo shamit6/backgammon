@@ -14,8 +14,8 @@ const numberOfCheckersInBoard = (board, isClient, minPoint = 0 , maxPoint = 25) 
 			},0))
 
 // Only for client
-const isStuckInPoint = (pointId, board, steps) => {
-	const possibleTargetPointsIds = canBeDraggedTo(pointId, board, steps);
+const isStuckInPoint = (pointId, board, steps, clientState) => {
+	const possibleTargetPointsIds = canBeDraggedTo(pointId, board, steps, clientState);
 	return board.findIndex(p => (possibleTargetPointsIds.indexOf(p.pointId) > -1 && 
 		isPointFree(p))) == -1;
 }
@@ -74,47 +74,10 @@ const possibleClientContiniousSteps = (pointId, board, singleSteps) =>{
 	}
 	return continiousSteps;
 }	
-	/**
-const possibleClientContiniousSteps = (pointId, board, singleSteps) => {
 
-	let rejectedSteps = [];
-	let stepsForCheck = [...singleSteps];
-	let continiousSteps = [];
-		
-	while (stepsForCheck.length != 0){
-		let currStep = stepsForCheck.pop();
-		const currPoint = getPoint(board, Math.min(pointId+currStep, 25));
-		
-		let newSteps = [];
-		// try to find continious steps.
-		continiousSteps.forEach(validStep => {
-			const nextPoint = getPoint(board, Math.min(pointId+validStep+currStep, 25));
-
-			if (isPointFree(nextPoint)){
-				// save continious steps 
-				newSteps.push(validStep+currStep);
-			}
-
-			newSteps.push(validStep);
-		});
-
-		if (isPointFree(currPoint) && newSteps.length != 0){
-			newSteps.push(currStep);
-		}else{
-			rejectedSteps.push(currStep)
-		}
-
-		continiousSteps.
-	}
-
-	return newSteps;
-	
-}
-
-*/
-const isStuckInBoard = (board, steps, minPoint = 0 , maxPoint = 25) => 
+const isStuckInBoard = (board, steps, clientState) => 
 	(board.filter(p => (p.isClient && p.amount > 0)).
-		every(p => ((p.pointId < minPoint) || (p.pointId > maxPoint) || isStuckInPoint(p.pointId, board, steps))));
+		every(p => (isStuckInPoint(p.pointId, board, steps, clientState))));
 
 const getStateByBoard = (board, steps) => {
 
@@ -135,7 +98,9 @@ const getStateByBoard = (board, steps) => {
 		// check sum the number of checkers that not in the six points home.
 		 if  (numberOfCheckersInBoard(board, true, 19) == 0){
 			return CLIENT_STATUS.WINNER;
-		}else{
+		}else if(isStuckInBoard(board, steps, CLIENT_STATUS.DROPOUT)){
+			return CLIENT_STATUS.STUCK;
+		} else {
 			return CLIENT_STATUS.DROPOUT;
 		}
 	} else if(isStuckInBoard(board, steps)){
@@ -154,30 +119,6 @@ const isPointCanDragTarget = (pointId, clientStatus) => {
 
 	return true;
 }
-
-/*
-const canBeDragTargetFrom = (pointId, board, singleSteps) => {
-
-	const continiousSteps = possibleClientContiniousSteps(pointId, board, singleSteps);
-
-	const possibleSrcPointsIds = continiousSteps.map(step => (pointId-step));
-
-	if (pointId == 25 && board.clientStatus == CLIENT_STATUS.DROPOUT){
-
-		// get the farest point with checker for the out drop point
-		// we know every checkers in points [19..24] because of the client's state.
-		const farestPoint = board.checkersState.filter(point => 
-			((point.pointId>=19) && point.isClient && point.amount>0)).sort()[0];
-
-		if ((25-farestPoint.pointId) < Math.max(...singleSteps)){
-			return [farestPoint.pointId]
-		}
-	}
-
-
-	return possibleSrcPointsIds;
-}
-*/
 
 // consider replace canBeDragTargetFrom.
 const canBeDraggedTo = (pointId, board, singleSteps, clientState) => {

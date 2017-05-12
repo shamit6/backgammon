@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const randomize = () => {
-	  return Math.floor(Math.random() * (6 - 1)) + 1;
+	  return Math.floor(Math.random() * 6) + 1;
 	}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
