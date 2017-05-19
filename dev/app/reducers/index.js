@@ -1,4 +1,4 @@
-import { STEP, DICING, SWITCH_TURN, SET_TURN } from '../actions'
+import { STEP, DICING, SWITCH_TURN, SET_TURN, INIT_STATE } from '../actions'
 import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
 import {getStateByBoard} from '../rules'
 
@@ -96,6 +96,9 @@ const reducer = (state = INITIAL_STORE_STATE.board, action) => {
 		}
 		case SET_TURN:{
 			return {...state, clientTurn:action.content, diced:false, steps:[]}
+		}
+		case INIT_STATE:{
+			return INITIAL_STORE_STATE
 		}
 		default:
       		return state
