@@ -33,7 +33,7 @@ export const INITIAL_STORE_STATE =
 //     {amount:0, isClient:true, pointId:0},
 
 //     {amount:2, isClient:false, pointId:1}, {amount:2, isClient:false, pointId:2}, 
-//     {amount:0, isClient:false, pointId:3}, {amount:0, isClient:false, pointId:4}, 
+//     {amount:2, isClient:false, pointId:3}, {amount:2, isClient:false, pointId:4}, 
 //     {amount:0, isClient:false, pointId:5}, {amount:0, isClient:false, pointId:6},
 
 //     {amount:0, isClient:false, pointId:7}, {amount:0, isClient:false, pointId:8}, 
@@ -42,10 +42,10 @@ export const INITIAL_STORE_STATE =
 
 //     {amount:0, isClient:false, pointId:13}, {amount:0, isClient:true, pointId:14},
 //     {amount:0, isClient:true, pointId:15}, {amount:0, isClient:true, pointId:16},
-//     {amount:0, isClient:true, pointId:17}, {amount:0, isClient:false, pointId:18},
+//     {amount:1, isClient:true, pointId:17}, {amount:0, isClient:false, pointId:18},
 
 //     {amount:0, isClient:true, pointId:19}, {amount:0, isClient:true, pointId:20},
-//     {amount:0, isClient:true, pointId:21}, {amount:0, isClient:true, pointId:22},
+//     {amount:2, isClient:true, pointId:21}, {amount:2, isClient:true, pointId:22},
 //     {amount:2, isClient:true, pointId:23}, {amount:2, isClient:true, pointId:24},
 
 //     {amount:0, isClient:false, pointId:25}
@@ -64,7 +64,3 @@ export const POINTS_ON_BOARD = { pointsI:[1,2,3,4,5,6], pointsII:[7,8,9,10,11,12
 //   IV    |   III   //
 //         |         //
 ///////////////////////
-
-export const POINTS_COLORS = ['brown','green'];
-
-export const CHECKER_COLORS = {client:'white', rival:'black'};

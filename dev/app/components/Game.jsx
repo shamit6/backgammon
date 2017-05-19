@@ -2,6 +2,7 @@ import React from 'react';
 import SubBoard from './SubBoard';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { default as TouchBackend } from 'react-dnd-touch-backend';
 import Dicing from '../containers/Dicing';
 import {POINTS_ON_BOARD} from '../constants';
 import Point from '../containers/Point';
@@ -37,4 +38,5 @@ class Game extends React.Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(Game)
+export default DragDropContext(TouchBackend({enableMouseEvents: true}))(Game)
+//export default DragDropContext(HTML5Backend)(Game)

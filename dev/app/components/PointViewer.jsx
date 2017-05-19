@@ -51,14 +51,13 @@ class PointViewer extends React.Component {
 
   render() {
     const {connectDropTarget, isOver, canDrop, pointId, amount, isClient, possibleTargets } = this.props;
-    var checkersColor = isClient ? CHECKER_COLORS.client : CHECKER_COLORS.rival;
     
     const checkers = Array.apply(null, {length: amount}).map((obj, index) => 
-    		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} color={checkersColor}/>));	
+    		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient}/>));	
 
     return connectDropTarget(<div className={styles.pointViewer} disabled={!this.props.isEnabled}>
 
-          {isOver && !canDrop && this.renderOverlay('red')}
+          {isOver && !canDrop  && this.renderOverlay('red')}
           {!isOver && canDrop && this.renderOverlay('yellow')}
           {isOver && canDrop && this.renderOverlay('blue')}
           <div className={styles.checkersContainer} >

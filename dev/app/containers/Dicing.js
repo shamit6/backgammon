@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
   dice2: state.dicesResult.dice2,
   status: state.clientStatus,
   clientTurn: state.clientTurn,
-  diced: state.diced
+  diced: state.diced,
+  doCubeAnimate: !ownProps.diced && state.diced
 })
 
 const randomize = () => {
@@ -16,10 +17,7 @@ const randomize = () => {
 	}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onDicing: () => {
-  	
-    const resultDice1 = randomize();
-		const resultDice2 = randomize();
+  sendDicingResult: (resultDice1, resultDice2) => {
 		dispatch(dice({dice1:resultDice1, dice2:resultDice2}))
   },
   switchTurnTimeout: () => {

@@ -1,9 +1,56 @@
 import React, { Component, PropTypes }  from 'react';
 import {Rectangle, Circle, Ellipse, Line, Polyline, CornerBox, Triangle}  from 'react-shapes';
-import { DragSource } from 'react-dnd';
+import { DragLayer, DragSource } from 'react-dnd';
+//import CheckerPreview from './CheckerPreview';
 import styles from './app.css';
 
-const checkerSource = {
+const CheckerView = (props) => 
+  (<div className={styles.circle} data-is-client={props.isClient}/>);
+
+///// Preview
+const previewCollect = monitor => ({
+        sourceOffset: monitor.getSourceClientOffset()
+    });
+
+class CheckerPreview extends React.Component {
+
+  static propTypes = {
+      isDragging: PropTypes.bool,
+      sourceOffset: PropTypes.shape({
+          x: PropTypes.number.isRequired,
+          y: PropTypes.number.isRequired
+      })
+  };
+
+    getLayerStyles() {
+        const { sourceOffset } = this.props;
+        return {
+            position: 'fixed',
+            pointerEvents: 'none',
+            zIndex: 100,
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: '100%',
+            transform: sourceOffset ? `translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
+            //transform: sourceOffset ? `roteteX(180deg) roteteY(180deg) translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
+        };
+    }
+
+    render () {
+        const { isDragging } = this.props;
+        if (!isDragging) { return null; };
+
+        return (<div style={this.getLayerStyles()}>
+                <CheckerView isClient={this.props.isClient}/>
+            </div>);
+    }
+}
+
+const PreviewDragLayer =  DragLayer(previewCollect)(CheckerPreview);
+///// End Preview
+
+const checkerSourceMonitor = {
 
   beginDrag(props, monitor, component) {
     return {fromPoint:props.pointId, possibleTargets:props.possibleTargets}
@@ -37,21 +84,18 @@ function collect(connect, monitor) {
     possibleTargets: PropTypes.array.isRequired
   };
 
-  componentDidMount() {
-      // const img = new Image();
-      // img.src = '.\\dev\\img\\joe.webp';
-      // img.onload = () => this.props.connectDragPreview(img);
-  }
-
   render() {
     const { connectDragSource, isDragging } = this.props;
 
-    return connectDragSource(
-      <div className={styles.checkerStyle}>
-        <Circle r={this.props.size} fill={{color:this.props.color}} stroke={{color:'#E65243'}} strokeWidth={1} />
-      </div>
-    )
+    if (isDragging){
+      return connectDragSource(<div><PreviewDragLayer {...this.props}/></div>)
+    }else{
+        return connectDragSource(
+          <div className={styles.checkerStyle}>
+            <CheckerView isClient={this.props.isClient}/>
+          </div>)
+    }
   }
 }
 
-export default DragSource("CheckerSource", checkerSource, collect)(Checker)
+export default DragSource("CheckerSource", checkerSourceMonitor, collect)(Checker)

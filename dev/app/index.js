@@ -21,8 +21,8 @@ const createListeners = () => [
 
 let eventListeners = createListeners();;
 
-// console.log(store.getState());
-// store.subscribe(() => {console.log(store.getState())});
+//console.log(store.getState());
+//store.subscribe(() => {console.log("state", store.getState().dicesResult)});
 
 const addTrianglesReactivity = () => {
 	let avgContainers = document.querySelectorAll("div[data-key]");;

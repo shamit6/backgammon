@@ -65,8 +65,8 @@ io.on('connection', function(socket){
         }
       }
 
+	  console.log("disconnect" + socket.id);
       delete rivalOf[socket.id];
-      console.log("disconnect" + socket.id);
       console.log(rivalOf);
     });
 

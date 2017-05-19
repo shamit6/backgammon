@@ -95,7 +95,6 @@ const reducer = (state = INITIAL_STORE_STATE.board, action) => {
 			return {...state, clientTurn:!state.clientTurn, diced:false, steps:[]}
 		}
 		case SET_TURN:{
-
 			return {...state, clientTurn:action.content, diced:false, steps:[]}
 		}
 		default:

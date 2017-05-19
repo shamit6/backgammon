@@ -1,18 +1,15 @@
 * {
     box-sizing: border-box;
     vertical-align: center;
-    -webkit-user-select: none; /* Chrome/Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+ */
+    user-select: none;
 }
 
 .rotate180,
 .subBoard:nth-of-type(3),
 .subBoard:nth-of-type(4) {
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
 }
+
 
 .allgame {
 	height: 80vh;
@@ -32,10 +29,20 @@
 }
 
 .subBoard {
-    border: 2px solid gray;
     width: 50%;
     height: 50%;
     display: flex;
+    border-top: 2px solid gray;
+    border-right: 2px solid gray;
+    border-left: 2px solid gray;
+}
+
+.subBoard div[data-is-client=true]{
+  background-color: white;
+}
+
+.subBoard div[data-is-client=false]{
+  background-color: black;
 }
 
 .eatenCheckerPlace {
@@ -52,17 +59,24 @@
 .pointViewer {
     position: relative; 
     display: inline-block; 
+/*     overflow: hidden;*/
     height:100%;
     width:100%;
 }
 
+.pointViewer:nth-child(even) .visualPoint svg{
+  fill:brown;
+}
+
+.pointViewer:nth-child(odd) .visualPoint svg{
+  fill:green;
+}
+
 .pointViewerOverlay {
     position: absolute;
-    top: 28;
-    left: 0;
     height: 100%;
     width: 100%;
-    zIndex: 1;
+    z-index: 1;
     opacity: 0.5;
     overflow: hidden;
 }
@@ -81,6 +95,8 @@
 }
 
 .checkerStyle {
+    display: flex;
+    justify-content: center;
     background: transparent;
 }
 
@@ -92,8 +108,6 @@
 }
 
 .visualPoint {
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
     height: 80%;
     display: flex;
@@ -102,7 +116,7 @@
 
 /*** DICING ***/
 
-.dice { 
+/*.dice { 
     display: inline-block;
     width: 50px;
     height: 50px;
@@ -112,20 +126,124 @@
     display: flex;
     justify-content: center;
 }
-
-.dicingButtom {
+*/
+/*.dicingButtom {
     display: inline-block;
     margin: 20px;
     height: 50px; 
     width: 55px;
-}
+}*/
 
 .dicingViewer {
     height: 15vh;
     display: flex;
     align-items: center;
+    font-family: cursive;
 }
 
 .dicingViewer * {
     margin: 10px
+}
+
+
+.cube {
+  position: relative;
+  height: 90px;
+  width: 90px;
+  transition: transform 2s ease-out;
+  transform-style: preserve-3d;
+  transition-duration: 1s;
+}
+
+.cube div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 70px;
+  width: 70px;
+  /*padding: 20px;*/
+  background-color: rgba(50, 50, 50, 0.7);
+  font-size: 27px;
+  line-height: 1em;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 10px;
+}
+
+.one  {
+  transform: translateZ(35px);
+}
+
+ .two {
+  transform: rotateX(90deg) translateZ(35px);
+}
+
+ .three {
+  transform: rotateY(90deg) translateZ(35px);
+}
+
+ .four {
+  transform: rotateY(-90deg) translateZ(35px);
+}
+
+ .five {
+  transform: rotateX(-90deg) rotate(180deg) translateZ(35px);
+}
+
+ .six {
+  transform: rotateY(180deg) translateZ(35px);
+}
+
+.dicingButtom {
+   border-top: 1px solid #000000;
+   background: #74d665;
+   background: -webkit-gradient(linear, left top, left bottom, from(#9c3e53), to(#74d665));
+   background: -webkit-linear-gradient(top, brown, green);
+   background: -moz-linear-gradient(top, #9c3e53, #74d665);
+   background: -ms-linear-gradient(top, #9c3e53, #74d665);
+   background: -o-linear-gradient(top, #9c3e53, #74d665);
+   padding: 13px 26px;
+   margin-left: 20px;
+   -webkit-border-radius: 15px;
+   -moz-border-radius: 15px;
+   border-radius: 15px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #ffffff;
+   font-size: 17px;
+   text-decoration: none;
+   }
+.dicingButtom:hover {
+   border-top-color: #28597a;
+   background: #28597a;
+   color: #ccc;
+   }
+.dicingButtom:active {
+   border-top-color: #1b435e;
+   background: #1b435e;
+   }
+.dicingButtom:disabled {
+   border-top-color: black;
+   background: -webkit-linear-gradient(top, #9c3e53, #74d665);
+}
+
+.circle { display:fixed; 
+  margin: 2px;
+  width:20px; 
+  height:20px; 
+  border: solid 1px #555; 
+/*  background-color: #eed; */
+  box-shadow: 2px -2px rgba(0,0,0,0.6); 
+/* -moz-box-shadow: 2px -2px rgba(0,0,0,0.6); 
+  -webkit-box-shadow: 2px -2px rgba(0,0,0,0.6); 
+  -o-box-shadow: 2px -2px rgba(0,0,0,0.6); */
+  border-radius:30px; 
+}
+
+.subBoard:nth-of-type(3) .circle,
+.subBoard:nth-of-type(4) .circle {
+  box-shadow: -2px 2px rgba(0,0,0,0.6); 
 }
