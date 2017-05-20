@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start-app-dev": "webpack-dev-server --progress --inline",
-    "start-server-dev": "nodemon ./dev/server/index.js --exec babel-node",
+    "start-server-dev": "node ./dev/server/index.js --exec babel-node",
     "clean": "cross-env rmdir /s /q .\\output\\",
     "build-app": "webpack --config webpack.prod.config.js --progress --colors",
     "build-server": "./node_modules/.bin/babel dev -d output --ignore app,content/index-prod.html --copy-files",
