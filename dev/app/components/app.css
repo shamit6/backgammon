@@ -217,27 +217,27 @@
 }
 
 .one  {
-  transform: translateZ(35px);
+  transform: translateZ(5vmin);
 }
 
  .two {
-  transform: rotateX(90deg) translateZ(35px);
+  transform: rotateX(90deg) translateZ(5vmin);
 }
 
  .three {
-  transform: rotateY(90deg) translateZ(35px);
+  transform: rotateY(90deg) translateZ(5vmin);
 }
 
  .four {
-  transform: rotateY(-90deg) translateZ(35px);
+  transform: rotateY(-90deg) translateZ(5vmin);
 }
 
  .five {
-  transform: rotateX(-90deg) rotate(180deg) translateZ(35px);
+  transform: rotateX(-90deg) rotate(180deg) translateZ(5vmin);
 }
 
  .six {
-  transform: rotateY(180deg) translateZ(35px);
+  transform: rotateY(180deg) translateZ(5vmin);
 }
 
 .dicingButtom {
