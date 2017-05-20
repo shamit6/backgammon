@@ -74,7 +74,7 @@ const randomize = (maxNumber) => {
           nextMessage = "You can drop out the chekcers";
           break;
         case CLIENT_STATUS.STUCK:
-          nextMessage = "You don't have ligal moves. The turn will be switched in a few moments";
+          nextMessage = "You don't have legal moves. The turn will be switched in a few moments";
           this.props.switchTurnTimeout();  
           break;
         default: 
