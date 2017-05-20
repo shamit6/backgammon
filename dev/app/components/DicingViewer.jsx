@@ -26,7 +26,7 @@ const randomize = (maxNumber) => {
     this.oneDiceTransformed = false;
     this.dicingFire = {};
     this.message;
-    this.state = {message:""};
+    this.state = {message:" "};
     this.onDicing = this.onDicing.bind(this);
     this.calcMessage = this.calcMessage.bind(this);
     this.dicesTransitionEndCallback = this.dicesTransitionEndCallback.bind(this);
@@ -60,7 +60,7 @@ const randomize = (maxNumber) => {
 
   calcMessage(){
     
-    let nextMessage = "";
+    let nextMessage = " ";
 
     if (this.props.clientTurn){
       switch (this.props.status){
@@ -78,11 +78,9 @@ const randomize = (maxNumber) => {
           this.props.switchTurnTimeout();  
           break;
         default: 
-          nextMessage = "";
       }
-    }else{
-      nextMessage = "";
     }
+
     //console.log("calcMessage");
     this.setState({message:nextMessage});
   }
@@ -90,17 +88,17 @@ const randomize = (maxNumber) => {
   render() {
 
     let message = this.state.message;
-    let turnMessage = this.props.clientTurn?"Your Turn. ":"Not your turn. "
+    let turnMessage = this.props.clientTurn?"Your Turn ":"Not your turn "
 
     // End match statuses.
     switch (this.props.status){
       case CLIENT_STATUS.LOSER:
         message = "You are fucking Loser!!!!!!";
-        turnMessage = "";
+        turnMessage = " ";
         break;
       case CLIENT_STATUS.WINNER:
         message = "WINNER!!!!";
-        turnMessage = "";
+        turnMessage = " ";
         break;
       }
 
@@ -111,8 +109,10 @@ const randomize = (maxNumber) => {
 
         <button className={styles.dicingButtom} 
           disabled={(!this.props.clientTurn || this.props.diced)} onClick={this.onDicing}>dice</button>
-        <font size="6">{turnMessage}</font>
-        <font size="6">{message}</font>
+          <div className={styles.messagingContainer}>
+            <font className={styles.message}>{turnMessage}</font>
+            <font className={styles.message}>{message}</font>
+          </div>
     	</div>
     )
   }
@@ -128,7 +128,7 @@ const randomize = (maxNumber) => {
     }
 
     if (!nextProps.clientTurn){
-      this.setState({message:""});
+      this.setState({message:" "});
     }
   }
 

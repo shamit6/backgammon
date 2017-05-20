@@ -50,10 +50,10 @@ class PointViewer extends React.Component {
   }
 
   render() {
-    const {connectDropTarget, isOver, canDrop, pointId, amount, isClient, possibleTargets } = this.props;
+    const {connectDropTarget, isOver, canDrop, pointId, amount, isClient, isRotated, possibleTargets } = this.props;
     
     const checkers = Array.apply(null, {length: amount}).map((obj, index) => 
-    		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient}/>));	
+    		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} isRotated={isRotated} />));	
 
     return connectDropTarget(<div className={styles.pointViewer} disabled={!this.props.isEnabled}>
 

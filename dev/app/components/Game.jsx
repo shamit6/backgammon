@@ -11,11 +11,11 @@ import styles from './app.css';
 class Game extends React.Component {
   render() {
   const eatenCheckerPlace = 
-        <div className={styles.eatenCheckerPlace}>
-            <div className={styles.eatenCheckerPlaceChild}>
+        <div className={styles.eatenCheckerPanel}>
+            <div className={styles.eatenCheckerSubPanel}>
               <Point pointId={0}/>
             </div>         
-            <div className={styles.eatenCheckerPlaceChild}>
+            <div className={styles.eatenCheckerSubPanel}>
               <Point pointId={25}/>
             </div>         
         </div>;
@@ -25,10 +25,10 @@ class Game extends React.Component {
       <div className={styles.allgame}>
           {eatenCheckerPlace}
           <div className={styles.subBoardsPanel}>
-      		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsI}/>
-      		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsII}/>
-            <SubBoard pointsIds={POINTS_ON_BOARD.pointsIV}/>
-            <SubBoard pointsIds={POINTS_ON_BOARD.pointsIII}/>
+      		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsI} isRotated={false}/>
+      		  <SubBoard pointsIds={POINTS_ON_BOARD.pointsII} isRotated={false}/>
+            <SubBoard pointsIds={POINTS_ON_BOARD.pointsIV} isRotated={true}/>
+            <SubBoard pointsIds={POINTS_ON_BOARD.pointsIII} isRotated={true}/>
           </div>
       </div>
       <Dicing />

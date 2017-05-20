@@ -6,13 +6,13 @@ import styles from './app.css';
 class SubBoard extends React.Component {
 
   render(){
-  	const pointsIds = this.props.pointsIds;
+  	const {style, pointsIds, isRotated} = this.props;
 
     var InSubBoard = ({pointsIds}) => (
-      <div className={styles.subBoard} style={this.props.style}> 
+      <div className={styles.subBoard} style={style}> 
         {pointsIds.map(pointId => 
 
-          (<Point pointId={pointId} key={pointId}>
+          (<Point pointId={pointId} key={pointId} isRotated={isRotated}>
                               <div data-key={pointId} className={styles.visualPoint}>
                                   <svg className={styles.trianglePoint}>
                                       <polygon points=""/>

@@ -22,26 +22,27 @@ class CheckerPreview extends React.Component {
       })
   };
 
-    getLayerStyles() {
-        const { sourceOffset } = this.props;
-        return {
-            position: 'fixed',
-            pointerEvents: 'none',
-            zIndex: 100,
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            transform: sourceOffset ? `translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
-            //transform: sourceOffset ? `roteteX(180deg) roteteY(180deg) translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
-        };
-    }
+
 
     render () {
-        const { isDragging } = this.props;
-        if (!isDragging) { return null; };
+        const { isRotated, isDragging, sourceOffset } = this.props;
+        if (!isDragging) { return null; }
 
-        return (<div style={this.getLayerStyles()}>
+          let style;
+        if (isRotated){
+          console.log("true");
+            style = {
+                transform: sourceOffset ? `rotate(180deg) translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
+            };
+        }else{
+          console.log("false");
+            style = {
+                transform: sourceOffset ? `translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
+            };
+        }
+
+
+        return (<div className={styles.checkerPreview} style={style}>
                 <CheckerView isClient={this.props.isClient}/>
             </div>);
     }
@@ -88,10 +89,11 @@ function collect(connect, monitor) {
     const { connectDragSource, isDragging } = this.props;
 
     if (isDragging){
+      //style={{transform:'rotate(-180deg) translate(-500px,-300px)'}}
       return connectDragSource(<div><PreviewDragLayer {...this.props}/></div>)
     }else{
         return connectDragSource(
-          <div className={styles.checkerStyle}>
+          <div className={styles.checker}>
             <CheckerView isClient={this.props.isClient}/>
           </div>)
     }
