@@ -14,10 +14,15 @@ const initSocket = (store, eventListeners) => {
         })
     };
 
-    const port = process.env.PORT || config.getParameter("PORT");
-    const hostname = process.env.HOSTNAME || config.getParameter("HOSTNAME");
 
-     socket = io('http://' + hostname + ':' + port);
+    if (process.env.NODE_ENV === 'production'){
+        socket = io(document.location.host);
+    }else{  
+        const port = process.env.PORT || config.getParameter("PORT");
+        const hostname = process.env.HOSTNAME || config.getParameter("HOSTNAME");
+        socket = io('http://' + hostname + ':' + port);
+    }
+    
 	
     socket.on('disconnect', () => {
         console.warn('Server disconnected');

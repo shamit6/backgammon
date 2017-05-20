@@ -103,15 +103,15 @@
 
 .circle { display:fixed; 
   margin: 2px;
-  width:20px; 
-  height:20px; 
+  width:5vmin; 
+  height:5vmin; 
   border: solid 1px #555; 
 /*  background-color: #eed; */
   box-shadow: -1px 1px rgba(0,0,0,0.6); 
 /* -moz-box-shadow: 2px -2px rgba(0,0,0,0.6); 
   -webkit-box-shadow: 2px -2px rgba(0,0,0,0.6); 
   -o-box-shadow: 2px -2px rgba(0,0,0,0.6); */
-  border-radius:10px; 
+  border-radius:5vmin; 
 }
 
 .circle[data-is-client=true] {
@@ -165,30 +165,35 @@
 .dicingViewer {
     height: 20vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    align-content: flex-start;
     font-family: sans-serif;
 }
 
 .dicingViewer * {
-    margin: 10px;
+    margin: 3vh;
+    font-size: 5vmin;
 }
 
 .messagingContainer {
+    margin: 20px;
+    margin-top: 2vh;
     display: flex;
     flex-direction: column;
     align-content: center;
 }
 
 .messagingContainer * {
-    margin: 5px;
-    min-height: 18px;
+    margin: 2px;
+    min-height: 6vmin;
+    font-size: 4vmin;
 }
 
 
 .cube {
   position: relative;
-  height: 90px;
-  width: 90px;
+  height: 10vmin;
+  width: 10vmin;
   transition: transform 2s ease-out;
   transform-style: preserve-3d;
   transition-duration: 1s;
@@ -199,15 +204,16 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  height: 70px;
-  width: 70px;
+  height: 10vmin;
+  width: 10vmin;
   /*padding: 20px;*/
   background-color: rgba(50, 50, 50, 0.7);
-  font-size: 27px;
+  font-size: 6vmin;
   line-height: 1em;
   color: #fff;
   border: 1px solid #555;
   border-radius: 10px;
+  margin: 0px;
 }
 
 .one  {
@@ -243,6 +249,7 @@
    background: -ms-linear-gradient(top, #9c3e53, #74d665);
    background: -o-linear-gradient(top, #9c3e53, #74d665);
    padding: 13px 26px;
+   margin-top: 3vh;
    margin-left: 20px;
    -webkit-border-radius: 15px;
    -moz-border-radius: 15px;
@@ -252,7 +259,7 @@
    box-shadow: rgba(0,0,0,1) 0 1px 0;
    text-shadow: rgba(0,0,0,.4) 0 1px 0;
    color: #ffffff;
-   font-size: 17px;
+   /*font-size: 17px;*/
    text-decoration: none;
    }
 .dicingButtom:hover {
