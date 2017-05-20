@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start-app-dev": "webpack-dev-server --progress --inline",
-    "start-server-dev": "node ./dev/server/index.js --exec babel-node",
+    "start-server-dev": "nodemon ./dev/server/index.js --exec babel-node",
     "clean": "cross-env rmdir /s /q .\\output\\",
     "build-app": "webpack --config webpack.prod.config.js --progress --colors",
     "build-server": "./node_modules/.bin/babel dev -d output --ignore app,content/index-prod.html --copy-files",
@@ -31,6 +31,7 @@
     "react-dnd-html5-backend": "^2.3.0",
     "react-dnd-touch-backend": "^0.3.10",
     "react-dom": "^15.4.2",
+    "react-player": "^0.18.0",
     "react-redux": "^5.0.3",
     "react-shapes": "^0.1.0",
     "socket.io": "^1.7.3",

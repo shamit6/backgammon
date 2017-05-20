@@ -50,8 +50,8 @@ const randomize = (maxNumber) => {
   }
 
   onDicing() {
-    const dice1Number = randomize(6);
-    const dice2Number = randomize(6);
+    const dice1Number = 6;//randomize(6);
+    const dice2Number = 6;//randomize(6);
     this.dicingFire.dice1(dice1Number);
     this.dicingFire.dice2(dice2Number);
     //this.setState({dice1:dice1Number, dice2:dice2Number});
@@ -65,8 +65,8 @@ const randomize = (maxNumber) => {
     if (props.clientTurn && props.diced && props.status === CLIENT_STATUS.STUCK){
           nextMessage = "You don't have legal moves. The turn will be switched in a few moments";
           props.switchTurnTimeout();  
-    } else if (props.clientTurn){
-      switch (props.status && props.diced){
+    } else if (props.clientTurn && props.diced){
+      switch (props.status){
         case CLIENT_STATUS.ONGOING:
           nextMessage = "Play as you wish";
           break;
@@ -94,10 +94,12 @@ const randomize = (maxNumber) => {
       case CLIENT_STATUS.LOSER:
         message = "You are a fucking Loser!!!!!!";
         turnMessage = " ";
+
         break;
       case CLIENT_STATUS.WINNER:
         message = "WINNER!!!!";
         turnMessage = " ";
+
         break;
       }
 

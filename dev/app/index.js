@@ -7,7 +7,8 @@ import Game from './components/Game';
 import Loading from './components/Loading';
 import {initSocket, socketIoMiddleware} from './middlewares/socketio';
 import spamUserActionFilter from './middlewares/spamUserActionFilter';
-import {INITIAL_STORE_STATE} from './constants';
+import {INITIAL_STORE_STATE, CLIENT_STATUS} from './constants';
+import ReactPlayer from 'react-player';
 
 const store = createStore(reducer, INITIAL_STORE_STATE, applyMiddleware(...[spamUserActionFilter, socketIoMiddleware]));
 
@@ -21,8 +22,16 @@ const createListeners = () => [
 
 let eventListeners = createListeners();;
 
-//console.log(store.getState());
-//store.subscribe(() => {console.log("state", store.getState().dicesResult)});
+console.log(store.getState());
+store.subscribe(() => {if (store.getState().clientStatus === CLIENT_STATUS.WINNER){
+	ReactDOM.render(<ReactPlayer url='https://www.youtube.com/watch?v=04854XqcfCY' playing />, 
+		document.getElementById('app'));
+	
+} else if (store.getState().clientStatus === CLIENT_STATUS.LOSER){
+	ReactDOM.render(<ReactPlayer url='https://www.youtube.com/watch?v=ukWRRNqMAZ4' playing />, 
+		document.getElementById('app'));
+}});
+
 
 const addTrianglesReactivity = () => {
 	let avgContainers = document.querySelectorAll("div[data-key]");;
