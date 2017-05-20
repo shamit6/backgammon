@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import {switchTurn, makeMove, dice, setTurn, SET_TURN} from '../actions';
+import {switchTurn, makeMove, dice, setTurn, initState, SET_TURN, INIT_STATE} from '../actions';
 import {IO_ACTIONS} from '../../common/constants';
 import config from  '../../common/config';
 
@@ -9,6 +9,7 @@ const initSocket = (store, eventListeners) => {
 
     const getListener = eventName => (eventListeners.find(l => (l.eventName === eventName)));
     const fireEventListener = eventName => {
+
         getListener(eventName).callbacks.forEach( callback =>{
             callback();
         })
@@ -30,7 +31,6 @@ const initSocket = (store, eventListeners) => {
 
     socket.on(IO_ACTIONS.startGame, data => {
         
-        
         fireEventListener(IO_ACTIONS.startGame);
         store.dispatch(setTurn(data.start));
     });
@@ -40,6 +40,7 @@ const initSocket = (store, eventListeners) => {
     });
 
     socket.on(IO_ACTIONS.rivalRetirement, () => {
+        store.dispatch(initState());
         fireEventListener(IO_ACTIONS.rivalRetirement);
     });
 };
