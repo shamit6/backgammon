@@ -36,7 +36,7 @@ const randomize = (maxNumber) => {
 
     if (this.props.clientTurn){
       if (this.oneDiceTransformed){
-        this.calcMessage();
+        this.calcMessage(this.props);
         this.oneDiceTransformed = false;
       }else{
         this.oneDiceTransformed = true;
@@ -58,12 +58,15 @@ const randomize = (maxNumber) => {
     this.props.sendDicingResult(dice1Number, dice2Number);
   }
 
-  calcMessage(props = this.props.clientTurn){
+  calcMessage(props = this.props){
     
     let nextMessage = " ";
 
-    if (props.clientTurn && props.diced){
-      switch (props.status){
+    if (props.clientTurn && props.diced && props.status === CLIENT_STATUS.STUCK){
+          nextMessage = "You don't have legal moves. The turn will be switched in a few moments";
+          props.switchTurnTimeout();  
+    } else if (props.clientTurn){
+      switch (props.status && props.diced){
         case CLIENT_STATUS.ONGOING:
           nextMessage = "Play as you wish";
           break;
@@ -72,10 +75,6 @@ const randomize = (maxNumber) => {
           break;
         case CLIENT_STATUS.DROPOUT:
           nextMessage = "You can drop out the chekcers";
-          break;
-        case CLIENT_STATUS.STUCK:
-          nextMessage = "You don't have legal moves. The turn will be switched in a few moments";
-          props.switchTurnTimeout();  
           break;
         default: 
       }
@@ -126,11 +125,11 @@ const randomize = (maxNumber) => {
         this.dicingFire.dice2(nextProps.dice2);
     }
 
-    if (!nextProps.clientTurn){
+    if (!nextProps.clientTurn || !this.props.diced){
       this.setState({message:" "});
+    }else{
+      this.calcMessage(nextProps);
     }
-
-    this.calcMessage(nextProps);
   }
 
   componentWillUpdate(nextProps, nextState){
