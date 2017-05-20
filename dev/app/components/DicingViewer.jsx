@@ -93,7 +93,7 @@ const randomize = (maxNumber) => {
     // End match statuses.
     switch (this.props.status){
       case CLIENT_STATUS.LOSER:
-        message = "You are fucking Loser!!!!!!";
+        message = "You are a fucking Loser!!!!!!";
         turnMessage = " ";
         break;
       case CLIENT_STATUS.WINNER:
