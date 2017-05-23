@@ -95,28 +95,7 @@ const reducer = (state = INITIAL_STORE_STATE, action) => {
 			return {...state, clientTurn:!state.clientTurn, diced:false, steps:[]}
 		}
 		case SET_TURN:{
-			return {...state,checkersState:[
-    {amount:0, isClient:true, pointId:0},
-
-    {amount:2, isClient:true, pointId:1}, {amount:0, isClient:true, pointId:2}, 
-    {amount:0, isClient:true, pointId:3}, {amount:0, isClient:true, pointId:4}, 
-    {amount:0, isClient:true, pointId:5}, {amount:5, isClient:false, pointId:6},
-
-    {amount:0, isClient:true, pointId:7}, {amount:3, isClient:false, pointId:8}, 
-    {amount:0, isClient:true, pointId:9}, {amount:0, isClient:true, pointId:10}, 
-    {amount:0, isClient:true, pointId:11}, {amount:5, isClient:true, pointId:12},
-
-    {amount:5, isClient:false, pointId:13}, {amount:0, isClient:true, pointId:14},
-    {amount:0, isClient:true, pointId:15}, {amount:0, isClient:true, pointId:16},
-    {amount:3, isClient:true, pointId:17}, {amount:0, isClient:false, pointId:18},
-
-    {amount:5, isClient:true, pointId:19}, {amount:0, isClient:true, pointId:20},
-    {amount:0, isClient:true, pointId:21}, {amount:0, isClient:true, pointId:22},
-    {amount:0, isClient:true, pointId:23}, {amount:2, isClient:false, pointId:24},
-
-    {amount:0, isClient:false, pointId:25}
-
-    ], clientTurn:action.content, diced:false, steps:[]}
+			return {...INITIAL_STORE_STATE, clientTurn:action.content, diced:false, steps:[]}
 		}
 		case INIT_STATE:{
 			return {...INITIAL_STORE_STATE};

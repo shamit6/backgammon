@@ -22,15 +22,15 @@ const createListeners = () => [
 
 let eventListeners = createListeners();;
 
-console.log(store.getState());
-store.subscribe(() => {if (store.getState().clientStatus === CLIENT_STATUS.WINNER){
-	ReactDOM.render(<ReactPlayer url='https://www.youtube.com/watch?v=04854XqcfCY' playing />, 
-		document.getElementById('app'));
+// console.log(store.getState());
+// store.subscribe(() => {if (store.getState().clientStatus === CLIENT_STATUS.WINNER){
+// 	ReactDOM.render(<ReactPlayer url='https://www.youtube.com/watch?v=04854XqcfCY' playing />, 
+// 		document.getElementById('app'));
 	
-} else if (store.getState().clientStatus === CLIENT_STATUS.LOSER){
-	ReactDOM.render(<ReactPlayer url='https://www.youtube.com/watch?v=ukWRRNqMAZ4' playing />, 
-		document.getElementById('app'));
-}});
+// } else if (store.getState().clientStatus === CLIENT_STATUS.LOSER){
+// 	ReactDOM.render(<ReactPlayer url='https://www.youtube.com/watch?v=ukWRRNqMAZ4' playing />, 
+// 		document.getElementById('app'));
+// }});
 
 
 const addTrianglesReactivity = () => {
