@@ -12,16 +12,18 @@ class SubBoard extends React.Component {
       <div className={styles.subBoard} style={style}> 
         {pointsIds.map(pointId => 
 
-          (<Point pointId={pointId} key={pointId} isRotated={isRotated}>
-                              <div data-key={pointId} className={styles.visualPoint}>
-                                  <svg className={styles.trianglePoint}>
-                                      <polygon points=""/>
-                                  </svg>
-                                <div>
-                                  {pointId}
-                                </div>
-                              </div>
-                            </Point>)
+          (<div className={styles.subBoardItem}>
+            <div>
+              {pointId}
+            </div>
+            <Point pointId={pointId} key={pointId} isRotated={isRotated}>
+              <div data-key={pointId} className={styles.visualPoint}>
+                  <svg className={styles.trianglePoint}>
+                      <polygon points=""/>
+                  </svg>
+              </div>
+            </Point>
+          </div>)
         )}
       </div>);
 

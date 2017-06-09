@@ -18,8 +18,8 @@ const pointTarget = {
     }
 
     const numberOfSteps = monitor.getItem().possibleTargets.indexOf(props.pointId) > -1;
-    const free = (props.isClient || props.amount<=1);
-    return (numberOfSteps && free);
+    //const free = (props.isClient || props.amount<=1);
+    return (numberOfSteps);
   }
 };
 

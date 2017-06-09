@@ -55,23 +55,37 @@
 }
 
 .eatenCheckerSubPanel {
-    width: 100%; height: 50%; border: 2px solid gray;
+    width: 100%; 
+    height: 50%; 
+    border: 2px solid gray;
 }
 
+
+.subBoardItem {
+    display: flex;
+    flex-direction: column;
+}
 
 .pointViewer {
     position: relative; 
-    display: inline-block; 
 /*     overflow: hidden;*/
-    height:100%;
-    width:100%;
+/*    height:100%;
+    width:100%;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
 }
 
-.pointViewer:nth-child(even) .visualPoint svg{
+.eatenCheckerSubPanel .pointViewer{
+    height: 100%; 
+}
+
+.subBoardItem:nth-child(even) .pointViewer .visualPoint svg{
   fill:brown;
 }
 
-.pointViewer:nth-child(odd) .visualPoint svg{
+.subBoardItem:nth-child(odd) .pointViewer .visualPoint svg{
   fill:green;
 }
 
@@ -85,10 +99,9 @@
 }
 
 .checkersContainer {
-    top: 25px;
     position: absolute; 
     width: 100%;
-    height: calc(100% - 25px);
+    height: 90%;
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -138,29 +151,12 @@
 .visualPoint {
     transform: rotate(180deg);
     height: 80%;
+    width: 90%;
     display: flex;
     flex-direction: column;
 }
 
 /*** DICING ***/
-
-/*.dice { 
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: solid;
-    border-radius: 5px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-*/
-/*.dicingButtom {
-    display: inline-block;
-    margin: 20px;
-    height: 50px; 
-    width: 55px;
-}*/
 
 .dicingViewer {
     height: 20vh;
@@ -275,6 +271,11 @@
    border-top-color: black;
    background: -webkit-linear-gradient(top, #9c3e53, #74d665);
 }
+.dicingButtom:focus {
+   outline: -webkit-focus-ring-color auto 0px;
+}
+
+    
 
 .checkerPreview {
   position: fixed;

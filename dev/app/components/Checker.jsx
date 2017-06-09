@@ -32,7 +32,7 @@ class CheckerPreview extends React.Component {
         if (isRotated){
           console.log("true");
             style = {
-                transform: sourceOffset ? `rotate(180deg) translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
+                transform: sourceOffset ? `rotate(180deg) translate(${sourceOffset.x}px, ${sourceOffset.y}px) scale(1)` : ''
             };
         }else{
           console.log("false");

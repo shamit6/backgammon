@@ -4,11 +4,11 @@
   "main": "index.js",
   "scripts": {
     "start-app-dev": "webpack-dev-server --progress --inline",
-    "start-server-dev": "nodemon ./dev/server/index.js --exec babel-node",
+    "start-dev": "nodemon ./dev/server/index.js --exec babel-node",
     "clean": "cross-env rmdir /s /q .\\output\\",
-    "build-app": "webpack --config webpack.prod.config.js --progress --colors",
-    "build-server": "./node_modules/.bin/babel dev -d output --ignore app,content/index-prod.html --copy-files",
-    "start": "cross-env PORT=4445 NODE_ENV=production node output/server/index.js",
+    "build-app": "webpack --config webpack.config.js --progress --colors",
+    "build-server": "babel dev -d output --ignore app,content/index-prod.html --copy-files",
+    "start": "cross-env WEBPACK_CONFIG=../../webpack.config.js PORT=4445 NODE_ENV=production node ./output/server/index.js",
     "all": "npm run clean && npm run build-app && npm run build-server && npm run start"
   },
   "author": "Amit Shalev (shamit6)",
@@ -41,7 +41,8 @@
     "webpack-dev-server": "^2.4.2"
   },
   "devDependencies": {
-    "cross-env": "^4.0.0"
+    "cross-env": "^4.0.0",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "description": "Online backgammon game. Play against the top players in the world!"
 }

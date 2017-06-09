@@ -1,7 +1,6 @@
 ## development
 
-* npm run start-server-dev
-* npm run start-app-dev
+* npm run start-dev
 * localhost:8080
 
 ## unified

@@ -2,7 +2,7 @@ import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
 
 const getPoint = (board, pointId) => (board.find(point => (point.pointId == pointId)));
 
-const isPointFree = (point) => (point.isClient || point.amount<=1);
+const isPointFree = (point) => (point.isClient || point.amount<=1 || point.pointId == 25);
 
 const numberOfCheckersInBoard = (board, isClient, minPoint = 0 , maxPoint = 25) =>
 	(board.reduce((sumChecker, point) => {

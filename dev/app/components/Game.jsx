@@ -15,7 +15,7 @@ class Game extends React.Component {
             <div className={styles.eatenCheckerSubPanel}>
               <Point pointId={0}/>
             </div>         
-            <div className={styles.eatenCheckerSubPanel}>
+            <div className={styles.eatenCheckerSubPanel} style={{transform: 'rotate(180deg)'}}>
               <Point pointId={25}/>
             </div>         
         </div>;
