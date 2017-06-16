@@ -1,4 +1,4 @@
-import React, { Component, PropTypes }  from 'react';
+import React, { PropTypes }  from 'react';
 
 import styles from './app.css';
 
@@ -12,8 +12,11 @@ class Dice extends React.Component {
   
 	constructor(props) {
 		super(props);
-        this.state = ({degX:0, degY:0, degZ:0});
+
+        this.calcDegreeByNumber = this.calcDegreeByNumber.bind(this);  
         this.updateDiceNumber = this.updateDiceNumber.bind(this);
+
+        this.state = this.calcDegreeByNumber(this.props.intialNumber);
 	}
 
 
@@ -22,13 +25,12 @@ class Dice extends React.Component {
         this.props.dicingFire[this.props.diceName] = this.updateDiceNumber;
     }
 
-    updateDiceNumber(nextNumber){
-
+    calcDegreeByNumber(mumber){
         let nextDegX = 0;
         let nextDegY = 0;
         let nextDegZ = 0;
 
-        switch (nextNumber){
+        switch (mumber){
             // case 1: {   
             //     break;
             // }
@@ -57,11 +59,18 @@ class Dice extends React.Component {
             }
         }
 
-        const directX = (this.state.degX>0)?-1:1;
-        const directY = (this.state.degY>0)?-1:1;
+        const currentDegX = this.state?this.state.degX:0;
+        const currentDegY = this.state?this.state.degY:0;
+
+        const directX = (currentDegX>0)?-1:1;
+        const directY = (currentDegY>0)?-1:1;
         nextDegX += randomize(1,0)*360*directX;
         nextDegY += randomize(1,0)*360*directY;
-        this.setState({degX:nextDegX, degY:nextDegY, degZ:nextDegZ});
+        return {degX:nextDegX, degY:nextDegY, degZ:nextDegZ};
+    }
+
+    updateDiceNumber(nextNumber){
+        this.setState(this.calcDegreeByNumber(nextNumber));
     }
 
 

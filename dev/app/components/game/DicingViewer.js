@@ -1,5 +1,5 @@
-import React, { Component, PropTypes }  from 'react';
-import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants';
+import React, { PropTypes }  from 'react';
+import {INITIAL_GAME_STATE, IN_GAME_STATUS} from '../../constants';
 import Dice from './Dice';
 import styles from './app.css';
 
@@ -21,6 +21,8 @@ const randomize = (maxNumber) => {
   
 	constructor(props) {
 		super(props);
+    this.initialDiceNumber1 = this.props.dice1;
+    this.initialDiceNumber2 = this.props.dice2;
     this.cubeRef1;
     this.cubeRef2;
     this.oneDiceTransformed = false;
@@ -62,24 +64,10 @@ const randomize = (maxNumber) => {
     
     let nextMessage = " ";
 
-    if (props.clientTurn && props.diced && props.status === CLIENT_STATUS.STUCK){
-          nextMessage = "You don't have legal moves. The turn will be switched in a few moments";
+    if (props.clientTurn && props.diced && props.status === IN_GAME_STATUS.STUCK){
+          nextMessage = "You don't have legal moves. The turn will be switched in a few moments.";
           props.switchTurnTimeout();  
-    } else if (props.clientTurn && props.diced){
-      switch (props.status){
-        case CLIENT_STATUS.ONGOING:
-          nextMessage = "Play as you wish";
-          break;
-        case CLIENT_STATUS.EATEN:
-          nextMessage = "Insert the eaten checker first";
-          break;
-        case CLIENT_STATUS.DROPOUT:
-          nextMessage = "You can drop out the chekcers";
-          break;
-        default: 
-      }
     }
-
 
     this.setState({message:nextMessage});
   }
@@ -89,24 +77,10 @@ const randomize = (maxNumber) => {
     let message = this.state.message;
     let turnMessage = this.props.clientTurn?"Your Turn ":"Not your turn "
 
-    // End match statuses.
-    switch (this.props.status){
-      case CLIENT_STATUS.LOSER:
-        message = "You are a fucking Loser!!!!!!";
-        turnMessage = " ";
-
-        break;
-      case CLIENT_STATUS.WINNER:
-        message = "WINNER!!!!";
-        turnMessage = " ";
-
-        break;
-      }
-
   	return (
       <div className={styles.dicingViewer}>
-        <Dice diceName={"dice1"} dicingFire={this.dicingFire} divRef={el => this.cubeRef1 = el}/>
-        <Dice diceName={"dice2"} dicingFire={this.dicingFire} divRef={el => this.cubeRef2 = el}/>
+        <Dice diceName={"dice1"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber1} divRef={el => this.cubeRef1 = el}/>
+        <Dice diceName={"dice2"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber2} divRef={el => this.cubeRef2 = el}/>
 
         <button className={styles.dicingButtom} 
           disabled={(!this.props.clientTurn || this.props.diced)} onClick={this.onDicing}>dice</button>
@@ -119,7 +93,7 @@ const randomize = (maxNumber) => {
   }
 
   componentWillReceiveProps(nextProps){
-    // If it is the point the rival diced
+    // If it is the point the opponent diced
     if (!nextProps.clientTurn && nextProps.diced && 
       !(!this.props.clientTurn && this.props.diced)){
         //this.setState({dice1:nextProps.dice1, dice2:nextProps.dice2});
@@ -134,8 +108,8 @@ const randomize = (maxNumber) => {
     }
   }
 
-  componentWillUpdate(nextProps, nextState){
-  }
+  // componentWillUpdate(nextProps, nextState){
+  // }
 }
 
 export default DicingViewer

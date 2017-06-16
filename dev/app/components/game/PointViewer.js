@@ -1,12 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
 import Checker from './Checker';
-import {CHECKER_COLORS} from '../constants';
 import styles from './app.css';
 
 const pointTarget = {
   drop(props, monitor, component) {
     // It has to be the client.
+    console.error("receiveChecker");
     component.props.receiveChecker(monitor.getItem().fromPoint)
   },
   hover(props, monitor, component){

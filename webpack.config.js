@@ -14,11 +14,12 @@ var config = {
      ],
   output: {
     path: OUTPUT,
-    //x`publicPath: "/output/",
+    // publicPath: "/output/",
     filename: "index-app.js"
   },
   devServer: {
-  	inline: true
+  	inline: true,
+    port:4445
   },
   module:{
   	loaders: [
@@ -30,12 +31,16 @@ var config = {
   			presets: ['es2015','react','stage-2']
   		}
   	},
+    { 
+      test: /\.png$/, 
+      loader: "file-loader" 
+    },
     {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract(
         combineLoaders([{
           loader: 'css-loader',
-          query: {
+          options: {
             modules: true,
             localIdentName: '[name]__[local]___[hash:base64:5]'
           }
@@ -54,9 +59,9 @@ var config = {
         }),
         // TODO: check why cross-env does not work with webpack commad
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('production')//,
+          'process.env.NODE_ENV': JSON.stringify('production'),//,
          //  'process.env.HOSTNAME': JSON.stringify('localhost'),
-         //  'process.env.PORT': 4445
+           'process.env.PORT': 4445
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()

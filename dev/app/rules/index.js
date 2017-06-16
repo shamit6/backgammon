@@ -1,4 +1,4 @@
-import {INITIAL_STORE_STATE, CLIENT_STATUS} from '../constants'
+import { IN_GAME_STATUS} from '../constants'
 
 const getPoint = (board, pointId) => (board.find(point => (point.pointId == pointId)));
 
@@ -83,37 +83,37 @@ const getStateByBoard = (board, steps) => {
 
 	// check if the user losed.
 	if (numberOfCheckersInBoard(board, false) == 0){
-		return CLIENT_STATUS.LOSER;
+		return IN_GAME_STATUS.LOSER;
 
 	// check if there are checkers in point of the eaten.
 	} else if (board.find(point => (point.pointId == 0)).amount > 0){
 		if  (isStuckInPoint(0, board, steps)){
-			return CLIENT_STATUS.STUCK;
+			return IN_GAME_STATUS.STUCK;
 		}else{
-			return CLIENT_STATUS.EATEN;
+			return IN_GAME_STATUS.EATEN;
 		}
 	// check if sum the number of checkers that not in the six points home.
 	} else if (numberOfCheckersInBoard(board, true, 0, 18) == 0){
 
 		// check sum the number of checkers that not in the six points home.
 		 if  (numberOfCheckersInBoard(board, true, 19) == 0){
-			return CLIENT_STATUS.WINNER;
-		}else if(isStuckInBoard(board, steps, CLIENT_STATUS.DROPOUT)){
-			return CLIENT_STATUS.STUCK;
+			return IN_GAME_STATUS.WINNER;
+		}else if(isStuckInBoard(board, steps, IN_GAME_STATUS.DROPOUT)){
+			return IN_GAME_STATUS.STUCK;
 		} else {
-			return CLIENT_STATUS.DROPOUT;
+			return IN_GAME_STATUS.DROPOUT;
 		}
 	} else if(isStuckInBoard(board, steps)){
-		return CLIENT_STATUS.STUCK;
+		return IN_GAME_STATUS.STUCK;
 	}
 
-	return CLIENT_STATUS.ONGOING;
+	return IN_GAME_STATUS.ONGOING;
 }
 
 const isPointCanDragTarget = (pointId, clientStatus) => {
 	
 	// if the client was eaten he can only insert  
-	if ((clientStatus == CLIENT_STATUS.STUCK) || ((clientStatus == CLIENT_STATUS.EATEN) && (pointId > 6))){
+	if ((clientStatus == IN_GAME_STATUS.STUCK) || ((clientStatus == IN_GAME_STATUS.EATEN) && (pointId > 6))){
 		return false;
 	}
 
@@ -123,7 +123,7 @@ const isPointCanDragTarget = (pointId, clientStatus) => {
 // consider replace canBeDragTargetFrom.
 const canBeDraggedTo = (pointId, board, singleSteps, clientState) => {
 
-	if (clientState == CLIENT_STATUS.EATEN){
+	if (clientState == IN_GAME_STATUS.EATEN){
 		return singleSteps.map(step => (pointId+step))
 	}
 
@@ -131,7 +131,7 @@ const canBeDraggedTo = (pointId, board, singleSteps, clientState) => {
 
 	let possibleTargetPointsIds = continiousSteps.map(step => (pointId+step));
 
-	if (clientState == CLIENT_STATUS.DROPOUT){
+	if (clientState == IN_GAME_STATUS.DROPOUT){
 	   if (Math.min(...singleSteps)>(25-pointId)){
 
 			const farestPoint = board.filter(point => (point.isClient && point.amount>0)).sort()[0];

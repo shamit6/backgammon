@@ -1,9 +1,12 @@
 import React from 'react';
-import Point from '../containers/Point';
-import {Triangle} from 'react-shapes';
+import Point from '../../containers/Point';
 import styles from './app.css';
 
 class SubBoard extends React.Component {
+
+  shouldComponentUpdate(){
+    return false;
+  }
 
   render(){
   	const {style, pointsIds, isRotated} = this.props;

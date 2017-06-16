@@ -1,4 +1,6 @@
-const IO_ACTIONS = {startGame: "START_GAME", gameAction:"GAME_ACTION", rivalRetirement:"RIVAL_RETIREMENT",
-searchNewRival:"SEARCH_NEW_RIVAL",rematch:"REMATCH"};
+// const IO_ACTIONS = {startGame: "START_GAME", gameAction:"GAME_ACTION", opponentRetirement:"OPPONENT_RETIREMENT",
+// searchNewOpponent:"SEARCH_NEW_OPPONENT", rematch:"REMATCH"};
+
+const IO_ACTIONS = { SEARCH_NEW_OPPONENT: 0, START_GAME:1, GAME_ACTION:2, OPPONENT_RETIREMENT:3, GAME_OVER:4 };
 
 export {IO_ACTIONS};

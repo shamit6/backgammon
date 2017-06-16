@@ -1,5 +1,4 @@
-import React, { Component, PropTypes }  from 'react';
-import {Rectangle, Circle, Ellipse, Line, Polyline, CornerBox, Triangle}  from 'react-shapes';
+import React, { PropTypes }  from 'react';
 import { DragLayer, DragSource } from 'react-dnd';
 //import CheckerPreview from './CheckerPreview';
 import styles from './app.css';
@@ -30,12 +29,12 @@ class CheckerPreview extends React.Component {
 
           let style;
         if (isRotated){
-          console.log("true");
+
             style = {
                 transform: sourceOffset ? `rotate(180deg) translate(${sourceOffset.x}px, ${sourceOffset.y}px) scale(1)` : ''
             };
         }else{
-          console.log("false");
+
             style = {
                 transform: sourceOffset ? `translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
             };

@@ -1,6 +1,5 @@
 * {
     box-sizing: border-box;
-    vertical-align: center;
     user-select: none;
 }
 
@@ -11,12 +10,11 @@
 }
 
 
-.allgame {
-	height: 80vh;
-	display: flex;
+.board {
+	  display: flex;
     flex-wrap: wrap;
-    /*max-width: 1200px;*/
     text-align: center;
+    height: 80%;
 }
 
 .subBoardsPanel {
@@ -37,11 +35,11 @@
     border-left: 2px solid gray;
 }
 
-.allgame .circle[data-is-client=true]{
+.board .circle[data-is-client=true]{
   background-color: white;
 }
 
-.allgame .circle[data-is-client=false]{
+.board .circle[data-is-client=false]{
   background-color: black;
 }
 
@@ -82,11 +80,11 @@
 }
 
 .subBoardItem:nth-child(even) .pointViewer .visualPoint svg{
-  fill:brown;
+  fill: rgba(165, 42, 42, 0.7);
 }
 
 .subBoardItem:nth-child(odd) .pointViewer .visualPoint svg{
-  fill:green;
+  fill: rgba(122, 175, 132, 0.8);
 }
 
 .pointViewerOverlay {
@@ -114,10 +112,10 @@
 .checker {
 }
 
-.circle { display:fixed; 
+.circle { 
   margin: 2px;
-  width:5vmin; 
-  height:5vmin; 
+  width: 4vmin; 
+  height: 4vmin; 
   border: solid 1px #555; 
 /*  background-color: #eed; */
   box-shadow: -1px 1px rgba(0,0,0,0.6); 
@@ -125,6 +123,7 @@
   -webkit-box-shadow: 2px -2px rgba(0,0,0,0.6); 
   -o-box-shadow: 2px -2px rgba(0,0,0,0.6); */
   border-radius:5vmin; 
+  transition: box-shadow 0.8s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .circle[data-is-client=true] {
@@ -159,7 +158,7 @@
 /*** DICING ***/
 
 .dicingViewer {
-    height: 20vh;
+    height: 20%;
     display: flex;
     align-items: flex-start;
     align-content: flex-start;
@@ -167,13 +166,13 @@
 }
 
 .dicingViewer * {
-    margin: 3vh;
+/*    margin: 3vh;*/
     font-size: 5vmin;
 }
 
 .messagingContainer {
-    margin: 20px;
-    margin-top: 2vh;
+    margin: 15px;
+/*    margin-top: 2vh;*/
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -188,11 +187,12 @@
 
 .cube {
   position: relative;
-  height: 10vmin;
-  width: 10vmin;
+  height: 50px;
+  width: 50px;
   transition: transform 2s ease-out;
   transform-style: preserve-3d;
   transition-duration: 1s;
+  margin: 15px;
 }
 
 .cube div {
@@ -200,9 +200,9 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  height: 10vmin;
-  width: 10vmin;
-  /*padding: 20px;*/
+  height: 50px;
+  width: 50px;
+  padding: 20px;
   background-color: rgba(50, 50, 50, 0.7);
   font-size: 6vmin;
   line-height: 1em;
@@ -213,39 +213,34 @@
 }
 
 .one  {
-  transform: translateZ(5vmin);
+  transform: translateZ(25px);
 }
 
  .two {
-  transform: rotateX(90deg) translateZ(5vmin);
+  transform: rotateX(90deg) translateZ(25px);
 }
 
  .three {
-  transform: rotateY(90deg) translateZ(5vmin);
+  transform: rotateY(90deg) translateZ(25px);
 }
 
  .four {
-  transform: rotateY(-90deg) translateZ(5vmin);
+  transform: rotateY(-90deg) translateZ(25px);
 }
 
  .five {
-  transform: rotateX(-90deg) rotate(180deg) translateZ(5vmin);
+  transform: rotateX(-90deg) rotate(180deg) translateZ(25px);
 }
 
  .six {
-  transform: rotateY(180deg) translateZ(5vmin);
+  transform: rotateY(180deg) translateZ(25px);
 }
 
 .dicingButtom {
    border-top: 1px solid #000000;
-   background: #74d665;
-   background: -webkit-gradient(linear, left top, left bottom, from(#9c3e53), to(#74d665));
-   background: -webkit-linear-gradient(top, brown, green);
-   background: -moz-linear-gradient(top, #9c3e53, #74d665);
-   background: -ms-linear-gradient(top, #9c3e53, #74d665);
-   background: -o-linear-gradient(top, #9c3e53, #74d665);
+   background: -webkit-linear-gradient(top, rgb(110, 185, 27) 0%,rgba(102,142,0,1) 100%);
    padding: 13px 26px;
-   margin-top: 3vh;
+/*   margin-top: 3vh;*/
    margin-left: 20px;
    -webkit-border-radius: 15px;
    -moz-border-radius: 15px;
@@ -257,19 +252,16 @@
    color: #ffffff;
    /*font-size: 17px;*/
    text-decoration: none;
+   margin: 15px;
    }
-.dicingButtom:hover {
-   border-top-color: #28597a;
-   background: #28597a;
-   color: #ccc;
-   }
+
 .dicingButtom:active {
-   border-top-color: #1b435e;
-   background: #1b435e;
+/*   border-top-color: #1b435e;
+   background: #1b435e;*/
    }
 .dicingButtom:disabled {
-   border-top-color: black;
-   background: -webkit-linear-gradient(top, #9c3e53, #74d665);
+    color: white;
+   background: -webkit-linear-gradient(top, rgba(110, 185, 27, 0.5) 0%,rgba(102,142,0,1) 100%);
 }
 .dicingButtom:focus {
    outline: -webkit-focus-ring-color auto 0px;
@@ -289,14 +281,13 @@
 }
 
 .subBoard:nth-of-type(3) .checkerPreview {
-    left: 7vw;
-    top: 42vh;
+   left: 48%;
+    top: 46vh;
 }
 
 .subBoard:nth-of-type(4) .checkerPreview {
-    left: 52vw;
-    top: 42vh;
-    /*transform: rotate(180deg);*/
+   left: 148%;
+    top: 46vh;
 }
 
 .subBoard:nth-of-type(3) .checkerPreview .circle,

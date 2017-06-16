@@ -1,27 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 
-class Loading extends Component{
-	static propTypes = {
-    	message: PropTypes.string.isRequired,
-    	listeners: PropTypes.array.isRequired
-  	};
+class Loading extends React.Component{
 
 	constructor(props){
 		super(props)
 		this.state = {
-			loading: true,
-			message: this.props.message
+			loading: true
 		};
-	}
-
-	componentWillMount(){
-		// TODO unmount
-		this.props.listeners.forEach(listener => {
-		 	listener.callbacks.push(() => {
-		 		console.log("set loading to " + !listener.toActive);
-			    this.setState({loading: !listener.toActive, message:listener.message});     
-		 	})
-		});
 	}
 
 	render(){
@@ -29,7 +14,7 @@ class Loading extends Component{
 
 		return (this.state.loading?
 			<div> <font size={24}>
-				{this.state.message}
+				{this.props.message}
 			</font>
 			</div>
 			:this.props.children
