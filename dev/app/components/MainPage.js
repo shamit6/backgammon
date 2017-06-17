@@ -12,14 +12,14 @@ class MainPage extends React.Component{
 	}
 
 	render() {
-		const statistics = () => <Loading message={"Wait for another player"}>
+		const statistics = () => <Loading message={"Loading statistics"}>
 									{"under construction"}
 								</Loading>;
 		return <div className={styles.mainPage}>
-					<MainMenu logout={this.props.logout} menuItems={[{to:"/main/game" ,name:"game"},{to:"/main/stat" ,name:"stat"}]} />
+					<MainMenu logout={this.props.logout} menuItems={[{to:"/main/game" ,name:"game"},{to:"/main/statistics" ,name:"statistics"}]} />
 					<div className={styles.mainContent} >
 						<Route path="/main/game" component={GameZone}/>
-						<Route path="/main/stat" component={statistics}/>
+						<Route path="/main/statistics" component={statistics}/>
 					</div>
 				</div>;
 	}

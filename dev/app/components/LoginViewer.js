@@ -40,7 +40,7 @@ class Login extends React.Component {
 
   render() {
 
-    const { from } = { from: { pathname: '/main/game' } }
+    const {from } = this.props.location.state || { from: { pathname: '/main/game' } }
 
     return this.props.isLoggedIn ? 
       <Redirect to={from}/> :
