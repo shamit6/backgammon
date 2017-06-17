@@ -24,7 +24,7 @@ const initSocket = (store, username) => {
     });
 
     socket.on(IO_ACTIONS.OPPONENT_RETIREMENT, () => {
-        store.dispatch(oactions.pponentRetirment());
+        store.dispatch(actions.opponentRetirment());
     });
 };
 
