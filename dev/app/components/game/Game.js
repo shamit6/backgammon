@@ -11,7 +11,7 @@ class Game extends React.Component {
 
   return (
     <div style={{width:'100%', height:'100%', display:'flex'}}>
-      <div style={{flex:'1'}}>>
+      <div style={{flex:'1'}}>
         <GameInfo/>
       </div>
       <Board style={{flex:'6'}}/>
