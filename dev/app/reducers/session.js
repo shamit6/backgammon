@@ -5,9 +5,7 @@ const reducer = (state = getInitialSessionState(), action) => {
 
 	switch (action.type){
 		case LOG_IN:{
-			
-			const username = action.content;
-			return  {isLoggedIn:true, username:username};
+			return  {isLoggedIn:true, user:action.content};
 		}
 
 		case LOG_OUT:{

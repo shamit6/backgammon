@@ -1,71 +1,114 @@
 var webpack = require("webpack");
 var path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var combineLoaders = require("webpack-combine-loaders");
+//const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var DEV = path.resolve(__dirname, "dev");
 var OUTPUT = path.resolve(__dirname, "output");
 
 var config = {
-  entry: [
-    "webpack-hot-middleware/client",
-     DEV + "/app/index.js"
-     ],
+  entry: {
+    app:[
+      "webpack-hot-middleware/client",
+      'react-hot-loader/patch',
+       DEV + "/app/index.js"
+    ],
+    html:  DEV + "/content/index.html",
+    vendor: [
+      "webpack-hot-middleware/client",
+      'react-hot-loader/patch',
+      'react',
+      'react-dom',
+      'react-router'
+    ]
+  },
   output: {
     path: OUTPUT,
-    // publicPath: "/output/",
-    filename: "index-app.js"
+    publicPath: "/",
+    filename: '[name].js',
   },
   devServer: {
   	inline: true,
-    port:4445
+    port:4445,
+    hot: true,
+    // contentBase: OUTPUT,
+    // historyApiFallback: {
+    //   index: OUTPUT + "/index.html"
+    // },
+    // historyApiFallback: true
   },
   module:{
-  	loaders: [
+  	rules: [
+    {
+      test: /\.html$/,
+      loader: ['react-hot-loader/webpack', 'file-loader?name=[name].[ext]'],
+    },
   	{
-  		test: /\.jsx?$/,
+  		test: /\.(js|jsx)$/,
   		exclude: /node_modules/,
-  		loader: 'babel-loader',
-  		query: {
-  			presets: ['es2015','react','stage-2']
-  		}
+  		loader: 'babel-loader?cacheDirectory=true'
   	},
-    { 
-      test: /\.png$/, 
-      loader: "file-loader" 
+    {
+      test: /\.css$/,
+      include: path.join(__dirname, 'dev'),
+      use: [
+        'style-loader',
+        'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[local]___[hash:base64:5]',
+        'postcss-loader',
+      ],
     },
     {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract(
-        combineLoaders([{
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            localIdentName: '[name]__[local]___[hash:base64:5]'
-          }
-        }]))
-    }]
-  },
-  resolve: {
-    extensions: ['.css','.js', '.jsx']
-  },
-  plugins: [
-        new ExtractTextPlugin('styles-[hash].css'),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'dev/content/index-prod.html',
-            inject: true
-        }),
-        // TODO: check why cross-env does not work with webpack commad
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('production'),//,
-         //  'process.env.HOSTNAME': JSON.stringify('localhost'),
-           'process.env.PORT': 4445
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-    ]
+      exclude: path.join(__dirname, 'dev'),
+      use: [{
+              loader:'style-loader',
+            },{
+              loader:'css-loader',
+            }],
+    },
+    {
+      test: /\.svg(\?.*)?$/,
+      loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=images/[name].[ext]',
+      // include: path.join(__dirname, 'client', 'assets'),
+    }, {
+      test: /\.png$/,
+      loader: 'url-loader?limit=8192&mimetype=image/png&name=images/[name].[ext]',
+      // include: path.join(__dirname, 'client', 'assets'),
+    }, {
+      test: /\.gif$/,
+      loader: 'url-loader?limit=8192&mimetype=image/gif&name=images/[name].[ext]',
+      // include: path.join(__dirname, 'client', 'assets'),
+    }, {
+      test: /\.jpg$/,
+      loader: 'url-loader?limit=8192&mimetype=image/jpg&name=images/[name].[ext]',
+      // include: path.join(__dirname, 'client', 'assets'),
+    },
+    {
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+    },
+    {
+      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'file-loader',
+    },
+  ]
+},
+resolve: {
+  extensions: ['.json','.js', '.jsx']
+},
+plugins: [
+      // new HtmlWebpackPlugin({
+      //     filename: 'index.html',
+      //     template: 'dev/content/index-prod.html',
+      //     inject: true
+      // }),
+      // new webpack.DefinePlugin({
+      //   'process.env.NODE_ENV': JSON.stringify('production'),//,
+      //  //  'process.env.HOSTNAME': JSON.stringify('localhost'),
+      //    'process.env.PORT': 4445
+      // }),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin()
+  ]
 };
-//process.traceDeprecation = true; 
+//process.traceDeprecation = true;
 module.exports = config;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Board from './Board';
 import GameInfo from '../../containers/GameInfo';
+import { Segment } from 'semantic-ui-react'
 class Game extends React.Component {
 
   componentDidMount(){
@@ -10,12 +11,11 @@ class Game extends React.Component {
   render() {
 
   return (
-    <div style={{width:'100%', height:'100%', display:'flex'}}>
-      <div style={{flex:'1'}}>
-        <GameInfo/>
-      </div>
-      <Board style={{flex:'6'}}/>
-    </div>
+    <Segment style={{display:'flex', backgroundColor: 'inherit', margin:'0'}}>
+      <GameInfo/>
+      <Board/>
+    </Segment>
+
   )
 
   }

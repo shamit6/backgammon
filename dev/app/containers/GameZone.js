@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import GameZoneViewer from '../components/GameZoneViewer';
+import GameZoneViewer from '../components/GameZone';
 import Game from '../components/game/Game';
 import { searchOpponent } from '../actions';
 import { PLAY_STATUS, IN_GAME_STATUS } from '../constants';

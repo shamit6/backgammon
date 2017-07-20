@@ -1,8 +1,8 @@
 import React from 'react';
-import MainMenu from './MainMenu';
-import Loading from './Loading';
+import MainMenu from '../MainMenu';
+import Loading from '../Loading';
 import { Route } from 'react-router-dom';
-import GameZone from '../containers/GameZone';
+import GameZone from '../../containers/GameZone';
 import styles from './mainPageStyle.css';
 
 class MainPage extends React.Component{
@@ -15,9 +15,9 @@ class MainPage extends React.Component{
 		const statistics = () => <Loading message={"Loading statistics"}>
 									{"under construction"}
 								</Loading>;
-		return <div className={styles.mainPage}>
-					<MainMenu logout={this.props.logout} menuItems={[{to:"/main/game" ,name:"game"},{to:"/main/statistics" ,name:"statistics"}]} />
-					<div className={styles.mainContent} >
+		return <div>
+					<MainMenu logout={this.props.logout} {...this.props} menuItems={[{to:"/main/game" ,name:"game"},{to:"/main/statistics" ,name:"statistics"}]} />
+					<div style={{position:'absolute',top:'70px'}}>
 						<Route path="/main/game" component={GameZone}/>
 						<Route path="/main/statistics" component={statistics}/>
 					</div>

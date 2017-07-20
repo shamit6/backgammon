@@ -1,0 +1,22 @@
+.actionButtom {
+   border-top: 1px solid #000000;
+   background: -webkit-linear-gradient(top, rgb(110, 185, 27) 0%,rgba(102,142,0,1) 100%);;
+   padding: 13px 26px;
+   margin-left: 20px;
+   border-radius: 15px;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #ffffff;
+   text-decoration: none;
+}
+
+.actionButtom:active {
+   }
+
+.actionButtom:disabled {
+   color: white;
+   background: -webkit-linear-gradient(top, rgba(110, 185, 27, 0.5) 0%,rgba(102,142,0,1) 100%);
+}
+.actionButtom:focus {
+   outline: -webkit-focus-ring-color auto 0px;
+}

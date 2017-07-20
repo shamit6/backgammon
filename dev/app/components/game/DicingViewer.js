@@ -17,8 +17,8 @@ const randomize = (maxNumber) => {
     clientTurn: PropTypes.bool.isRequired,
     doCubeAnimate : PropTypes.bool.isRequired
   };
-  
-  
+
+
 	constructor(props) {
 		super(props);
     this.initialDiceNumber1 = this.props.dice1;
@@ -29,7 +29,7 @@ const randomize = (maxNumber) => {
     this.dicingFire = {};
     this.message;
     this.state = {message:" "};
-    this.onDicing = this.onDicing.bind(this);
+    //this.onDicing = this.onDicing.bind(this);
     this.calcMessage = this.calcMessage.bind(this);
     this.dicesTransitionEndCallback = this.dicesTransitionEndCallback.bind(this);
 	}
@@ -61,12 +61,12 @@ const randomize = (maxNumber) => {
   }
 
   calcMessage(props = this.props){
-    
+
     let nextMessage = " ";
 
     if (props.clientTurn && props.diced && props.status === IN_GAME_STATUS.STUCK){
           nextMessage = "You don't have legal moves. The turn will be switched in a few moments.";
-          props.switchTurnTimeout();  
+          props.switchTurnTimeout();
     }
 
     this.setState({message:nextMessage});
@@ -82,8 +82,8 @@ const randomize = (maxNumber) => {
         <Dice diceName={"dice1"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber1} divRef={el => this.cubeRef1 = el}/>
         <Dice diceName={"dice2"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber2} divRef={el => this.cubeRef2 = el}/>
 
-        <button className={styles.dicingButtom} 
-          disabled={(!this.props.clientTurn || this.props.diced)} onClick={this.onDicing}>dice</button>
+        <button className={styles.dicingButtom}
+          disabled={(!this.props.clientTurn || this.props.diced)} onClick={::this.onDicing}>dice</button>
           <div className={styles.messagingContainer}>
             <font className={styles.message}>{turnMessage}</font>
             <font className={styles.message}>{message}</font>
@@ -94,7 +94,7 @@ const randomize = (maxNumber) => {
 
   componentWillReceiveProps(nextProps){
     // If it is the point the opponent diced
-    if (!nextProps.clientTurn && nextProps.diced && 
+    if (!nextProps.clientTurn && nextProps.diced &&
       !(!this.props.clientTurn && this.props.diced)){
         //this.setState({dice1:nextProps.dice1, dice2:nextProps.dice2});
         this.dicingFire.dice1(nextProps.dice1);

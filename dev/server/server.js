@@ -1,5 +1,7 @@
-import socketIo from 'socket.io';
-import {IO_ACTIONS} from '../common/constants';
+import socketIo from 'socket.io'
+import {IO_ACTIONS} from '../common/constants'
+import db from './data/db'
+import dal from './data/dal'
 export const create = httpServer => {
 
   const io = socketIo(httpServer);
@@ -11,20 +13,27 @@ export const create = httpServer => {
 io.use((socket, next) => {
     const username = socket.handshake.query.username;
 
-    if (players[username] === undefined) {
-      players[username] = {wins:0, losses:0};
-    }
-
-    console.log("players", players);
+    console.log("username", username);
     socketToUsername[socket.id] = username;
 
     next();
 });
 
-
     const getPlayerInfo = socketId => {
       const username = socketToUsername[socketId];
-      return {username, ...players[username]}
+
+      const user2 = db.models.users.find(user => (user.username == username));
+
+      const rate = db.models.games.reduce(({wins, losses}, game) => {
+        if (game.winner == user2.id){
+          return {wins:wins+1, losses}
+        }else if (game.loser == user2.id){
+          return {wins, losses:losses+1}
+        }
+        return {wins, losses};
+      },{wins:0, losses:0});
+
+      return {username, country:user2.country, ...rate}
     };
 
     const searchOppenent = socketId => {
@@ -49,13 +58,14 @@ io.use((socket, next) => {
         delete playsAgainst[opponentId];
     };
 
-    const updateUserInfo = (username, isWinner) => {
-      if (isWinner){
-        players[username].wins += 1;
-      }else{
-        players[username].losses += 1;
-      }
-    }
+    // const updateUserInfo = (username, isWinner) => {
+    //
+    //   if (isWinner){
+    //     players[username].wins += 1;
+    //   }else{
+    //     players[username].losses += 1;
+    //   }
+    // }
 
   io.on('connection', socket => {
 
@@ -92,13 +102,13 @@ io.use((socket, next) => {
       console.log("GAME_OVER");
       // The winner send this event.
       const name = socketToUsername[socket.id];
-      console.log("name" , name);
-      updateUserInfo(name, true);
-      
-      // update oppent info 
+      const user = db.models.users.find(user => (user.username == name));
+
+      // update oppent info
       const opponentName = socketToUsername[playsAgainst[socket.id]];
-      console.log("opponentName" , opponentName);
-      updateUserInfo(opponentName, false);
+      const opponent = db.models.users.find(user => (user.username == opponentName));
+
+      dal.insertGame(user.id, opponent.id)
 
       deleteGameOfSocket(socket.id);
 

@@ -1,15 +1,13 @@
 import { connect } from 'react-redux'
-import AppViewer from '../components/AppViewer'
+import AppViewer from '../components/App'
 import { logout } from '../actions'
 
 const mapStateToProps = (state, ownProps) => ({
-  isLoggedIn:state.session.isLoggedIn
+  session:state.session
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   logout: () => {
-  	// Is it ok to put it hehe?
-  	localStorage.removeItem("ShubappBackgammonUsermame");
     dispatch(logout());
   }
 })

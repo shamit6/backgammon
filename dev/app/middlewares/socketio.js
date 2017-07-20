@@ -8,13 +8,13 @@ import {IN_GAME_STATUS} from '../constants';
 const initSocket = (store, username) => {
 
     socket.init(document.location.host, { query: `username=${username}`});
-	
+
     socket.on('disconnect', () => {
         console.warn('Server disconnected');
-    }); 
+    });
 
     socket.on(IO_ACTIONS.START_GAME, data => {
-        
+
         store.dispatch(actions.startGame(data.start, data.opponentInfo));
         //store.dispatch(setTurn(data.start));
     });
@@ -30,23 +30,23 @@ const initSocket = (store, username) => {
 
 
 const socketIoMiddleware = store => next => action => {
-    
-    
-    if (action){ 
+
+
+    if (action){
         if (action.type == actions.LOG_IN){
-            initSocket(store, action.content);
+            initSocket(store, action.content.username);
         }
-    
+
         if (action.type == actions.LOG_OUT){
             socket.close();
         }
-    
+
         if (action.type == actions.SEARCH_OPPONENT){
             socket.emit(IO_ACTIONS.SEARCH_NEW_OPPONENT);
         }
 
         if (((action.type == actions.STEP) || (action.type == actions.SWITCH_TURN) || (action.type == actions.DICING))
-            && !action.fromServer){   
+            && !action.fromServer){
             socket.emit(IO_ACTIONS.GAME_ACTION, convertActionToOpponent(action));
 
 
@@ -55,7 +55,7 @@ const socketIoMiddleware = store => next => action => {
     const ret = next(action);
 
     // TODO do it better.
-    if (action  && (action.type == actions.STEP) && (store.getState().game.clientStatus == IN_GAME_STATUS.WINNER)){ 
+    if (action  && (action.type == actions.STEP) && (store.getState().game.clientStatus == IN_GAME_STATUS.WINNER)){
         socket.emit(IO_ACTIONS.GAME_OVER);
     }
 

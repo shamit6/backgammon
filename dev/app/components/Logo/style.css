@@ -1,0 +1,10 @@
+.container {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 3px;
+  text-align: left;
+}
+
+.image{
+  margin:0;
+}

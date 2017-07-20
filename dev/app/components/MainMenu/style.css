@@ -1,8 +1,8 @@
+/*
 .mainMenu{
   display: flex;
   padding: 6px 10px;
   background-color: rgba(19, 35, 47, 0.9);
-  height: 70px;
 }
 
 .symbol {
@@ -37,7 +37,7 @@
   display: inline-block;
 }
 
-.itemsGrid{ 
+.itemsGrid{
   display:flex;
   align-items: flex-start;
   align-content: flex-start;
@@ -86,9 +86,10 @@
   background-color: rgb(31, 125, 37);
 }
 
-/*Animations*/
+
 .slider .bar {
   transition: all 500ms ease-in-out;
   -webkit-transition: all 500ms ease-in-out;
   -moz-transition: all 500ms ease-in-out;
 }
+/*Animations*/

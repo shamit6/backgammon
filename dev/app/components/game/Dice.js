@@ -9,11 +9,11 @@ const randomize = (maxNumber, minNumber = 0) => {
 class Dice extends React.Component {
   static propTypes = {
   };
-  
+
 	constructor(props) {
 		super(props);
 
-        this.calcDegreeByNumber = this.calcDegreeByNumber.bind(this);  
+        this.calcDegreeByNumber = this.calcDegreeByNumber.bind(this);
         this.updateDiceNumber = this.updateDiceNumber.bind(this);
 
         this.state = this.calcDegreeByNumber(this.props.intialNumber);
@@ -31,7 +31,7 @@ class Dice extends React.Component {
         let nextDegZ = 0;
 
         switch (mumber){
-            // case 1: {   
+            // case 1: {
             //     break;
             // }
             case 2: {
@@ -75,28 +75,15 @@ class Dice extends React.Component {
 
 
   render() {
-  	return (
-    <div className={styles.cube} ref={this.props.divRef} 
-        style={{transform:"rotateX("+this.state.degX+"deg) rotateY("+this.state.degY+"deg) rotateZ("+this.state.degZ+"deg)"}}>
-        <div className={styles.one}>
-            1
-        </div>
-        <div className={styles.two}>
-            2
-        </div>
-        <div className={styles.three}>
-            3        
-        </div>
-        <div className={styles.four}>
-            4
-        </div>
-        <div className={styles.five}>
-            5
-        </div>
-        <div className={styles.six}>
-            6
-        </div>
-</div>)
+  	return <div className={styles.cube} ref={this.props.divRef} 
+                style={{transform:"rotateX("+this.state.degX+"deg) rotateY("+this.state.degY+"deg) rotateZ("+this.state.degZ+"deg)"}}>
+              <div className={styles.one}>1</div>
+              <div className={styles.two}>2</div>
+              <div className={styles.three}>3</div>
+              <div className={styles.four}>4</div>
+              <div className={styles.five}>5</div>
+              <div className={styles.six}>6</div>
+            </div>
   }
 }
 

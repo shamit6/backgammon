@@ -16,7 +16,7 @@ export const SEARCH_OPPONENT = "SEARCH_OPPONENT";
 export const SRART_GAME = "SRART_GAME";
 export const OPPONENT_RETIRED = "OPPONENT_RETIRED";
 
-export const login = username => ({type:LOG_IN, content: username});
+export const login = user => ({type:LOG_IN, content: user});
 export const logout = () => ({type:LOG_OUT});
 export const searchOpponent = () => ({type:SEARCH_OPPONENT});
 export const startGame = (isClientStart, opponentInfo) => ({type:SRART_GAME, content:{isClientStart, opponentInfo}});

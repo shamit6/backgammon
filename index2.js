@@ -11,10 +11,12 @@ var compiler = webpack(webpackConfig);
 const port = process.env.PORT || 4445;
 const app = express();
 
-app.use(require("webpack-hot-middleware")(compiler));
-app.use(require("webpack-dev-middleware")(compiler, {
-    noInfo: true, publicPath: webpackConfig.output.publicPath
-}));
+if (process.env.NODE_ENV==='development'){
+		app.use(require("webpack-hot-middleware")(compiler));
+		app.use(require("webpack-dev-middleware")(compiler, {
+		    noInfo: true, publicPath: webpackConfig.output.publicPath
+	}));
+}
 
 app.use('/', express.static(path.resolve(__dirname, '..')));
 
@@ -23,6 +25,3 @@ const httpServer = new http.Server(app);
 create(httpServer);
 
 httpServer.listen(port);
-
-
-
