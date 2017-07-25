@@ -1,7 +1,9 @@
-import React, { PropTypes }  from 'react';
-import {INITIAL_GAME_STATE, IN_GAME_STATUS} from '../../constants';
-import Dice from './Dice';
-import styles from './app.css';
+import React, { PropTypes }  from 'react'
+import {INITIAL_GAME_STATE, IN_GAME_STATUS} from '../../../constants'
+import Dice from '../Dice'
+import style from './style.css'
+import { Container } from 'semantic-ui-react'
+import classnames from 'classnames'
 
 const randomize = (maxNumber) => {
     return Math.floor(Math.random() * maxNumber) + 1;
@@ -78,16 +80,16 @@ const randomize = (maxNumber) => {
     let turnMessage = this.props.clientTurn?"Your Turn ":"Not your turn "
 
   	return (
-      <div className={styles.dicingViewer}>
+      <div className={style.dicing}>
         <Dice diceName={"dice1"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber1} divRef={el => this.cubeRef1 = el}/>
         <Dice diceName={"dice2"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber2} divRef={el => this.cubeRef2 = el}/>
 
-        <button className={styles.dicingButtom}
+        <button className={style.dicingButtom}
           disabled={(!this.props.clientTurn || this.props.diced)} onClick={::this.onDicing}>dice</button>
-          <div className={styles.messagingContainer}>
-            <font className={styles.message}>{turnMessage}</font>
-            <font className={styles.message}>{message}</font>
-          </div>
+          <Container className={classnames(style.messagingContainer)}>
+            {turnMessage}<br/>
+            {message}
+          </Container>
     	</div>
     )
   }
@@ -110,6 +112,11 @@ const randomize = (maxNumber) => {
 
   // componentWillUpdate(nextProps, nextState){
   // }
+  componentWillUnmount(){
+      // this.cubeRef1.removeEventListener("transitionend", this.dicesTransitionEndCallback);
+      // this.cubeRef2.removeEventListener("transitionend", this.dicesTransitionEndCallback);
+  }
+
 }
 
 export default DicingViewer

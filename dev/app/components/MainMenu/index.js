@@ -63,7 +63,7 @@ class MainMenu extends React.Component {
     //   <div className={styles.bar} style={{width:sliderBarWidth+'%',marginLeft:sliderBaroffset + '%'}}></div>
     // </div>
 
-		return <Segment inverted style={{margin:'0', position:'fixed', width:'100%', zIndex:'100'}}>
+		return <Segment inverted style={{margin:'0', position:'fixed', width:'100%', zIndex:'100', borderRadius: '0'}}>
 						{itemsGrid}
 	  		</Segment>
 	}

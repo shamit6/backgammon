@@ -36,10 +36,10 @@ class PointViewer extends React.Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     amount: PropTypes.number.isRequired,
-    isClient:PropTypes.bool.isRequired, 
+    isClient:PropTypes.bool.isRequired,
     pointId: PropTypes.number.isRequired
   };
-  
+
  constructor(props) {
     super(props);
     this.renderOverlay = this.renderOverlay.bind(this)
@@ -50,10 +50,10 @@ class PointViewer extends React.Component {
   }
 
   render() {
-    const {connectDropTarget, isOver, canDrop, pointId, amount, isClient, isRotated, possibleTargets } = this.props;
-    
-    const checkers = Array.apply(null, {length: amount}).map((obj, index) => 
-    		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} isRotated={isRotated} />));	
+    const {connectDropTarget, isOver, canDrop, pointId, amount, isClient, possibleTargets } = this.props;
+
+    const checkers = Array.apply(null, {length: amount}).map((obj, index) =>
+    		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} />));
 
     return connectDropTarget(<div className={styles.pointViewer} disabled={!this.props.isEnabled}>
 

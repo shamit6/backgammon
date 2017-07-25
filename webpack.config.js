@@ -49,21 +49,21 @@ var config = {
   	},
     {
       test: /\.css$/,
-      include: path.join(__dirname, 'dev'),
-      use: [
-        'style-loader',
-        'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[local]___[hash:base64:5]',
-        'postcss-loader',
-      ],
-    },
-    {
-      test: /\.css$/,
       exclude: path.join(__dirname, 'dev'),
       use: [{
               loader:'style-loader',
             },{
               loader:'css-loader',
             }],
+    },
+    {
+      test: /\.css$/,
+      include: path.join(__dirname, 'dev'),
+      use: [
+        'style-loader',
+        'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[local]___[hash:base64:5]',
+        'postcss-loader',
+      ],
     },
     {
       test: /\.svg(\?.*)?$/,

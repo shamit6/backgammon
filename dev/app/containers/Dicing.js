@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { dice, switchTurn } from '../actions'
-import DicingViewer from '../components/game/DicingViewer'
+import DicingViewer from '../components/game/Dicing'
 
 const mapStateToProps = (state, ownProps) => ({
   //isEnabled: (state.clientTurn && !state.diced),

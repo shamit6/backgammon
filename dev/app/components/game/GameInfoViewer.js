@@ -3,11 +3,9 @@ import { Image, Segment, Flag, Icon, Container, Header } from 'semantic-ui-react
 import '../../content/pp.jpg'
 
 const GameInfoViewerComponent = ({opponentInfo, leftSteps}) =>
-
-	<div style={{width:'190px'}}>
 		<Container>
 				Your opponent:
-			<Header size="medium" >
+			<Header size="medium" block>
 				<Image src='/images/pp.jpg' avatar />
 				<Header.Content style={{paddingLeft:"10px",paddingRight:"10px"}}>
 						{opponentInfo.username}
@@ -23,14 +21,5 @@ const GameInfoViewerComponent = ({opponentInfo, leftSteps}) =>
 				{`${opponentInfo.username} remaining steps: ${leftSteps.opponent}`}
 			</p>
 		</Container>
-	</div>
-// <div>
-// {`You2 play against ${opponentInfo.username} (W:${opponentInfo.wins},L:${opponentInfo.losses})`}
-// </div>
-// <div>
-// 	{`Your letf steps: ${leftSteps.client}`}
-// </div>
-// <div>
-// 	{`Opponent letf steps: ${leftSteps.opponent}`}
-// </div>
+
 export default  GameInfoViewerComponent;

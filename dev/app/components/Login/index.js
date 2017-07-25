@@ -54,7 +54,7 @@ class Login extends Component {
 
     return this.props.isLoggedIn ?
       <Redirect to={from}/> :
-        <Segment inverted style={{width:'400px',margin:'auto',position:'relative',top: '30px'}} >
+        <Segment inverted style={{width:'400px',margin:'auto',position:'relative',top:'30px',margin: 'auto'}} >
           <Grid stretched={true} inverted>
             <Grid.Row style={{paddingTop:'20px'}}>
               <Grid.Column>

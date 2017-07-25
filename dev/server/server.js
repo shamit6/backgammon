@@ -58,14 +58,6 @@ io.use((socket, next) => {
         delete playsAgainst[opponentId];
     };
 
-    // const updateUserInfo = (username, isWinner) => {
-    //
-    //   if (isWinner){
-    //     players[username].wins += 1;
-    //   }else{
-    //     players[username].losses += 1;
-    //   }
-    // }
 
   io.on('connection', socket => {
 
@@ -91,6 +83,11 @@ io.use((socket, next) => {
     socket.on(IO_ACTIONS.GAME_ACTION, data => {
             //console.log("server GAME_ACTION" , playsAgainst);
         io.sockets.to(playsAgainst[socket.id]).emit(IO_ACTIONS.GAME_ACTION, data);
+    });
+
+    socket.on(IO_ACTIONS.CHAT_MESSAGE, data => {
+            //console.log("server GAME_ACTION" , playsAgainst);
+        io.sockets.to(playsAgainst[socket.id]).emit(IO_ACTIONS.CHAT_MESSAGE, data);
     });
 
     socket.on(IO_ACTIONS.SEARCH_NEW_OPPONENT, data => {

@@ -14,7 +14,7 @@ const addTrianglesReactivity = () => {
   let avgContainers = document.querySelectorAll("div[data-key]");;
     let svgPapa;
     let poly;
-    
+
     const aa = () => {
         avgContainers.forEach(container => {
           let svgPapa = container.querySelector("svg");
@@ -46,18 +46,18 @@ class Board extends React.Component {
   render() {
     // TODO HittenCheckersArea - my dream is to do it as Hoc
 
-  const eatenCheckerPlace = 
+  const eatenCheckerPlace =
         <div className={styles.eatenCheckerPanel}>
               <HittenCheckersArea pointId={0}>
                 <Point pointId={0}/>
-              </HittenCheckersArea>        
-            <div className={styles.eatenCheckerSubPanel} style={{transform: 'rotate(180deg)'}}>
+              </HittenCheckersArea>
+            <div className={styles.eatenCheckerPanelRotated}>
               <Point pointId={25}/>
-            </div>         
+            </div>
         </div>;
 
   return (
-    <div style={{flex: '6'}}>
+    <div style={{width: 'calc(100% - 220px)'}}>
       <div className={styles.board}>
           {eatenCheckerPlace}
           <div className={styles.subBoardsPanel}>

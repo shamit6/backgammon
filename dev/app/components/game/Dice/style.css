@@ -1,0 +1,50 @@
+.dice {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  transition: transform 2s ease-out;
+  transform-style: preserve-3d;
+  transition-duration: 1s;
+  margin: 15px;
+}
+
+.dice div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  padding: 20px;
+  background-color: rgba(50, 50, 50, 0.7);
+  font-size: 2rem;
+  line-height: 1em;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 10px;
+  margin: 0px;
+}
+
+.one  {
+  transform: translateZ(25px);
+}
+
+ .two {
+  transform: rotateX(90deg) translateZ(25px);
+}
+
+ .three {
+  transform: rotateY(90deg) translateZ(25px);
+}
+
+ .four {
+  transform: rotateY(-90deg) translateZ(25px);
+}
+
+ .five {
+  transform: rotateX(-90deg) rotate(180deg) translateZ(25px);
+}
+
+ .six {
+  transform: rotateY(180deg) translateZ(25px);
+}

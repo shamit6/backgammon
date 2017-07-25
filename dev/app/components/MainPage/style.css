@@ -1,0 +1,6 @@
+.mainContent {
+	position: absolute;
+	top: 70px;
+	width: 100%;
+	height: calc(100% - 70px);
+}
