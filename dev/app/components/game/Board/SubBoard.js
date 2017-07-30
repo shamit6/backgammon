@@ -1,6 +1,6 @@
 import React from 'react';
-import Point from '../../containers/Point';
-import styles from './app.css';
+import Point from '../../../containers/Point';
+import styles from './style.css';
 
 class SubBoard extends React.Component {
 

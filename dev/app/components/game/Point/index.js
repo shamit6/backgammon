@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
-import Checker from './Checker';
-import styles from './app.css';
+import Checker from '../Checker';
+import styles from './style.css';
 
 const pointTarget = {
   drop(props, monitor, component) {
     // It has to be the client.
-    console.error("receiveChecker");
     component.props.receiveChecker(monitor.getItem().fromPoint)
   },
   hover(props, monitor, component){
@@ -55,12 +54,12 @@ class PointViewer extends React.Component {
     const checkers = Array.apply(null, {length: amount}).map((obj, index) =>
     		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} />));
 
-    return connectDropTarget(<div className={styles.pointViewer} disabled={!this.props.isEnabled}>
+    return connectDropTarget(<div className="pointViewer" disabled={!this.props.isEnabled}>
 
           {isOver && !canDrop  && this.renderOverlay('red')}
           {!isOver && canDrop && this.renderOverlay('yellow')}
           {isOver && canDrop && this.renderOverlay('blue')}
-          <div className={styles.checkersContainer} >
+          <div className="checkersContainer" >
             {checkers}
           </div>
 

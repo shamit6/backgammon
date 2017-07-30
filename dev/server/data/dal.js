@@ -7,3 +7,9 @@ export const insertGame = (winner , loser) => {
 
   db.models.games.push({id:maxId+1, winner, loser, date:new Date()});
 }
+
+export const getUserByUsername = username => db.models.users.find(user => (user.username == username))
+
+export const addUser = user => {
+  db.models.users.push(user);
+}

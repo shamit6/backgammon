@@ -84,9 +84,9 @@ const randomize = (maxNumber) => {
         <Dice diceName={"dice1"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber1} divRef={el => this.cubeRef1 = el}/>
         <Dice diceName={"dice2"} dicingFire={this.dicingFire} intialNumber={this.initialDiceNumber2} divRef={el => this.cubeRef2 = el}/>
 
-        <button className={style.dicingButtom}
+        <button className={style.actionButtom}
           disabled={(!this.props.clientTurn || this.props.diced)} onClick={::this.onDicing}>dice</button>
-          <Container className={classnames(style.messagingContainer)}>
+          <Container style={{width:'auto'}} textAlign="left" className={classnames(style.messagingContainer)}>
             {turnMessage}<br/>
             {message}
           </Container>

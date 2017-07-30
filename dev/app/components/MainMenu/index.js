@@ -14,7 +14,6 @@ class MainMenu extends React.Component {
   }
 
   handleItemChange(menuItem) {
-    console.log(this.state);
     this.setState({selectedMenuItem: menuItem.name});
     this.props.history.push(menuItem.to);
   }

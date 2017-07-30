@@ -8,14 +8,10 @@ var OUTPUT = path.resolve(__dirname, "output");
 var config = {
   entry: {
     app:[
-      'webpack-hot-middleware/client',
-      'react-hot-loader/patch',
        DEV + "/app/index.js"
     ],
     html:  DEV + "/content/index.html",
     vendor: [
-      'webpack-hot-middleware/client',
-      'react-hot-loader/patch',
       'react',
       'react-dom',
       'react-router'
@@ -40,7 +36,7 @@ var config = {
   	rules: [
     {
       test: /\.html$/,
-      loader: ['react-hot-loader/webpack', 'file-loader?name=[name].[ext]'],
+      loader: ['file-loader?name=[name].[ext]'],
     },
   	{
   		test: /\.(js|jsx)$/,

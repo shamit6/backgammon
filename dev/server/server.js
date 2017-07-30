@@ -13,7 +13,6 @@ export const create = httpServer => {
 io.use((socket, next) => {
     const username = socket.handshake.query.username;
 
-    console.log("username", username);
     socketToUsername[socket.id] = username;
 
     next();
@@ -21,8 +20,11 @@ io.use((socket, next) => {
 
     const getPlayerInfo = socketId => {
       const username = socketToUsername[socketId];
+      console.log(username);
+      console.log(socketToUsername);
+      
+      const user2 = (db.models.users.find(user => (user.username == username)) || {id:1});
 
-      const user2 = db.models.users.find(user => (user.username == username));
 
       const rate = db.models.games.reduce(({wins, losses}, game) => {
         if (game.winner == user2.id){

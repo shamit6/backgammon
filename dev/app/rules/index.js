@@ -16,10 +16,10 @@ const numberOfCheckersInBoard = (board, isClient, minPoint = 0 , maxPoint = 25) 
 // Only for client
 const isStuckInPoint = (pointId, board, steps, clientState) => {
 	const possibleTargetPointsIds = canBeDraggedTo(pointId, board, steps, clientState);
-	return board.findIndex(p => (possibleTargetPointsIds.indexOf(p.pointId) > -1 && 
+	return board.findIndex(p => (possibleTargetPointsIds.indexOf(p.pointId) > -1 &&
 		isPointFree(p))) == -1;
 }
-	
+
 
 const possibleClientContiniousSteps = (pointId, board, singleSteps) =>{
 
@@ -64,8 +64,8 @@ const possibleClientContiniousSteps = (pointId, board, singleSteps) =>{
 			}
 
 			if (isFirstStepFree || isSecondStepFree){
-				const combinedPoint = getPoint(board, Math.min(pointId+firstStep+secondStep, 25));	
-				
+				const combinedPoint = getPoint(board, Math.min(pointId+firstStep+secondStep, 25));
+
 				if (isPointFree(combinedPoint)){
 					continiousSteps.push(firstStep+secondStep);
 				}
@@ -73,9 +73,9 @@ const possibleClientContiniousSteps = (pointId, board, singleSteps) =>{
 		}
 	}
 	return continiousSteps;
-}	
+}
 
-const isStuckInBoard = (board, steps, clientState) => 
+const isStuckInBoard = (board, steps, clientState) =>
 	(board.filter(p => (p.isClient && p.amount > 0)).
 		every(p => (isStuckInPoint(p.pointId, board, steps, clientState))));
 
@@ -111,8 +111,8 @@ const getStateByBoard = (board, steps) => {
 }
 
 const isPointCanDragTarget = (pointId, clientStatus) => {
-	
-	// if the client was eaten he can only insert  
+
+	// if the client was eaten he can only insert
 	if ((clientStatus == IN_GAME_STATUS.STUCK) || ((clientStatus == IN_GAME_STATUS.EATEN) && (pointId > 6))){
 		return false;
 	}
@@ -124,7 +124,10 @@ const isPointCanDragTarget = (pointId, clientStatus) => {
 const canBeDraggedTo = (pointId, board, singleSteps, clientState) => {
 
 	if (clientState == IN_GAME_STATUS.EATEN){
-		return singleSteps.map(step => (pointId+step))
+		if (pointId == 0){
+				return singleSteps.map(step => pointId+step).filter(pointId => isPointFree(getPoint(board, pointId)))
+			}else
+				return [];
 	}
 
 	const continiousSteps = possibleClientContiniousSteps(pointId, board, singleSteps);

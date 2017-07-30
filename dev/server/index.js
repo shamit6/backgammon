@@ -11,6 +11,7 @@ import webpack from 'webpack'
 import {create} from './server'
 import db from './data/db'
 import http from 'http'
+import register from './routes/register'
 
 let STATIC_FILES_DIRECTORY = (process.env.NODE_ENV === 'production')?
   path.resolve(__dirname, '..'):path.resolve(__dirname, '../content')
@@ -116,12 +117,14 @@ app.get('/main*', isAuthenticated, (req, res)=>{
   res.sendFile(path.join(STATIC_FILES_DIRECTORY, 'index.html'))
 })
 
+
 app.get('/logout', (req, res)=>{
   req.logout()
   res.redirect('/login')
 })
 
 app.use('/', express.static(STATIC_FILES_DIRECTORY));
+app.use('/register', register)
 
 const httpServer = new http.Server(app);
 

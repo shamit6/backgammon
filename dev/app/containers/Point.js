@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 import { step } from '../actions'
-import PointViewer from '../components/game/PointViewer'
+import PointViewer from '../components/game/Point'
 import {canBeDraggedTo, isPointCanDragTarget} from '../rules'
 
 const mapStateToProps = (state, ownProps) => {
 
 	const {amount, isClient, pointId} = state.game.checkersState.find(point => point.pointId == ownProps.pointId)
-	
+
 	const isEnabledByState = isPointCanDragTarget(pointId, state.game.clientStatus);
 	const possibleTargets = canBeDraggedTo(pointId, state.game.checkersState, state.game.steps, state.game.clientStatus);
 

@@ -1,10 +1,10 @@
 import React  from 'react';
 
-import styles from './app.css';
+import styles from '../Checker/style.css';
 
 
 class HittenCheckersAreaViewer extends React.Component {
-  
+
 	constructor(props) {
 		super(props);
 
@@ -12,22 +12,25 @@ class HittenCheckersAreaViewer extends React.Component {
         this.state = {clearInteval: null};
 	}
 
-    flicker(element,bool) {  return () => {
-            let matches = element.querySelectorAll("."+ styles.circle);
-            matches.forEach(circle =>
-                {  
-                    if (bool  === true) {
-                            circle.style["box-shadow"] = '0px 0px 7px 4px rgb(255, 75, 34)';
-                        } else {
-                            circle.style["box-shadow"] = '-1px 1px rgba(0,0,0,0.6)';
-                        }         
-            });
-            bool = !bool; 
-        }
+    flicker(element,bool) {
+			return () => {
+
+        let matches = element.querySelectorAll("." + styles.checkerChipClient.split(' ')[0]);
+
+        matches.forEach(circle =>
+            {
+                if (bool  === true) {
+                        circle.style["box-shadow"] = '0px 0px 7px 4px rgb(255, 75, 34)';
+                    } else {
+                        circle.style["box-shadow"] = '-1px 1px rgba(0,0,0,0.6)';
+                    }
+        });
+        bool = !bool;
+      }
     }
 
     render() {
-    	return <div className={styles.eatenCheckerSubPanel} ref={ e => {this.container = e;}}>
+    	return <div className={this.props.myClassName} ref={ e => {this.container = e;}}>
                     {this.props.children}
                 </div>;
     }
@@ -40,7 +43,7 @@ class HittenCheckersAreaViewer extends React.Component {
             clearInterval(this.state.clearInteval);
             this.setState({clearInteval:null});
         }
-        
+
     }
 }
 
