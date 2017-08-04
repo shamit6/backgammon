@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Segment, Menu, Icon, Input, Checkbox, Header, Form, Label, Button, Message } from 'semantic-ui-react'
 import {COUNTRIES} from '../../../common/constants'
 import style from './style.css'
+import Rx from 'rxjs/Rx';
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -12,6 +13,11 @@ class RegistrationForm extends Component {
                   usernameChecking:false,
                   isServerChecking:false,
                   actionSuccessed:false};
+
+    this.userNameDebouncer = new Rx.Subject().debounceTime(500);
+    this.userNameDebouncer.subscribe({
+      next: (v) => ::this.validateUserName(v)
+    });
   }
 
   handleChangeField(e, { name, value }){
@@ -31,19 +37,27 @@ class RegistrationForm extends Component {
       });
   }
 
+  validateUserName(username){
+    axios.post('/register/validation/username', {'username':username})
+      .then(res => {
+        this.setState({usernameChecking:false,usernameFieldIcon:{name:'checkmark',color:'green',size:'large', style:{width: '1.67142857em'}}});
+      })
+      .catch((err) => {
+        this.setState({usernameChecking:false,usernameFieldIcon:{name:'remove',color:'red',size:'large', style:{width: '1.67142857em'}}});
+      });
+  }
+
   handleUsernameFieldChange(e, { name, value }){
 
     ::this.handleChangeField(e, { name, value });
-    this.setState({usernameChecking:true});
-    axios.post('/register/validation/username', {[name]:value})
-      .then(res => {
-        console.log(res);
-        this.setState({usernameChecking:false,usernameFieldIcon:{name:'checkmark',color:'green'}});
-      })
-      .catch((err) => {
-        this.setState({usernameChecking:false,usernameFieldIcon:{name:'remove',color:'red'}});
-      });
 
+    if (value === ""){
+      this.setState({usernameChecking:false, usernameFieldIcon:'null'});
+    }
+    else {
+      this.setState({usernameChecking:true});
+      this.userNameDebouncer.next(value);
+    }
 
   }
 

@@ -2,30 +2,20 @@ const db = {
   models:{
     users:[
       {
-        id:1, username:"amitush",name:"Amit Shalev",password:"123",country:"us"
-        // games:[
-        //   {id:1, opponentId:2, isWinner:true, date:new Date()},
-        //   {id:2, opponentId:3, isWinner:false, date:new Date()-10000}
-        // ]
+        username:"amitush",firstName:"Amit", lastName:"Shalev",password:"123",country:"us"
       },
       {
-        id:2, username:"deanush",name:"Dean Shub",password:"234",country:"il"
-        // games:[
-        //   {id:1, opponentId:1, isWinner:false, date:new Date()}
-        // ]
+        username:"deanush",firstName:"Dean", lastName:"Shub",password:"234",country:"il"
       },
       {
-        id:3, username:"avivush",name:"Aviv Aviv",password:"345",country:"ch"
-        // games:[
-        //   {id:2, opponentId:1, isWinner:true, date:new Date()-10000}
-        // ]
+        username:"avivush",firstName:"Aviv", lastName:"Aviv",password:"345",country:"ch"
       },
     ],
     games:[
-      {id:1, date:new Date(), winner:1, loser:2},
-      {id:2, date:new Date()-1000, winner:1, loser:3},
-      {id:3, date:new Date()-4000, winner:2, loser:3},
-      {id:4, date:new Date()-10000, winner:1, loser:3},
+      {id:1, date:new Date(), winner:"amitush", loser:"deanush"},
+      {id:2, date:new Date(), winner:"amitush", loser:"avivush"},
+      {id:3, date:new Date(), winner:"deanush", loser:"avivush"},
+      {id:4, date:new Date(), winner:"amitush", loser:"avivush"},
     ]
   }
 }

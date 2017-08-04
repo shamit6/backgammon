@@ -41,7 +41,6 @@ class PointViewer extends React.Component {
 
  constructor(props) {
     super(props);
-    this.renderOverlay = this.renderOverlay.bind(this)
   }
 
   renderOverlay(color) {
@@ -56,9 +55,9 @@ class PointViewer extends React.Component {
 
     return connectDropTarget(<div className="pointViewer" disabled={!this.props.isEnabled}>
 
-          {isOver && !canDrop  && this.renderOverlay('red')}
-          {!isOver && canDrop && this.renderOverlay('yellow')}
-          {isOver && canDrop && this.renderOverlay('blue')}
+          {isOver && !canDrop  && ::this.renderOverlay('red')}
+          {!isOver && canDrop && ::this.renderOverlay('yellow')}
+          {isOver && canDrop && ::this.renderOverlay('blue')}
           <div className="checkersContainer" >
             {checkers}
           </div>

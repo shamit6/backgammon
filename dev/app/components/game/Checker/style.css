@@ -12,6 +12,7 @@
   composes:checkerChip;
   box-shadow: -1px 1px white;
   background-color: white;
+  z-index: 99;
 }
 
 .checkerChipOpponent{
@@ -23,7 +24,6 @@
 .checkerDndPreview {
   position: fixed;
   pointer-events: none;
-  z-index: 99;
   left: 0;
   top: 0;
   width: 100%;

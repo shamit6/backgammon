@@ -1,41 +1,38 @@
 import socketIo from 'socket.io'
 import {IO_ACTIONS} from '../common/constants'
-import db from './data/db'
-import dal from './data/dal'
+import {winsLossesRecord, getUserByUsername} from './data/dal'
+
 export const create = httpServer => {
 
   const io = socketIo(httpServer);
   let players = {};
-  let socketToUsername = {};
+  let socketToUser = {};
   let waitingPlayers = [];
   let playsAgainst = {};
 
 io.use((socket, next) => {
     const username = socket.handshake.query.username;
+    const isGuest = socket.handshake.query.isGuest;
 
-    socketToUsername[socket.id] = username;
-
+    socketToUser[socket.id] = {username, isGuest: (isGuest == 'true')};
+    console.log("connect", isGuest, socketToUser[socket.id]);
     next();
 });
 
     const getPlayerInfo = socketId => {
-      const username = socketToUsername[socketId];
-      console.log(username);
-      console.log(socketToUsername);
-      
-      const user2 = (db.models.users.find(user => (user.username == username)) || {id:1});
+      const user = socketToUser[socketId];
+      const username = user.username;
+      console.log("Get playerInfo: ", user);
 
+      if (user.isGuest){
+        return user;
+      }
 
-      const rate = db.models.games.reduce(({wins, losses}, game) => {
-        if (game.winner == user2.id){
-          return {wins:wins+1, losses}
-        }else if (game.loser == user2.id){
-          return {wins, losses:losses+1}
-        }
-        return {wins, losses};
-      },{wins:0, losses:0});
+      const userInfo = getUserByUsername(username);
 
-      return {username, country:user2.country, ...rate}
+      const rate = winsLossesRecord(username);
+
+      return {username, country:userInfo.country, ...rate}
     };
 
     const searchOppenent = socketId => {
@@ -79,7 +76,7 @@ io.use((socket, next) => {
           }
         }
 
-        delete socketToUsername[socket.id]
+        delete socketToUser[socket.id]
       });
 
     socket.on(IO_ACTIONS.GAME_ACTION, data => {
@@ -100,14 +97,14 @@ io.use((socket, next) => {
 
       console.log("GAME_OVER");
       // The winner send this event.
-      const name = socketToUsername[socket.id];
-      const user = db.models.users.find(user => (user.username == name));
+      const name = socketToUser[socket.id];
+      const user = getUserByUsername(user.username == name);
 
       // update oppent info
-      const opponentName = socketToUsername[playsAgainst[socket.id]];
-      const opponent = db.models.users.find(user => (user.username == opponentName));
+      const opponentName = socketToUser[playsAgainst[socket.id]];
+      const opponent = getUserByUsername(user.username == opponentName);
 
-      dal.insertGame(user.id, opponent.id)
+      dal.insertGame(user.username, opponent.username)
 
       deleteGameOfSocket(socket.id);
 

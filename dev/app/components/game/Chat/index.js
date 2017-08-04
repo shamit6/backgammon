@@ -52,7 +52,7 @@ class Chat extends React.Component {
       if (e.keyCode == 8){
         this.setState({messageInputValue:messageInputValue.substring(0, messageInputValue.length-1)});
       }else if (e.keyCode == 13 && messageInputValue != ""){
-        this.sendMessage.call(this);
+        ::this.sendMessage();
       }
     }
   }

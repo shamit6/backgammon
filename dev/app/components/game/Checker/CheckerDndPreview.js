@@ -22,17 +22,9 @@ class CheckerPreview extends React.Component {
         const { isDragging, sourceOffset } = this.props;
         if (!isDragging) { return null; }
 
-        let style2;
-        // if (isRotated){
-        //     style2 = {
-        //         transform: sourceOffset ? `rotate(180deg) translate(${sourceOffset.x}px, ${sourceOffset.y}px) scale(1)` : ''
-        //     };
-        // }else{
-
-            style2 = {
+        const style2 = {
                 transform: sourceOffset ? `translate(${sourceOffset.x}px, ${sourceOffset.y}px)` : ''
             };
-        // }
 
         return <div className={style.checkerDndPreview} style={style2}>
                 <CheckerChip isClient={this.props.isClient}/>

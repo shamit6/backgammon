@@ -1,20 +1,11 @@
 import React from 'react';
-import { Image, Segment, Flag, Icon, Container, Header } from 'semantic-ui-react'
-import '../../content/pp.jpg'
+import { Container } from 'semantic-ui-react'
+import PlayerCard from '../PlayerHorizontalCard'
 
 const GameInfoViewerComponent = ({opponentInfo, leftSteps}) =>
-		<Container style={{width:'auto'}}>
+		<Container style={{width:'100%'}}>
 				Your opponent:
-			<Header size="medium" block>
-				<Image src='/images/pp.jpg' avatar />
-				<Header.Content style={{ paddingLeft:'10px',paddingRight:'10px'}}>
-						{opponentInfo.username}
-					<Header.Subheader>
-						<Flag name={opponentInfo.country}/>
-					</Header.Subheader>
-				</Header.Content>
-			</Header>
-
+				<PlayerCard playerInfo={opponentInfo}/>
 			<p>
 				{`Your remaining steps: ${leftSteps.client}`}
 			<br/>

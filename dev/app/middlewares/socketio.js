@@ -7,25 +7,26 @@ import {IN_GAME_STATUS} from '../constants';
 
 const initSocket = (store, username) => {
 
-    socket.init(document.location.host, { query: `username=${username}`});
+  const isGuest = store.getState().session.user.playAsGuest
+  socket.init(document.location.host, { query: `username=${username}&isGuest=${isGuest}`});
 
-    socket.on('disconnect', () => {
-        console.warn('Server disconnected');
-    });
+  socket.on('disconnect', () => {
+      console.warn('Server disconnected');
+  });
 
-    socket.on(IO_ACTIONS.START_GAME, data => {
+  socket.on(IO_ACTIONS.START_GAME, data => {
 
-        store.dispatch(actions.startGame(data.start, data.opponentInfo));
-        //store.dispatch(setTurn(data.start));
-    });
+      store.dispatch(actions.startGame(data.start, data.opponentInfo));
+      //store.dispatch(setTurn(data.start));
+  });
 
-    socket.on(IO_ACTIONS.GAME_ACTION, data => {
-        store.dispatch({type:data.type, fromServer:true, content:data.content});
-    });
+  socket.on(IO_ACTIONS.GAME_ACTION, data => {
+      store.dispatch({type:data.type, fromServer:true, content:data.content});
+  });
 
-    socket.on(IO_ACTIONS.OPPONENT_RETIREMENT, () => {
-        store.dispatch(actions.opponentRetirment());
-    });
+  socket.on(IO_ACTIONS.OPPONENT_RETIREMENT, () => {
+      store.dispatch(actions.opponentRetirment());
+  });
 };
 
 
@@ -33,10 +34,6 @@ const socketIoMiddleware = store => next => action => {
 
 
     if (action){
-        if (action.type == actions.LOG_IN){
-            initSocket(store, action.content.username);
-        }
-
         if (action.type == actions.LOG_OUT){
             socket.close();
         }
@@ -55,10 +52,15 @@ const socketIoMiddleware = store => next => action => {
     const ret = next(action);
 
     // TODO do it better.
-    if (action  && (action.type == actions.STEP) && (store.getState().game.clientStatus == IN_GAME_STATUS.WINNER)){
-        socket.emit(IO_ACTIONS.GAME_OVER);
-    }
+    if (action){
+      if (action.type == actions.LOG_IN){
+          initSocket(store, action.content.username);
+      }
 
+      if ((action.type == actions.STEP) && (store.getState().game.clientStatus == IN_GAME_STATUS.WINNER)){
+          socket.emit(IO_ACTIONS.GAME_OVER);
+      }
+  }
     return ret;
 };
 

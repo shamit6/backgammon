@@ -3,6 +3,7 @@ import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { Segment, Menu, Icon, Input, Checkbox, Header, Dropdown, Button, Message } from 'semantic-ui-react'
 import Logo from '../Logo'
+import style from './style.css'
 
 class MainMenu extends React.Component {
 
@@ -23,13 +24,13 @@ class MainMenu extends React.Component {
                                   <Icon name='user'/>
                                     {this.props.userInfo.username}
                                 </span>;
-    const dropDown = <Dropdown trigger={dropDownTrigger} className='icon'>
+    const dropDown = <Dropdown trigger={dropDownTrigger} >
                         <Dropdown.Menu>
-                          <Dropdown.Item>
+                          <Dropdown.Item className={style.dropdownOption}>
                             my profile
                           </Dropdown.Item>
-                          <Dropdown.Divider/>
-                          <Dropdown.Item onClick={this.props.logout}>
+                          <Dropdown.Divider className={style.dropdownDivider}/>
+                          <Dropdown.Item onClick={this.props.logout} className={style.dropdownOption}>
                             logout
                           </Dropdown.Item>
                         </Dropdown.Menu>

@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import { Segment, Menu, Icon, Input, Checkbox, Header, Form, Grid, Button, Message } from 'semantic-ui-react'
+import { Form, Message } from 'semantic-ui-react'
 
 class LoginForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { formData:{username:"amitush",password:"123"},
+    this.state = { formData:{playAsGuest:false},
                   isServerChecking:false,
                   actionFailed:false};
   }
@@ -15,9 +15,8 @@ class LoginForm extends Component {
   handleLogin(e){
     e.preventDefault();
     this.setState({isServerChecking:true});
-    const { username, password } = this.state.formData;
-
-    axios.post('/login', {username, password})
+    
+    axios.post('/login', this.state.formData)
       .then(res => {
         this.props.login(res.data.user);
         history.push('/');
@@ -28,19 +27,20 @@ class LoginForm extends Component {
 
   }
 
-  //toggle = (name) => () =>  this.setState({formData:{ ...this.state.formData, [name]: !this.state.formData.keep }})
-  // <Form.Checkbox
-  //   name="keep"
-  //   label='Keep me logged in'
-  //   checked={keep}
-  //   onChange={::this.toggle("keep")}/>
+  toggle = (name) => () => this.setState({formData:{ ...this.state.formData, [name]: !this.state.formData[name] }})
+
 
   render() {
 
-    const {username, password} = this.state.formData;
+    const {username, password, playAsGuest} = this.state.formData;
 
     return <Form onSubmit={::this.handleLogin} inverted
                   error={this.state.actionFailed}>
+              <Form.Checkbox
+                    name="playAsGuest"
+                    label='play as guest'
+                    checked={playAsGuest}
+                    onChange={::this.toggle("playAsGuest")}/>
               <Form.Input
                 name="username"
                 label="Username"
@@ -59,7 +59,8 @@ class LoginForm extends Component {
                 placeholder='Password'
                 value={password}
                 onChange={::this.handleChangeField}
-                required/>
+                disabled={playAsGuest}
+                required={!playAsGuest}/>
               <Form.Button type='submit' color='green'
               loading={this.state.isServerChecking}>Login</Form.Button>
               <Message

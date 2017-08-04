@@ -12,6 +12,7 @@ import {create} from './server'
 import db from './data/db'
 import http from 'http'
 import register from './routes/register'
+import statistics from './routes/statistics'
 
 let STATIC_FILES_DIRECTORY = (process.env.NODE_ENV === 'production')?
   path.resolve(__dirname, '..'):path.resolve(__dirname, '../content')
@@ -78,14 +79,18 @@ passport.use(new Strategy(
 
 
 app.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user) => {
-    if (err) { return next(err) }
-    if (!user) { return res.status(403).json({error:'Username or password are Incorrect.'}) }
-    req.logIn(user, (err) => {
+  if (req.body.playAsGuest){
+    res.json({user:{username:req.body.username, playAsGuest:true}})
+  }else{
+    passport.authenticate('local', (err, user, info) => {
       if (err) { return next(err) }
-      res.json({user:user})
-    })
-  })(req, res, next)
+      if (!user) { return res.status(403).json({error:'Username or password are Incorrect.'}) }
+      req.logIn(user, (err) => {
+        if (err) { return next(err) }
+        res.json({user:user})
+      })
+    })(req, res, next)
+  }
 })
 
 // app.post('/login',
@@ -125,6 +130,7 @@ app.get('/logout', (req, res)=>{
 
 app.use('/', express.static(STATIC_FILES_DIRECTORY));
 app.use('/register', register)
+app.use('/statistics', statistics)
 
 const httpServer = new http.Server(app);
 

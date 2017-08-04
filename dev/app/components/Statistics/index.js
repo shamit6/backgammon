@@ -2,6 +2,7 @@ import React from 'react'
 import Loading from '../Loading'
 import { Route } from 'react-router-dom'
 import { Segment, Menu, Search } from 'semantic-ui-react'
+import PlayerStats from '../PlayerStats'
 //import style from './style.css'
 
 class Statistics extends React.Component{
@@ -31,6 +32,8 @@ class Statistics extends React.Component{
 					{menu}
           <div style={{flex:'1'}}>
             {search}
+
+            <PlayerStats/>
           </div>
 				</Segment>;
 	}
