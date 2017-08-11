@@ -5,7 +5,7 @@ import { Form, Message } from 'semantic-ui-react'
 class LoginForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { formData:{playAsGuest:false},
+    this.state = { formData:{username:"amitush", password:"123", playAsGuest:false},
                   isServerChecking:false,
                   actionFailed:false};
   }
@@ -15,7 +15,7 @@ class LoginForm extends Component {
   handleLogin(e){
     e.preventDefault();
     this.setState({isServerChecking:true});
-    
+
     axios.post('/login', this.state.formData)
       .then(res => {
         this.props.login(res.data.user);

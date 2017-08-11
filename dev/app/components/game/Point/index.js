@@ -54,15 +54,13 @@ class PointViewer extends React.Component {
     		(<Checker key={index} size={10} pointId={pointId} possibleTargets={possibleTargets} isClient={isClient} />));
 
     return connectDropTarget(<div className="pointViewer" disabled={!this.props.isEnabled}>
-
-          {isOver && !canDrop  && ::this.renderOverlay('red')}
-          {!isOver && canDrop && ::this.renderOverlay('yellow')}
-          {isOver && canDrop && ::this.renderOverlay('blue')}
+          {this.props.children}
           <div className="checkersContainer" >
             {checkers}
           </div>
-
-          {this.props.children}
+          {isOver && !canDrop  && ::this.renderOverlay('red')}
+          {!isOver && canDrop && ::this.renderOverlay('yellow')}
+          {isOver && canDrop && ::this.renderOverlay('blue')}
         </div>)
   }
 }

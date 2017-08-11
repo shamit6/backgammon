@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Segment, Menu, Icon, Input, Checkbox, Header, Form, Label, Button, Message } from 'semantic-ui-react'
 import {COUNTRIES} from '../../../common/constants'
 import style from './style.css'
-import Rx from 'rxjs/Rx';
+import Rx from 'rxjs/Rx'
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -40,10 +40,12 @@ class RegistrationForm extends Component {
   validateUserName(username){
     axios.post('/register/validation/username', {'username':username})
       .then(res => {
-        this.setState({usernameChecking:false,usernameFieldIcon:{name:'checkmark',color:'green',size:'large', style:{width: '1.67142857em'}}});
+        this.setState({usernameChecking:false,
+                       usernameFieldIcon:{name:'checkmark',color:'green',size:'large', style:{width: '1.67142857em'}}});
       })
       .catch((err) => {
-        this.setState({usernameChecking:false,usernameFieldIcon:{name:'remove',color:'red',size:'large', style:{width: '1.67142857em'}}});
+        this.setState({usernameChecking:false,
+                      usernameFieldIcon:{name:'remove',color:'red',size:'large', style:{width: '1.67142857em'}}});
       });
   }
 
@@ -53,18 +55,16 @@ class RegistrationForm extends Component {
 
     if (value === ""){
       this.setState({usernameChecking:false, usernameFieldIcon:'null'});
-    }
-    else {
+    } else {
       this.setState({usernameChecking:true});
       this.userNameDebouncer.next(value);
     }
-
   }
 
   render() {
 
     const {username, password} = this.state.formData;
-//<Label style={{position:'absolute',zIndex:'1'}} basic color='red' pointing={true}>Please enter a value</Label>
+
     return <Form inverted onSubmit={::this.handleRegistration} success={this.state.actionSuccessed}>
       <Form.Group width={2}>
           <Form.Input className={style.field}
@@ -76,7 +76,6 @@ class RegistrationForm extends Component {
             loading={this.state.usernameChecking}
             onChange={::this.handleUsernameFieldChange}
             required />
-
         <Form.Input
           required
           name="firstName"
@@ -112,8 +111,7 @@ class RegistrationForm extends Component {
       <Message
             content="You can login now"
             header="Welcome"
-            success
-        />
+            success/>
     </Form>
   }
 }

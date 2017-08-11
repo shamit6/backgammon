@@ -5,7 +5,7 @@
   "scripts": {
     "start-app-dev": "webpack-dev-server --config webpack.config.js  --progress --inline",
     "start-dev": "cross-env NODE_ENV=development babel-node ./dev/server/index.js",
-    "start-dev-nodemon": "cross-env NODE_ENV=development nodemon --inspect ./dev/server/index.js --exec babel-node",
+    "start-dev-nodemon": "cross-env NODE_ENV=development nodemon ./dev/server/index.js --exec babel-node",
     "clean": "cross-env rmdir /s /q .\\output\\",
     "build-app": "webpack --config webpack.config.prod.js --progress --colors",
     "build-server": "babel dev -d output --ignore app,content --copy-files",

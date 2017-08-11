@@ -9,9 +9,14 @@ class MainMenu extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {selectedMenuItem: this.props.menuItems[0].name};
 
-    this.handleItemChange = this.handleItemChange.bind(this);
+    this.state = {selectedMenuItem: ::this.clacCurrentTab()};
+  }
+
+  clacCurrentTab(){
+    const currentLocation = this.props.location.pathname;
+    const componentPath = this.props.match.path;
+    return currentLocation.slice(componentPath.length+1).split('/')[0]
   }
 
   handleItemChange(menuItem) {
@@ -47,7 +52,7 @@ class MainMenu extends React.Component {
                             name={menuItem.name}
                             key={index+2}
                             active={selectedMenuItem === menuItem.name}
-                            onClick={() => this.handleItemChange(menuItem)}>
+                            onClick={() => ::this.handleItemChange(menuItem)}>
                             {menuItem.name}
                           </Menu.Item>)}
                           <Menu.Menu position='right' key={2}>

@@ -15,7 +15,6 @@ class Chat extends React.Component {
 
   constructor(props) {
 		super(props)
-    this.eee;
 
     socket.on(IO_ACTIONS.CHAT_MESSAGE, data => {
       const messages = this.state.messages;
@@ -25,6 +24,9 @@ class Chat extends React.Component {
                     messageInputIsFocused:false});
     });
     this.state = {messages:[], messageInputValue:""};
+
+    this.handleOnKeyPress = ::this.handleOnKeyPress;
+    this.handleOnKeyDown = ::this.handleOnKeyDown;
 	}
 
   sendMessage(){
@@ -49,6 +51,8 @@ class Chat extends React.Component {
     const {messageInputValue, messageInputIsFocused} = this.state;
 
     if (!messageInputIsFocused){
+
+      // Back space - delete
       if (e.keyCode == 8){
         this.setState({messageInputValue:messageInputValue.substring(0, messageInputValue.length-1)});
       }else if (e.keyCode == 13 && messageInputValue != ""){
@@ -71,8 +75,8 @@ class Chat extends React.Component {
   }
 
   componentDidMount(){
-      document.addEventListener("keypress", ::this.handleOnKeyPress);
-      document.addEventListener("keydown", ::this.handleOnKeyDown);
+      document.addEventListener("keypress", this.handleOnKeyPress);
+      document.addEventListener("keydown", this.handleOnKeyDown);
   }
 
 
@@ -84,7 +88,7 @@ class Chat extends React.Component {
           <OppenentMessage key={index} content={message.content}/>);
 
     return <Segment.Group color='white' style={{display: 'flex',flexDirection:'column',flexGrow: '1'}}>
-            <div ref={e => {this.eee = e}} style={{flexGrow: '1', overflowY: 'scroll'}}>
+            <div ref={e => {this.messageContainer = e}} style={{flexGrow: '1', overflowY: 'scroll'}}>
               {messages}
             </div>
 
@@ -95,19 +99,18 @@ class Chat extends React.Component {
                    onChange={::this.handleInputChange}
                    action={<Button onClick={::this.sendMessage}
                                    disabled={this.state.messageInputValue == ""}
-                                   icon="send"
-                           />}
-            />
+                                   icon="send"/>}/>
             </Segment.Group>
   }
 
   componentDidUpdate(){
-    this.eee.scrollTop = this.eee.scrollHeight;
+    this.messageContainer.scrollTop = this.messageContainer.scrollHeight;
   }
 
   componentWillUnmount(){
-    document.removeEventListener("keydown", ::this.handleOnKeyDown);
-    document.removeEventListener("keypress", ::this.handleOnKeyPress);
+    console.log("ssdssdsds");
+    document.removeEventListener("keydown", this.handleOnKeyDown);
+    document.removeEventListener("keypress", this.handleOnKeyPress);
   }
 }
 

@@ -23,9 +23,13 @@ export const winsLossesRecord = username => db.models.games.reduce(({wins, losse
       return {wins, losses};
     },{wins:0, losses:0});
 
-export const getGamesOfUser = username => db.models.games.
+export const getGamesOfUser = (username, offest, count) => db.models.games.
   filter(game => (game.winner == username || game.loser == username)).
+  slice(offest, count + offest).
   map(({id, date, winner, loser}) => ((winner == username)?
                                           {id, date, opponent:loser, isWinner:true}
                                         :
                                           {id, date, opponent:winner, isWinner:false}));
+
+export const filterUsersByUsername = regExp => db.models.users.
+  filter(user => regExp.test(user.username));

@@ -1,26 +1,24 @@
-import React from 'react';
-import MainMenu from '../MainMenu';
-import Statistics from '../Statistics';
-import Loading from '../Loading';
-import { Route } from 'react-router-dom';
-import GameZone from '../../containers/GameZone';
-import style from './style.css';
+import React, {Component} from 'react'
+import { Route } from 'react-router-dom'
+import MainMenu from '../MainMenu'
+import Statistics from '../Statistics'
+import PrivateRoute from '../../containers/PrivateRoute'
+import GameZone from '../../containers/GameZone'
+import style from './style.css'
 
-class MainPage extends React.Component{
+const MainPage = props => {
+		const currentPath = props.match.path
+		const gamePath = `${currentPath}/game`
+		const statisticsPath = `${currentPath}/statistics`
 
-	constructor(props){
-		super(props);
-	}
-
-	render() {
+		const menuItems = [{to:gamePath ,name:"game"},{to:statisticsPath ,name:"statistics"}]
 		return <div>
-					<MainMenu logout={this.props.logout} {...this.props} menuItems={[{to:"/main/game" ,name:"game"},{to:"/main/statistics" ,name:"statistics"}]} />
+					<MainMenu logout={props.logout} {...props} menuItems={menuItems} />
 					<div className={style.mainContent}>
-						<Route path="/main/game" component={GameZone}/>
-						<Route path="/main/statistics" component={Statistics}/>
+						<Route path={gamePath} component={GameZone}/>
+						<Route path={statisticsPath} component={Statistics}/>
 					</div>
-				</div>;
-	}
+				</div>
 }
 
 export default MainPage

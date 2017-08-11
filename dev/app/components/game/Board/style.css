@@ -23,14 +23,14 @@ $border-board-size: 7px;
   display: flex;
   flex-wrap: wrap;
   border: $border-board-size solid $border-board-color;
-  background-color: rgb(185, 110, 0);
+  background-color: #c78729;
 }
 
 .subBoard {
     width: 50%;
     height: 50%;
     display: flex;
-		
+
     .subBoardItem {
         display: flex;
         flex-direction: column;
@@ -54,7 +54,6 @@ $border-board-size: 7px;
     width: 90%;
     display: flex;
     flex-direction: column;
-		z-index:1;
 }
 
 .subBoardRotated {
@@ -83,7 +82,7 @@ $border-board-size: 7px;
     width: 5%;
     display: flex;
 		flex-direction: column;
-    background: #9e9e9e;
+    background: #79500f;
     border-top: $border-board-size solid $border-board-color;
     border-left: $border-board-size solid $border-board-color;
     border-bottom: $border-board-size solid $border-board-color;
@@ -91,8 +90,9 @@ $border-board-size: 7px;
 
 .eatenCheckerSubPanel {
     width: 100%;
-    height: 50%;
-    border: $border-board-siz solid $border-board-color;
+    /*height: 50%;*/
+		flex: 1;
+		display: flex;
 }
 
 .eatenCheckerSubPanelRotated {

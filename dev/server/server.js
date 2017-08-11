@@ -15,14 +15,13 @@ io.use((socket, next) => {
     const isGuest = socket.handshake.query.isGuest;
 
     socketToUser[socket.id] = {username, isGuest: (isGuest == 'true')};
-    console.log("connect", isGuest, socketToUser[socket.id]);
+
     next();
 });
 
     const getPlayerInfo = socketId => {
       const user = socketToUser[socketId];
       const username = user.username;
-      console.log("Get playerInfo: ", user);
 
       if (user.isGuest){
         return user;
@@ -32,7 +31,7 @@ io.use((socket, next) => {
 
       const rate = winsLossesRecord(username);
 
-      return {username, country:userInfo.country, ...rate}
+      return {username, img:userInfo.img, country:userInfo.country, ...rate}
     };
 
     const searchOppenent = socketId => {

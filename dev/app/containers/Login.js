@@ -9,7 +9,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   login: (user) => {
-    console.log("in login", user);
     dispatch(login(user));
   }
 })

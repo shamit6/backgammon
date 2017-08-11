@@ -8,7 +8,7 @@ import socketIoMiddleware from './middlewares/socketio';
 import spamUserActionFilter from './middlewares/spamUserActionFilter';
 import logger from 'redux-logger';
 
-import App from './containers/App';
+import App from './components/App';
 import {getInitialGameState, getInitialSessionState} from './constants';
 import { login } from './actions';
 import 'semantic-ui-css/semantic.min.css';

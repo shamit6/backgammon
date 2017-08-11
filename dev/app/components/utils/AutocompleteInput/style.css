@@ -1,0 +1,30 @@
+.focusedSearchItem, .searchItem {
+  position: relative;
+  text-align: left;
+}
+
+.searchItem:after {
+  content: '\A';
+  position: absolute;
+  width: 100%; height:100%;
+  top:0; left:0;
+  background:rgb(0,0,0);
+  opacity: 0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+/*.searchItem:hover:after {
+    opacity: 0.15;
+}*/
+
+.focusedSearchItem:after {
+  content: '\A';
+  position: absolute;
+  width: 100%; height:100%;
+  top:0; left:0;
+  background:rgb(0,0,0);
+  opacity: 0.15;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
