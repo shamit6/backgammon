@@ -1,4 +1,4 @@
-import React, { PropTypes }  from 'react'
+import React, { Component, PropTypes }  from 'react'
 import {INITIAL_GAME_STATE, IN_GAME_STATUS} from '../../../constants'
 import Dice from '../Dice'
 import style from './style.css'
@@ -10,7 +10,7 @@ const randomize = (maxNumber) => {
   }
 
 // Cancel the container and use state?
- class DicingViewer extends React.Component {
+ class DicingViewer extends Component {
   static propTypes = {
     //onDicing: PropTypes.func.isRequired,
     dice1: PropTypes.number.isRequired,

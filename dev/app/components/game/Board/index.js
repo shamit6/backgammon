@@ -1,14 +1,14 @@
-import React from 'react';
-import SubBoard from './SubBoard';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { default as TouchBackend } from 'react-dnd-touch-backend';
-import Dicing from '../../../containers/Dicing';
-import HittenCheckersArea from '../../../containers/HittenCheckersArea';
-import {POINTS_ON_BOARD} from '../../../constants';
-import Point from '../../../containers/Point';
-import styles from './style.css';
-import Rx from 'rxjs/Rx';
+import React, { Component } from 'react'
+import SubBoard from './SubBoard'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import { default as TouchBackend } from 'react-dnd-touch-backend'
+import Dicing from '../../../containers/Dicing'
+import HittenCheckersArea from '../../../containers/HittenCheckersArea'
+import {POINTS_ON_BOARD} from '../../../constants'
+import Point from '../../../containers/Point'
+import styles from './style.css'
+import Rx from 'rxjs/Rx'
 
 const addTrianglesReactivity = () => {
   let avgContainers = document.querySelectorAll("div[data-key]");;
@@ -30,7 +30,7 @@ const addTrianglesReactivity = () => {
   });
 };
 
-class Board extends React.Component {
+class Board extends Component {
 
   componentDidMount(){
     addTrianglesReactivity();
@@ -68,4 +68,3 @@ class Board extends React.Component {
 }
 
 export default DragDropContext(TouchBackend({enableMouseEvents: true}))(Board)
-//export default DragDropContext(HTML5Backend)(Game)

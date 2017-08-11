@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Input, Button, Label, Segment } from 'semantic-ui-react'
 import style from './style.css';
 import socket from '../../../socket';
@@ -11,8 +11,7 @@ const message = ({textAlign, color, pointing}) => ({key ,content}) => (
 const ClientMessage = message({textAlign:"right", pointing:"right", color:"olive"});
 const OppenentMessage = message({textAlign:"left", pointing:"left", color:"yellow"})
 
-class Chat extends React.Component {
-
+class Chat extends Component {
   constructor(props) {
 		super(props)
 
@@ -47,7 +46,6 @@ class Chat extends React.Component {
   }
 
   handleOnKeyDown(e){
-
     const {messageInputValue, messageInputIsFocused} = this.state;
 
     if (!messageInputIsFocused){
@@ -62,7 +60,6 @@ class Chat extends React.Component {
   }
 
   handleOnKeyPress(e){
-
     const {messageInputValue, messageInputIsFocused} = this.state;
 
     if (!messageInputIsFocused){
@@ -78,7 +75,6 @@ class Chat extends React.Component {
       document.addEventListener("keypress", this.handleOnKeyPress);
       document.addEventListener("keydown", this.handleOnKeyDown);
   }
-
 
   render(){
     const messages = this.state.messages.map((message, index) =>
@@ -108,7 +104,6 @@ class Chat extends React.Component {
   }
 
   componentWillUnmount(){
-    console.log("ssdssdsds");
     document.removeEventListener("keydown", this.handleOnKeyDown);
     document.removeEventListener("keypress", this.handleOnKeyPress);
   }

@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Table, Loader } from 'semantic-ui-react'
 import {debounce} from '../../utils'
-//import Rx from 'rxjs/Rx'
 
 const INITIAL_STATE = {offsetItemsPaging:0, pageSize:3, moreItemToLoad:false, isLoadingItems:false, items:[]};
 
@@ -44,7 +43,6 @@ class DynamicLoadTable extends Component {
    }
 
   handleScroll(target) {
-    console.log("handleScroll");
     if (this.state.moreItemToLoad ){
       if (target.scrollTop + target.clientHeight >= target.scrollHeight ) {
         this.fetchData.call(this);

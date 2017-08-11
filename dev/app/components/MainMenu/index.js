@@ -1,11 +1,10 @@
-import React from 'react'
-//import styles from './mainMenuStyle.css'
+import React, { Component } from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import { Segment, Menu, Icon, Input, Checkbox, Header, Dropdown, Button, Message } from 'semantic-ui-react'
+import { Segment, Menu, Icon, Dropdown } from 'semantic-ui-react'
 import Logo from '../Logo'
 import style from './style.css'
 
-class MainMenu extends React.Component {
+class MainMenu extends Component {
 
   constructor(props) {
     super(props);
@@ -41,8 +40,8 @@ class MainMenu extends React.Component {
                         </Dropdown.Menu>
                       </Dropdown>
 
-		const menuItems = this.props.menuItems;
-    const selectedMenuItem = this.state.selectedMenuItem;
+		const menuItems = this.props.menuItems
+    const selectedMenuItem = this.state.selectedMenuItem
     const itemsGrid = <Menu pointing secondary inverted >
                         <Menu.Item key={1} style={{padding:'0', paddingRight:'20px'}}>
                           <Logo size="small" textAlign="left"/>
@@ -60,13 +59,7 @@ class MainMenu extends React.Component {
                               {dropDown}
                             </Menu.Item>
                           </Menu.Menu>
-                      </Menu>;
-		// const sliderBarWidth = 100/menuItems.length;
-		// const sliderBaroffset = sliderBarWidth * this.state.selectedItem;
-
-    // <div className={styles.slider}>
-    //   <div className={styles.bar} style={{width:sliderBarWidth+'%',marginLeft:sliderBaroffset + '%'}}></div>
-    // </div>
+                      </Menu>
 
 		return <Segment inverted style={{margin:'0', position:'fixed', width:'100%', zIndex:'100', borderRadius: '0'}}>
 						{itemsGrid}

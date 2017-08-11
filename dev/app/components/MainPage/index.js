@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { Route } from 'react-router-dom'
 import MainMenu from '../MainMenu'
 import Statistics from '../Statistics'
-import PrivateRoute from '../../containers/PrivateRoute'
+//import PrivateRoute from '../../containers/PrivateRoute'
 import GameZone from '../../containers/GameZone'
 import style from './style.css'
 

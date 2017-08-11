@@ -1,4 +1,4 @@
-import React, { PropTypes }  from 'react'
+import React, { Component, PropTypes }  from 'react'
 import { DragSource } from 'react-dnd'
 import CheckerChip from './CheckerChip'
 import CheckerDndPreview from './CheckerDndPreview'
@@ -28,7 +28,7 @@ function collect(connect, monitor) {
   }
 }
 
- class Checker extends React.Component {
+ class Checker extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,

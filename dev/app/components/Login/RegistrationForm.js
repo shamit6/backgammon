@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import { Icon, Input, Form, Button, Message } from 'semantic-ui-react'
 import axios from 'axios'
-import { Segment, Menu, Icon, Input, Checkbox, Header, Form, Label, Button, Message } from 'semantic-ui-react'
 import {COUNTRIES} from '../../../common/constants'
 import style from './style.css'
 import Rx from 'rxjs/Rx'

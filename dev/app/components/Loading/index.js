@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-class Loading extends React.Component{
+class Loading extends Component {
 
 	constructor(props){
 		super(props)
@@ -13,9 +13,8 @@ class Loading extends React.Component{
 		const {loading} = this.state;
 
 		return (this.state.loading?
-			<div> <font size={24}>
+			<div>
 				{this.props.message}
-			</font>
 			</div>
 			:this.props.children
 		)

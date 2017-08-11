@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Point from '../../../containers/Point';
 import styles from './style.css';
 
-class SubBoard extends React.Component {
+class SubBoard extends Component {
 
   shouldComponentUpdate(){
     return false;

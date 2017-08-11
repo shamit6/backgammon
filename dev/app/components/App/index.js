@@ -1,5 +1,4 @@
 import React from 'react'
-//import ReactDOM from 'react-dom'
 import MainPage from '../MainPage'
 import PrivateRoute from '../../containers/PrivateRoute'
 import Login from '../../containers/Login'

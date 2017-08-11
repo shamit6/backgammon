@@ -90,7 +90,6 @@ $border-board-size: 7px;
 
 .eatenCheckerSubPanel {
     width: 100%;
-    /*height: 50%;*/
 		flex: 1;
 		display: flex;
 }

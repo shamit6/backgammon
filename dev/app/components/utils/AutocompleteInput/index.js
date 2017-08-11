@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Input } from 'semantic-ui-react'
 import classNames from 'classnames'
 import style from './style.css'
@@ -10,7 +10,6 @@ const SearchItem = ({itemData, onItemSelect, renderItem, addedClassName, onMouse
                             onMouseEnter={onMouseEnter}>
                           {renderItem(itemData)}
 												</div>
-
 
 class AutocompleteInput extends Component {
   constructor(props){
@@ -56,17 +55,9 @@ class AutocompleteInput extends Component {
     }
   }
 
-  // setInputFocus(isFocus){
-  //   return () => this.setState({inputIsFocused:isFocus});
-  // }
-
   onInputFocus(){
     this.setState({showResults:true});
   }
-
-  // onInputBlur(){
-  //   this.setState({inputIsFocused:false});
-  // }
 
   handleSearchChange(e, {value}) {
 
@@ -91,7 +82,6 @@ class AutocompleteInput extends Component {
 
   handleOnKeyDown(e){
     const {serachValue, focusedItem, searchResults} = this.state;
-      console.log(e.keyCode);
       if (this.inputElementRef !== document.activeElement){
         this.inputElementRef.focus();
       }
@@ -149,10 +139,8 @@ class AutocompleteInput extends Component {
 
   componentWillUnmount(){
     if (this.props.autoFocus){
-      console.log("componentWillUnmount", this.elementRef);
       document.removeEventListener("keydown", this.handleOnKeyDown);
     }else{
-      console.log("componentWillUnmount", this.elementRef);
       this.elementRef.removeEventListener("keydown", this.handleOnKeyDown);
     }
   }

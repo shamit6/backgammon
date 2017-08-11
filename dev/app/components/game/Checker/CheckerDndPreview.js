@@ -1,4 +1,4 @@
-import React, { PropTypes }  from 'react'
+import React, { Component, PropTypes }  from 'react'
 import { DragLayer } from 'react-dnd'
 import CheckerChip from './CheckerChip'
 
@@ -8,7 +8,7 @@ const previewCollect = monitor => ({
         sourceOffset: monitor.getSourceClientOffset()
     });
 
-class CheckerPreview extends React.Component {
+class CheckerPreview extends Component {
 
   static propTypes = {
       isDragging: PropTypes.bool,

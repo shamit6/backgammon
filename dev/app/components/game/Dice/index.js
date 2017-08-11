@@ -1,23 +1,22 @@
-import React, { PropTypes }  from 'react';
-
-import style from './style.css';
+import React, { Component, PropTypes }  from 'react'
+import style from './style.css'
 
 const randomize = (maxNumber, minNumber = 0) => {
-    return Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber + 1;
+    return Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber + 1
 }
 
-class Dice extends React.Component {
+class Dice extends Component {
   static propTypes = {
   };
 
 	constructor(props) {
 		super(props);
-    this.state = ::this.calcDegreeByNumber(this.props.intialNumber);
+    this.state = ::this.calcDegreeByNumber(this.props.intialNumber)
+    this.updateDiceNumber = ::this.updateDiceNumber
 	}
 
   componentWillMount(){
-    // TODO unmount
-    this.props.dicingFire[this.props.diceName] = ::this.updateDiceNumber;
+    this.props.dicingFire[this.props.diceName] = this.updateDiceNumber
   }
 
   calcDegreeByNumber(mumber){
@@ -78,6 +77,10 @@ class Dice extends React.Component {
               <div className={style.five}>5</div>
               <div className={style.six}>6</div>
             </div>
+  }
+
+  componentWillUnmount(){
+    delete this.props.dicingFire[this.props.diceName];
   }
 
 }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
 import PlayerStats from '../PlayerStats'
@@ -47,7 +47,6 @@ class Statistics extends Component{
 							<Route path={playerStatsItem.to + '/:username?'} component={PlayerStats}/>
 							<Route path={leadersItem.to} component={Leaders}/>
 							<Redirect from={currentPath} exact to={playerStatsItem.to}/>
-
 					</div>
 	}
 }

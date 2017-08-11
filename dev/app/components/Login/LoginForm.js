@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React, { Component } from 'react'
 import { Form, Message } from 'semantic-ui-react'
+import axios from 'axios'
 
 class LoginForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { formData:{username:"amitush", password:"123", playAsGuest:false},
+    this.state = { formData:{playAsGuest:false},
                   isServerChecking:false,
                   actionFailed:false};
   }

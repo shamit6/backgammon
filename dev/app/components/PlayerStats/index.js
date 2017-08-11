@@ -1,14 +1,12 @@
-import React, {Component} from 'react'
-import {Pie as PieChart} from 'react-chartjs-2'
-import { Segment, Menu } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Pie as PieChart } from 'react-chartjs-2'
+import { Segment } from 'semantic-ui-react'
 import AutocompleteInput from '../utils/AutocompleteInput'
 import Viewer from './PlayerStatsViewer'
-// import PlayerCard from '../PlayerCard'
 import PlayerHorizontalCard from '../PlayerHorizontalCard'
-// import DynamicLoadTable from '../utils/DynamicLoadTable'
 import axios from 'axios'
 import style from './style.css'
-// import moment from 'moment'
+import moment from 'moment'
 
 const headerRow = ['opponent', 'date', 'result'];
 
@@ -23,28 +21,6 @@ class PlayerStats extends Component {
 
      this.state = {selectedUser:null}
    }
-
-  // componentDidMount(){
-  //   ::this.fetchRecord();
-  // }
-  //
-  // fetchRecord(){
-  //   axios.get(`/statistics/record/${this.props.userInfo.username}`)
-  //     .then(res => {
-  //       const { wins, losses} = res.data;
-  //       this.setState({record:{wins, losses}});
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
-  //
-  // componentDidUpdate(prevProps, prevState){
-  //   if (this.props.userInfo.username != prevProps.userInfo.username){
-  //     ::this.fetchRecord();
-  //   }
-  // }
-
   render(){
 
     const searchPromise = value => axios.get(`/statistics/serach`, {params:{username: value}})
@@ -61,9 +37,6 @@ class PlayerStats extends Component {
                         searchableKey="username"
                         defaultValue={defaultValue}/>
                   </Segment>
-
-    // const user = this.props.userInfo;//{id:1, username:"amitush",firstName:"Amit", lastName:"Shalev",password:"123",country:"us"};
-    // const { wins, losses, draws } = this.state.record;
 
     return <div style={{flex:'1',minHeight:'100%'}}>
             {searchPanel}

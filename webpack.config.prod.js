@@ -1,6 +1,5 @@
 var webpack = require("webpack");
 var path = require("path");
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var DEV = path.resolve(__dirname, "dev");
 var OUTPUT = path.resolve(__dirname, "output");
@@ -97,8 +96,8 @@ plugins: [
       //     template: 'dev/content/index-prod.html',
       //     inject: true
       // }),
-      // new webpack.DefinePlugin({
-      //   'process.env.NODE_ENV': JSON.stringify('production'),//,
+      new webpack.DefinePlugin({
+         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)}),
       //  //  'process.env.HOSTNAME': JSON.stringify('localhost'),
       //    'process.env.PORT': 4445
       // }),

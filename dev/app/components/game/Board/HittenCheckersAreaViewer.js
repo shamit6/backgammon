@@ -1,9 +1,7 @@
-import React  from 'react';
-
+import React, { Component } from 'react';
 import styles from '../Checker/style.css';
 
-
-class HittenCheckersAreaViewer extends React.Component {
+class HittenCheckersAreaViewer extends Component {
 
 	constructor(props) {
 		super(props);
@@ -17,14 +15,12 @@ class HittenCheckersAreaViewer extends React.Component {
 
         let matches = element.querySelectorAll("." + styles.checkerChipClient.split(' ')[0]);
 
-        matches.forEach(circle =>
-            {
+        matches.forEach(circle => {
                 if (bool  === true) {
                         circle.style["box-shadow"] = '0px 0px 7px 4px rgb(255, 75, 34)';
                     } else {
                         circle.style["box-shadow"] = '-1px 1px rgba(0,0,0,0.6)';
-                    }
-        });
+                    }});
         bool = !bool;
       }
     }

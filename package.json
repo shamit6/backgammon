@@ -7,9 +7,9 @@
     "start-dev": "cross-env NODE_ENV=development babel-node ./dev/server/index.js",
     "start-dev-nodemon": "cross-env NODE_ENV=development nodemon ./dev/server/index.js --exec babel-node",
     "clean": "cross-env rmdir /s /q .\\output\\",
-    "build-app": "webpack --config webpack.config.prod.js --progress --colors",
+    "build-app": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress --colors",
     "build-server": "babel dev -d output --ignore app,content --copy-files",
-    "start": "cross-env WEBPACK_CONFIG=../../webpack.config.prod.js PORT=4445 NODE_ENV=production node ./output/server/index.js",
+    "start": "cross-env PORT=4445 NODE_ENV=production node ./output/server/index.js",
     "all": "npm run clean && npm run build-app && npm run build-server && npm run start"
   },
   "author": "Amit Shalev (shamit6)",

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
 import Checker from '../Checker';
 import styles from './style.css';
@@ -17,7 +17,7 @@ const pointTarget = {
     }
 
     const numberOfSteps = monitor.getItem().possibleTargets.indexOf(props.pointId) > -1;
-    //const free = (props.isClient || props.amount<=1);
+
     return (numberOfSteps);
   }
 };
@@ -30,7 +30,7 @@ function collect(connect, monitor) {
   };
 }
 
-class PointViewer extends React.Component {
+class PointViewer extends Component {
   static propTypes = {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
