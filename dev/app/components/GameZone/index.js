@@ -17,7 +17,7 @@ const GameZome = ({inGameStatus, playStatus, play, stopSearch}) => {
 		case PLAY_STATUS.SEARCH_OPPONENT:{
 			message = "Wait for another player"
       onClickAction = stopSearch
-      buttonLabel = "stop sreach"
+      buttonLabel = "stop search"
       break;
 		}
 		case PLAY_STATUS.OPPONENT_RETIRED:{
