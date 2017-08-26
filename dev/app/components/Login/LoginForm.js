@@ -5,7 +5,7 @@ import axios from 'axios'
 class LoginForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { formData:{playAsGuest:false},
+    this.state = { formData:{playAsGuest:true,username:"amitush",password:"123"},
                   isServerChecking:false,
                   actionFailed:false};
   }

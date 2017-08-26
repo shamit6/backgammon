@@ -4,8 +4,8 @@ import { logout } from '../actions';
 
 
 const mapStateToProps = (state, ownProps) => ({
-  isLoggedIn:state.session.isLoggedIn,
-  userInfo:state.session.user
+  isLoggedIn:state.app.session.isLoggedIn,
+  userInfo:state.app.session.user
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -3,8 +3,8 @@ import GameInfoViewer from '../components/game/GameInfoViewer'
 
 const mapStateToProps = (state, ownProps) => {
 
-	// Calc how many steps left for each player. 
-	const totalLeftSteps = state.game.checkersState.reduce((leftSteps, point) => {
+	// Calc how many steps left for each player.
+	const totalLeftSteps = state.app.game.checkersState.reduce((leftSteps, point) => {
 		if (point.isClient){
 			const sum = leftSteps.client+point.amount*(25-point.pointId);
 			return {...leftSteps,client:sum};
@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 		}
 	}, {client:0, opponent:0});
 
-	return { opponentInfo:state.game.opponentInfo, leftSteps:totalLeftSteps }
+	return { opponentInfo:state.app.game.opponentInfo, leftSteps:totalLeftSteps }
 };
 
 

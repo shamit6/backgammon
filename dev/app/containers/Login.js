@@ -4,7 +4,7 @@ import { login } from '../actions'
 
 
 const mapStateToProps = (state, ownProps) => ({
-  isLoggedIn:state.session.isLoggedIn
+  isLoggedIn:state.app.session.isLoggedIn
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -5,8 +5,8 @@ import { searchOpponent } from '../actions';
 
 
 const mapStateToProps = (state, ownProps) => ({
-	playStatus:state.game.playStatus,
-	inGameStatus:state.game.clientStatus
+	playStatus:state.app.game.playStatus,
+	inGameStatus:state.app.game.clientStatus
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

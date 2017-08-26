@@ -5,10 +5,11 @@ import {canBeDraggedTo, isPointCanDragTarget} from '../rules'
 
 const mapStateToProps = (state, ownProps) => {
 
-	const {amount, isClient, pointId} = state.game.checkersState.find(point => point.pointId == ownProps.pointId)
+	const { clientStatus, checkersState, steps } = state.app.game;
+	const {amount, isClient, pointId} = checkersState.find(point => point.pointId == ownProps.pointId);
 
-	const isEnabledByState = isPointCanDragTarget(pointId, state.game.clientStatus);
-	const possibleTargets = canBeDraggedTo(pointId, state.game.checkersState, state.game.steps, state.game.clientStatus);
+	const isEnabledByState = isPointCanDragTarget(pointId, clientStatus);
+	const possibleTargets = canBeDraggedTo(pointId, checkersState, steps, clientStatus);
 
 	return {amount, isClient, pointId, possibleTargets, isEnabledByState}
 }

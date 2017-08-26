@@ -3,8 +3,6 @@ import { Route, Redirect } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
 import PlayerStats from '../PlayerStats'
 import style from './style.css'
-import axios from 'axios'
-
 
 const Leaders = () => <div>Leaders</div>
 class Statistics extends Component{
@@ -12,7 +10,6 @@ class Statistics extends Component{
 	constructor(props) {
     super(props);
     this.state = {selectedMenuItem: "player"};
-
     this.handleItemChange = this.handleItemChange.bind(this);
   }
 

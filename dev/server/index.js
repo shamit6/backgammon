@@ -10,9 +10,12 @@ import expressSession from 'express-session'
 import webpack from 'webpack'
 import {create} from './server'
 import db from './data/db'
+import dal from './data/dal'
 import http from 'http'
 import register from './routes/register'
 import statistics from './routes/statistics'
+import {graphqlExpress, graphiqlExpress} from 'apollo-server-express'
+import schema from './data/graphql/schema'
 
 let STATIC_FILES_DIRECTORY = (process.env.NODE_ENV === 'production')?
   path.resolve(__dirname, '..'):path.resolve(__dirname, '../content')
@@ -55,25 +58,14 @@ passport.serializeUser((user, cb) => {
 });
 
 passport.deserializeUser((username, cb) => {
-  // db.users.findById(id, function (err, user) {
-  //   if (err) { return cb(err); }
-  //   cb(null, user);
-  // });
-  const user = db.models.users.find(user => (user.username == username))
+  const user = dal.getUserByUsername(username);
   return cb(null, user);
 });
 
 passport.use(new Strategy(
     (username, password, cb) => {
-    // db.users.findByUsername(username, function(err, user) {
-    //   if (err) { return cb(err); }
-    //   if (!user) { return cb(null, false); }
-    //   if (user.password != password) { return cb(null, false); }
-    //   return cb(null, user);
-    // });
-
-    const user = db.models.users.find(user => (user.username == username && user.password == password))
-    return cb(null,user);
+      const user = dal.getUserByPassword(username, password);
+      return cb(null, {...user, password:undefined});
   }));
 
 
@@ -93,11 +85,6 @@ app.post('/login', (req, res, next) => {
   }
 })
 
-// app.post('/login',
-//   passport.authenticate('local', { failureRedirect: '/login' }),
-//   function(req, res) {
-//     res.redirect('/');
-//   });
 
 app.post('/isAuthenticated', (req, res)=>{
   if (req.isAuthenticated()){
@@ -131,6 +118,11 @@ app.get('/logout', (req, res)=>{
 app.use('/', express.static(STATIC_FILES_DIRECTORY));
 app.use('/register', register)
 app.use('/statistics', statistics)
+
+app.use('/graphql', bodyParser.json(), graphqlExpress({schema}))
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql',
+}));
 
 const httpServer = new http.Server(app);
 

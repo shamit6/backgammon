@@ -4,24 +4,40 @@ const db = {
   models:{
     users:[
       {
-        username:"amitush",firstName:"Amit", lastName:"Shalev",password:"123",country:"us",img:'/images/pp.jpg'
+        id:1,
+        username:"amitush",
+        firstName:"Amit",
+        lastName:"Shalev",
+        password:"123",
+        country:"us",
+        image:'/images/pp.jpg'
       },
       {
-        username:"deanush",firstName:"Dean", lastName:"Shub",password:"234",country:"il"
+        id:2,
+        username:"deanush",
+        firstName:"Dean",
+        lastName:"Shub",
+        password:"234",
+        country:"il"
       },
       {
-        username:"avivush",firstName:"Aviv", lastName:"Aviv",password:"345",country:"ch"
+        id:3,
+        username:"avivush",
+        firstName:"Aviv",
+        lastName:"Aviv",
+        password:"345",
+        country:"ch"
       },
     ],
     games:[
-      {id:1, date:moment(), winner:"amitush", loser:"deanush"},
-      {id:2, date:moment().subtract('days', 2), winner:"amitush", loser:"avivush"},
-      {id:3, date:moment().subtract('days', 18), winner:"deanush", loser:"avivush"},
-      {id:4, date:moment().subtract('days', 6), winner:"amitush", loser:"avivush"},
-      {id:5, date:moment(), winner:"deanush", loser:"amitush"},
-      {id:6, date:moment().subtract('days', 46), winner:"amitush", loser:"avivush"},
-      {id:7, date:moment().subtract('days', 11), winner:"deanush", loser:"avivush"},
-      {id:8, date:moment().subtract('days', 6), winner:"avivush", loser:"amitush"},
+      {id:1, host:1, guest:2, score: 1,  date:moment()},
+      {id:2, host:1, guest:3, score: 2,  date:moment().subtract('days', 2)},
+      {id:3, host:2, guest:3, score: 1,  date:moment().subtract('days', 18)},
+      {id:4, host:1, guest:3, score: 1,  date:moment().subtract('days', 6)},
+      {id:5, host:2, guest:1, score: -1, date:moment()},
+      {id:6, host:1, guest:3, score: -1, date:moment().subtract('days', 46)},
+      {id:7, host:2, guest:3, score: 1,  date:moment().subtract('days', 11)},
+      {id:8, host:3, guest:2, score: -2, date:moment().subtract('days', 6)},
     ]
   }
 }

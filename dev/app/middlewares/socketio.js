@@ -7,7 +7,7 @@ import {IN_GAME_STATUS} from '../constants';
 
 const initSocket = (store, username) => {
 
-  const isGuest = store.getState().session.user.playAsGuest
+  const isGuest = store.getState().app.session.user.playAsGuest
   socket.init(document.location.host, { query: `username=${username}&isGuest=${isGuest}`});
 
   socket.on('disconnect', () => {
@@ -57,7 +57,7 @@ const socketIoMiddleware = store => next => action => {
           initSocket(store, action.content.username);
       }
 
-      if ((action.type == actions.STEP) && (store.getState().game.clientStatus == IN_GAME_STATUS.WINNER)){
+      if ((action.type == actions.STEP) && (store.getState().app.game.clientStatus == IN_GAME_STATUS.WINNER)){
           socket.emit(IO_ACTIONS.GAME_OVER);
       }
   }

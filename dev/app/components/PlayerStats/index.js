@@ -1,29 +1,38 @@
 import React, { Component } from 'react'
 import { Pie as PieChart } from 'react-chartjs-2'
+import { gql, withApollo } from 'react-apollo';
 import { Segment } from 'semantic-ui-react'
 import AutocompleteInput from '../utils/AutocompleteInput'
 import Viewer from './PlayerStatsViewer'
 import PlayerHorizontalCard from '../PlayerHorizontalCard'
-import axios from 'axios'
 import style from './style.css'
 import moment from 'moment'
 
-const headerRow = ['opponent', 'date', 'result'];
-
-const renderBodyRow = ({id, date, opponent, isWinner}, i) => ({
-  key: id,
-  cells:[opponent, moment(date).format("MMM-DD-YYYY HH:mm"), isWinner?"W":"L"]
-});
+const playersQuery = gql`
+  query playersQuery($username: String!){
+    players(username: $username) {
+      id
+      username
+      firstName
+      lastName
+      country
+      image
+  }
+}
+`;
 
 class PlayerStats extends Component {
   constructor(props) {
      super(props);
-
      this.state = {selectedUser:null}
    }
-  render(){
 
-    const searchPromise = value => axios.get(`/statistics/serach`, {params:{username: value}})
+  render(){
+    const searchPromise = value => this.props.client.query({
+      query: playersQuery,
+      variables: { username: value },
+    }).then(res => ({data:res.data.players}));
+
     const onItemSelect = user => this.setState({selectedUser:user})
     const renderItem = user => <PlayerHorizontalCard playerInfo={user}/>
     const defaultValue = this.props.match.params.username
@@ -45,4 +54,4 @@ class PlayerStats extends Component {
   }
 }
 
-export default PlayerStats
+export default withApollo(PlayerStats)

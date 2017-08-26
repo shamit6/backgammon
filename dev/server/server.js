@@ -1,6 +1,6 @@
 import socketIo from 'socket.io'
 import {IO_ACTIONS} from '../common/constants'
-import {winsLossesRecord, getUserByUsername} from './data/dal'
+import dal from './data/dal'
 
 export const create = httpServer => {
 
@@ -27,11 +27,11 @@ io.use((socket, next) => {
         return user;
       }
 
-      const userInfo = getUserByUsername(username);
+      const userInfo = dal.getUserByUsername(username);
 
-      const rate = winsLossesRecord(username);
+      const rate = dal.getWinsLossesRecord(username);
 
-      return {username, img:userInfo.img, country:userInfo.country, ...rate}
+      return {...userInfo, rate}
     };
 
     const searchOppenent = socketId => {
@@ -94,21 +94,18 @@ io.use((socket, next) => {
 
     socket.on(IO_ACTIONS.GAME_OVER, data => {
 
-      console.log("GAME_OVER");
       // The winner send this event.
       const name = socketToUser[socket.id];
-      const user = getUserByUsername(user.username == name);
+      const user = dal.getUserByUsername(name);
 
       // update oppent info
       const opponentName = socketToUser[playsAgainst[socket.id]];
-      const opponent = getUserByUsername(user.username == opponentName);
+      const opponent = dal.getUserByUsername(opponentName);
 
-      dal.insertGame(user.username, opponent.username)
+      // TODO: do it corret
+      dal.insertGame(user.username, opponent.username, true);
 
       deleteGameOfSocket(socket.id);
-
-      console.log("players", players);
-      console.log("playsAgainst", playsAgainst);
     });
   });
 }
