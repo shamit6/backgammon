@@ -3,7 +3,7 @@ import { Icon, Input, Form, Button, Message } from 'semantic-ui-react'
 import axios from 'axios'
 import {COUNTRIES} from '../../../common/constants'
 import style from './style.css'
-import Rx from 'rxjs/Rx'
+import Rx from '@rxjs/Rx'
 
 class RegistrationForm extends Component {
   constructor(props) {
