@@ -8,7 +8,7 @@ import HittenCheckersArea from '../../../containers/HittenCheckersArea'
 import {POINTS_ON_BOARD} from '../../../constants'
 import Point from '../../../containers/Point'
 import styles from './style.css'
-import Rx from 'rxjs/Rx'
+import Rx from '@rxjs/Rx'
 
 const addTrianglesReactivity = () => {
   let avgContainers = document.querySelectorAll("div[data-key]");;
