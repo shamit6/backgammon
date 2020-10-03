@@ -1,6 +1,5 @@
-
 :global {
-.checkersContainer {
+  .checkersContainer {
     position: absolute;
     width: 100%;
     height: 90%;
@@ -11,9 +10,9 @@
     flex-wrap: wrap;
     align-content: center;
     align-items: center;
-}
+  }
 
-.pointViewer {
+  .pointViewer {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -21,15 +20,15 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-}
+  }
 }
 
 .pointViewerOverlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    opacity: 0.3;
-    overflow: hidden;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.3;
+  overflow: hidden;
 }
 
 /*.pointViewerOverlay:after {

@@ -1,4 +1,4 @@
 {
-	"HOSTNAME":"localhost",
-	"PORT":4444
+  "HOSTNAME": "localhost",
+  "PORT": 4444
 }
