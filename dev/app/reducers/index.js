@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux'
-import game from './game'
-import session from './session'
+import { combineReducers } from "redux";
+import game from "./game";
+import session from "./session";
 
 const rootReducer = combineReducers({
   game,
-  session
-})
+  session,
+});
 
-export default rootReducer
+export default rootReducer;

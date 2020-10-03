@@ -1,24 +1,24 @@
-@import  "../Point/style.css";
+@import "../Point/style.css";
 
 $border-board-color: #613c07;
 $border-board-size: 7px;
 
 .board {
-	  display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    height: 80%;
-		box-shadow: -2px 2px 1px 2px #170303;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  height: 80%;
+  box-shadow: -2px 2px 1px 2px #170303;
 }
 
 .board * {
-    box-sizing: border-box;
-    user-select: none;
-    cursor: default;
+  box-sizing: border-box;
+  user-select: none;
+  cursor: default;
 }
 
 .subBoardsPanel {
-	height: 100%;
+  height: 100%;
   width: 95%;
   display: flex;
   flex-wrap: wrap;
@@ -27,71 +27,69 @@ $border-board-size: 7px;
 }
 
 .subBoard {
-    width: 50%;
-    height: 50%;
-    display: flex;
+  width: 50%;
+  height: 50%;
+  display: flex;
 
-    .subBoardItem {
-        display: flex;
-        flex-direction: column;
-				flex: 1;
-				/*overflow-y: hidden;*/
-    }
+  .subBoardItem {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /*overflow-y: hidden;*/
+  }
 }
 
-
-
 .trianglePoint {
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    stroke: black;
-    stroke-width: 2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  stroke: black;
+  stroke-width: 2px;
 }
 
 .visualPoint {
-    transform: rotate(180deg);
-    height: 80%;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
+  transform: rotate(180deg);
+  height: 80%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
 }
 
 .subBoardRotated {
-    @extend .subBoard;
-    flex-direction: row-reverse;
+  @extend .subBoard;
+  flex-direction: row-reverse;
 
-    .subBoardItem {
+  .subBoardItem {
+    flex-direction: column-reverse;
+
+    :global(.pointViewer) {
+      flex-direction: column-reverse;
+
+      :global(.checkersContainer) {
         flex-direction: column-reverse;
+      }
 
-        :global(.pointViewer) {
-          flex-direction: column-reverse;
-
-          :global(.checkersContainer){
-            flex-direction: column-reverse;
-          }
-
-          .visualPoint {
-              transform: rotate(0deg);
-          }
-        }
+      .visualPoint {
+        transform: rotate(0deg);
+      }
     }
+  }
 }
 
 .eatenCheckerPanel {
-		height: 100%;
-    width: 5%;
-    display: flex;
-		flex-direction: column;
-    background: #79500f;
-    border-top: $border-board-size solid $border-board-color;
-    border-left: $border-board-size solid $border-board-color;
-    border-bottom: $border-board-size solid $border-board-color;
+  height: 100%;
+  width: 5%;
+  display: flex;
+  flex-direction: column;
+  background: #79500f;
+  border-top: $border-board-size solid $border-board-color;
+  border-left: $border-board-size solid $border-board-color;
+  border-bottom: $border-board-size solid $border-board-color;
 }
 
 .eatenCheckerSubPanel {
-    width: 100%;
-		flex: 1;
-		display: flex;
+  width: 100%;
+  flex: 1;
+  display: flex;
 }
 
 .eatenCheckerSubPanelRotated {
@@ -100,20 +98,20 @@ $border-board-size: 7px;
   :global(.pointViewer) {
     flex-direction: column-reverse;
 
-    :global(.checkersContainer){
+    :global(.checkersContainer) {
       flex-direction: column-reverse;
     }
   }
 }
 
-.eatenCheckerSubPanel :global(.pointViewer){
-    height: 100%;
+.eatenCheckerSubPanel :global(.pointViewer) {
+  height: 100%;
 }
 
-.subBoardItem:nth-child(even) :global(.pointViewer) .visualPoint svg{
+.subBoardItem:nth-child(even) :global(.pointViewer) .visualPoint svg {
   fill: rgba(165, 42, 42, 0.7);
 }
 
-.subBoardItem:nth-child(odd) :global(.pointViewer) .visualPoint svg{
+.subBoardItem:nth-child(odd) :global(.pointViewer) .visualPoint svg {
   fill: rgba(122, 175, 132, 0.8);
 }

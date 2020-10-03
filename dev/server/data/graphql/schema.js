@@ -1,6 +1,6 @@
-import { makeExecutableSchema } from 'graphql-tools'
+import { makeExecutableSchema } from "graphql-tools";
 
-import resolvers from './resolvers';
+import resolvers from "./resolvers";
 
 const typeDefs = `
 
@@ -57,7 +57,6 @@ type Query {
   playerGames(id: ID!, offset: Int, limit: Int): [Game]
 }
 `;
-
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 export default schema;
