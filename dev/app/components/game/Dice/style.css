@@ -25,26 +25,26 @@
   margin: 0px;
 }
 
-.one  {
+.one {
   transform: translateZ(25px);
 }
 
- .two {
+.two {
   transform: rotateX(90deg) translateZ(25px);
 }
 
- .three {
+.three {
   transform: rotateY(90deg) translateZ(25px);
 }
 
- .four {
+.four {
   transform: rotateY(-90deg) translateZ(25px);
 }
 
- .five {
+.five {
   transform: rotateX(-90deg) rotate(180deg) translateZ(25px);
 }
 
- .six {
+.six {
   transform: rotateY(180deg) translateZ(25px);
 }
