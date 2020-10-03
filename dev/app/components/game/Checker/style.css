@@ -3,18 +3,18 @@
   width: 20px;
   height: 20px;
   border: solid 1px #555;
-  border-radius:50%;
+  border-radius: 50%;
   transition: box-shadow 0.8s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.checkerChipClient{
-  composes:checkerChip;
+.checkerChipClient {
+  composes: checkerChip;
   box-shadow: -1px 1px white;
   background-color: white;
 }
 
-.checkerChipOpponent{
-  composes:checkerChip;
+.checkerChipOpponent {
+  composes: checkerChip;
   box-shadow: -1px 1px black;
   background-color: black;
 }

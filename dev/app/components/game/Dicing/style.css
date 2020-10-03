@@ -1,17 +1,16 @@
-
 @import "../../styles";
 
 .dicing {
-    height: 20%;
-    display: flex;
-    align-items: flex-start;
-    align-content: flex-start;
+  height: 20%;
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
 }
 
 .dicing * {
-    margin: 15px;
+  margin: 15px;
 }
 
 .messagingContainer * {
-    margin: 2px;
+  margin: 2px;
 }

@@ -1,21 +1,17 @@
-import { connect } from 'react-redux'
-import LoginViewer from '../components/Login'
-import { login } from '../actions'
-
+import { connect } from "react-redux";
+import LoginViewer from "../components/Login";
+import { login } from "../actions";
 
 const mapStateToProps = (state, ownProps) => ({
-  isLoggedIn:state.app.session.isLoggedIn
-})
+  isLoggedIn: state.app.session.isLoggedIn,
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   login: (user) => {
     dispatch(login(user));
-  }
-})
+  },
+});
 
-const Login = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginViewer)
+const Login = connect(mapStateToProps, mapDispatchToProps)(LoginViewer);
 
-export default Login
+export default Login;

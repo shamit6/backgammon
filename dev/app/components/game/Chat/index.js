@@ -1,114 +1,169 @@
-import React, { Component } from 'react'
-import { Input, Button, Label, Segment } from 'semantic-ui-react'
-import style from './style.css';
-import socket from '../../../socket';
-import {IO_ACTIONS} from '../../../../common/constants';
+import React, { Component } from "react";
+import { Input, Button, Label, Segment } from "semantic-ui-react";
+import style from "./style.css";
+import socket from "../../../socket";
+import { IO_ACTIONS } from "../../../../common/constants";
 
-const message = ({textAlign, color, pointing}) => ({key ,content}) => (
-              <Segment key={key} textAlign={textAlign} style={{margin:'0',background:'inherit',padding:'0.25em',border:'0',boxShadow:'0 0 0 0'}}>
-                <Label color={color} pointing={pointing}>{content}</Label>
-              </Segment>);
-const ClientMessage = message({textAlign:"right", pointing:"right", color:"olive"});
-const OppenentMessage = message({textAlign:"left", pointing:"left", color:"yellow"})
+const message = ({ textAlign, color, pointing }) => ({ key, content }) => (
+  <Segment
+    key={key}
+    textAlign={textAlign}
+    style={{
+      margin: "0",
+      background: "inherit",
+      padding: "0.25em",
+      border: "0",
+      boxShadow: "0 0 0 0",
+    }}
+  >
+    <Label color={color} pointing={pointing}>
+      {content}
+    </Label>
+  </Segment>
+);
+const ClientMessage = message({
+  textAlign: "right",
+  pointing: "right",
+  color: "olive",
+});
+const OppenentMessage = message({
+  textAlign: "left",
+  pointing: "left",
+  color: "yellow",
+});
 
 class Chat extends Component {
   constructor(props) {
-		super(props)
+    super(props);
 
-    socket.on(IO_ACTIONS.CHAT_MESSAGE, data => {
+    socket.on(IO_ACTIONS.CHAT_MESSAGE, (data) => {
       const messages = this.state.messages;
-      const updatedMessages = [...messages, {key:messages.length, isClient:false, content:data}];
-      this.setState({messages:updatedMessages,
-                    messageInputValue:"",
-                    messageInputIsFocused:false});
+      const updatedMessages = [
+        ...messages,
+        { key: messages.length, isClient: false, content: data },
+      ];
+      this.setState({
+        messages: updatedMessages,
+        messageInputValue: "",
+        messageInputIsFocused: false,
+      });
     });
-    this.state = {messages:[], messageInputValue:""};
+    this.state = { messages: [], messageInputValue: "" };
 
     this.handleOnKeyPress = ::this.handleOnKeyPress;
     this.handleOnKeyDown = ::this.handleOnKeyDown;
-	}
-
-  sendMessage(){
-    socket.emit(IO_ACTIONS.CHAT_MESSAGE, this.state.messageInputValue);
-    const messages = this.state.messages;
-    const updatedMessages = [...messages, {key: messages.length, isClient:true, content:this.state.messageInputValue}];
-    this.setState({messages:updatedMessages,messageInputValue:""});
   }
 
-  handleInputChange(e, {value}){
-    if (this.state.messageInputIsFocused){
-      this.setState({messageInputValue:value});
+  sendMessage() {
+    socket.emit(IO_ACTIONS.CHAT_MESSAGE, this.state.messageInputValue);
+    const messages = this.state.messages;
+    const updatedMessages = [
+      ...messages,
+      {
+        key: messages.length,
+        isClient: true,
+        content: this.state.messageInputValue,
+      },
+    ];
+    this.setState({ messages: updatedMessages, messageInputValue: "" });
+  }
+
+  handleInputChange(e, { value }) {
+    if (this.state.messageInputIsFocused) {
+      this.setState({ messageInputValue: value });
     }
   }
 
-  setMessageInputFocus(isFocus){
-    return () => this.setState({messageInputIsFocused:isFocus});
+  setMessageInputFocus(isFocus) {
+    return () => this.setState({ messageInputIsFocused: isFocus });
   }
 
-  handleOnKeyDown(e){
-    const {messageInputValue, messageInputIsFocused} = this.state;
+  handleOnKeyDown(e) {
+    const { messageInputValue, messageInputIsFocused } = this.state;
 
-    if (!messageInputIsFocused){
-
+    if (!messageInputIsFocused) {
       // Back space - delete
-      if (e.keyCode == 8){
-        this.setState({messageInputValue:messageInputValue.substring(0, messageInputValue.length-1)});
+      if (e.keyCode == 8) {
+        this.setState({
+          messageInputValue: messageInputValue.substring(
+            0,
+            messageInputValue.length - 1
+          ),
+        });
       }
     }
 
-    if (e.keyCode == 13 && messageInputValue != ""){
+    if (e.keyCode == 13 && messageInputValue != "") {
       ::this.sendMessage();
     }
   }
 
-  handleOnKeyPress(e){
-    const {messageInputValue, messageInputIsFocused} = this.state;
+  handleOnKeyPress(e) {
+    const { messageInputValue, messageInputIsFocused } = this.state;
 
-    if (!messageInputIsFocused){
+    if (!messageInputIsFocused) {
       e.preventDefault();
-      if (e.keyCode != 13){
+      if (e.keyCode != 13) {
         // handle input change
-        this.setState({messageInputValue:messageInputValue+e.key});
+        this.setState({ messageInputValue: messageInputValue + e.key });
       }
     }
   }
 
-  componentDidMount(){
-      document.addEventListener("keypress", this.handleOnKeyPress);
-      document.addEventListener("keydown", this.handleOnKeyDown);
+  componentDidMount() {
+    document.addEventListener("keypress", this.handleOnKeyPress);
+    document.addEventListener("keydown", this.handleOnKeyDown);
   }
 
-  render(){
+  render() {
     const messages = this.state.messages.map((message, index) =>
-        message.isClient?
-          <ClientMessage key={index} content={message.content}/>
-        :
-          <OppenentMessage key={index} content={message.content}/>);
+      message.isClient ? (
+        <ClientMessage key={index} content={message.content} />
+      ) : (
+        <OppenentMessage key={index} content={message.content} />
+      )
+    );
 
-    return <Segment.Group color='white' style={{display: 'flex',flexDirection:'column',flexGrow: '1'}}>
-            <div ref={e => {this.messageContainer = e}} style={{flexGrow: '1', overflowY: 'scroll'}}>
-              {messages}
-            </div>
+    return (
+      <Segment.Group
+        color="white"
+        style={{ display: "flex", flexDirection: "column", flexGrow: "1" }}
+      >
+        <div
+          ref={(e) => {
+            this.messageContainer = e;
+          }}
+          style={{ flexGrow: "1", overflowY: "scroll" }}
+        >
+          {messages}
+        </div>
 
-            <Input fluid
-                   onFocus={::this.setMessageInputFocus(true)}
-                   onBlur={::this.setMessageInputFocus(false)}
-                   value={this.state.messageInputValue}
-                   onChange={::this.handleInputChange}
-                   action={<Button onClick={::this.sendMessage}
-                                   disabled={this.state.messageInputValue == ""}
-                                   icon="send"/>}/>
-            </Segment.Group>
+        <Input
+          fluid
+          onFocus={::this.setMessageInputFocus(true)}
+          onBlur={::this.setMessageInputFocus(false)}
+          value={this.state.messageInputValue}
+          onChange={::this.handleInputChange}
+          action={
+            <Button
+              onClick={::this.sendMessage}
+              disabled={this.state.messageInputValue == ""}
+              icon="send"
+            />
+          }
+        />
+      </Segment.Group>
+    );
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     this.messageContainer.scrollTop = this.messageContainer.scrollHeight;
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.removeEventListener("keydown", this.handleOnKeyDown);
     document.removeEventListener("keypress", this.handleOnKeyPress);
   }
 }
 
-export default Chat
+export default Chat;
